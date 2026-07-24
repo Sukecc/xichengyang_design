@@ -35,7 +35,6 @@
             max-width: 90vw; margin: 0 auto; padding: 60px 0 0 0;
         }
         
-        /* 原子级强力穿透！保证 100% 的 Sans（无衬线）属性块都调用专属的 Lyean Sans */
         header, header *, 
         nav, nav *, 
         .metadata-grid, .metadata-grid *, 
@@ -43,9 +42,9 @@
         .gallery-chapter-title, .gallery-chapter-title *,
         .outline-action-btn, .outline-action-btn *,
         .award-stamp-trigger, .award-stamp-trigger *,
-        .hero-floating-awards .badge-label,
         .credit-grid-wrapper, .credit-grid-wrapper *,
         .marquee-caption, .marquee-caption *,
+        .scroll-guide-overlay, .sutra-slider-wrapper *,
         .tag {
             font-family: 'Lyean Sans', sans-serif !important;
         }
@@ -62,130 +61,41 @@
         header nav a:hover { color: #b85a4b; }
 
         /* ==========================================================================
-           【全宽 Hero 大图 + 悬浮荣誉抽屉】
+           【全宽 Hero 大图】
            ========================================================================== */
         .project-hero-cover {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    position: relative;
-    border-bottom: 1px solid #e0dbcf;
-    
-    /* 核心机制 1：强制容器锁死为你 AI 画板的 16:7 比例 */
-    aspect-ratio: 16 / 7; 
-    
-    /* 核心机制 2：切断原本死板的 65vh 高度限制，让高度随宽度自适应 */
-    height: auto !important; 
-    min-height: 40vh;
-}
+            width: 100vw; margin-left: calc(-50vw + 50%); position: relative; border-bottom: 1px solid #e0dbcf;
+            aspect-ratio: 16 / 7; height: auto !important; min-height: 40vh;
+        }
+        .project-hero-cover img.hero-main-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-.project-hero-cover img.hero-main-img {
-    width: 100%;
-    height: 100%;
-    
-    /* 核心机制 3：从 cover 改为 contain，确保整张图完整塞进容器，绝对不切边 */
-    object-fit: contain; 
-    
-    display: block;
-}
-
-     /* ==========================================================================
-           【🎨 终极重火力：Hero 右下角绝对切齐 · 黑金红褐实心钢印勋章系统】
+        /* ==========================================================================
+           【🎨 终极重火力：Hero 右下角绝对切齐 · 红褐金实心勋章卡扣】
            ========================================================================== */
-        /* 🎯 物理切齐：死死磁吸在 Hero 画面右下角，右边缘与下边缘 100% 像素级对齐 */
-        .hero-floating-awards { 
-            position: absolute; 
-            bottom: 0; 
-            right: 0; 
-            z-index: 100; 
-            cursor: pointer; 
-            outline: none; 
-        }
-        
-        /* 🎯 显眼度拉满：沉稳的字厂工艺红褐色底座方块 */
+        .hero-floating-awards { position: absolute; bottom: 0; right: 0; z-index: 100; cursor: pointer; outline: none; }
         .award-stamp-trigger {
-            width: 80px; 
-            height: 64px; 
-            background: #5b4136; /* 注入你的红褐底色，瞬间稳住大图阵脚 */
-            
-            /* 完美的左上角微圆角，右、下边缘保持直角，与大图边界绝对咬合 */
-            border-radius: 6px 0 0 0; 
-            border: 1px solid rgba(178, 149, 112, 0.25);
-            border-right: none;
-            border-bottom: none;
-            
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            box-shadow: -10px -10px 40px rgba(0, 0, 0, 0.12);
-            
-            /* 横向插拔无缝阻尼感 */
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: width;
+            width: 80px; height: 64px; background: #5b4136; border-radius: 6px 0 0 0; 
+            border: 1px solid rgba(178, 149, 112, 0.25); border-right: none; border-bottom: none;
+            display: flex; align-items: center; justify-content: center; box-shadow: -10px -10px 40px rgba(0, 0, 0, 0.12);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: width;
         }
-        
-        /* 🎯 重火力大杯：100% 纯实心、面积放大 1.5 倍的皇家高饱和度几何纯金大杯 */
-        .award-stamp-trigger svg { 
-            width: 32px; 
-            height: 32px; 
-            fill: #d4b383; /* 皇家重工业纯金反差 */
-            opacity: 1;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill 0.4s;
-        }
+        .award-stamp-trigger svg { width: 32px; height: 32px; fill: #d4b383; opacity: 1; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill 0.4s; }
+        .hero-floating-awards .badge-label { display: none !important; }
 
-        /* 🎯 展开看板：通过 CSS 变量 var(--award-ratio) 自动柔性匹配 150pt 或 300pt 的图纸 */
         .award-expanded-panel {
-            position: absolute; 
-            bottom: 76px; /* 完美卡在红褐方块的上方边缘线 */
-            right: 15px; 
-            
-            background: rgba(254, 253, 250, 0.95); 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            
-            border: 1px solid #c4b9ae;
-            padding: 12px; 
-            border-radius: 6px; 
-            box-shadow: -20px 20px 60px rgba(43, 35, 29, 0.22);
-            
-            width: 280px; 
-            aspect-ratio: var(--award-ratio, 520 / 300); /* 💡 核心：自适应比例底座 */
-            
-            opacity: 0; 
-            visibility: hidden; 
-            transform: translateY(10px) scale(0.97);
+            position: absolute; bottom: 76px; right: 15px; background: rgba(254, 253, 250, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #c4b9ae; padding: 12px; border-radius: 6px; box-shadow: -20px 20px 60px rgba(43, 35, 29, 0.22);
+            width: 280px; aspect-ratio: 520 / 300; opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.97);
             transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
         }
-        .award-expanded-panel img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            border-radius: 2px; 
-            mix-blend-mode: multiply; /* 💡 黑科技：让白底图完美融进半透柔焦背景 */
-        }
+        .award-expanded-panel img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; mix-blend-mode: multiply; }
+
+        .hero-floating-awards:hover .award-stamp-trigger, .hero-floating-awards:focus .award-stamp-trigger { width: 110px; background: #2b231d; }
+        .hero-floating-awards:hover .award-stamp-trigger svg, .hero-floating-awards:focus .award-stamp-trigger svg { fill: #b85a4b; transform: scale(1.1) rotate(-3deg); }
+        .hero-floating-awards:hover .award-expanded-panel, .hero-floating-awards:focus .award-expanded-panel { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
 
         /* ==========================================================================
-           【红褐金勋章卡扣无缝横向联动状态】
-           ========================================================================== */
-        .hero-floating-awards:hover .award-stamp-trigger, 
-        .hero-floating-awards:focus .award-stamp-trigger { 
-            width: 110px; /* 鼠标滑过，方块向左横向伸长，机械美感拉满 */
-            background: #2b231d; /* 划过时微调为更沉稳的深墨褐 */
-        }
-        
-        .hero-floating-awards:hover .award-stamp-trigger svg,
-        .hero-floating-awards:focus .award-stamp-trigger svg {
-            fill: #b85a4b; /* 黄金大杯瞬间变红，产生强烈的动态操控爽感 */
-            transform: scale(1.1) rotate(-3deg);
-        }
-        
-        .hero-floating-awards:hover .award-expanded-panel, 
-        .hero-floating-awards:focus .award-expanded-panel { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateY(0) scale(1); 
-        }
-        /* ==========================================================================
-           【五栏元数据网格 - 🎯 严格遵循指示精准对齐】
+           【五栏元数据网格】
            ========================================================================== */
         .metadata-grid {
             display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px;
@@ -196,38 +106,26 @@
         .meta-sub-item { font-size: 0.85rem; font-weight: normal; color: #555; margin-top: 4px; line-height: 1.3; }
 
         /* ==========================================================================
-           【简介与精细名单看板区】
+           【简介与分工区】
            ========================================================================== */
         .project-intro-container { display: grid; grid-template-columns: 3.1fr 1.9fr; gap: 60px; margin-bottom: 80px; align-items: flex-start; }
         .intro-text { max-width: 800px; }
         .intro-text h2 { font-size: 2.8rem; font-weight: normal; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
         .intro-text p { font-size: 1.2rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
 
-        /* 外部开源跳转按钮样式 */
         .intro-links-group { display: flex; gap: 15px; margin-top: 40px; }
         .outline-action-btn {
             display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border: 1px solid #1a1a1a;
             background: transparent; color: #1a1a1a; text-decoration: none; border-radius: 4px;
-            font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;
-            transition: all 0.3s ease;
+            font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease;
         }
         .outline-action-btn:hover { background: #1a1a1a; color: #f6f3eb; }
 
-        /* 右侧高级 Credit 降噪看版（纯净团队名单，无荣誉项干扰） */
-        .credit-grid-wrapper {
-            border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px;
-        }
+        .credit-grid-wrapper { border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px; }
         .credit-section-block { margin-bottom: 35px; }
         .credit-section-block:last-child { margin-bottom: 0; }
-        
-        .credit-header-label {
-            font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;
-            margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block;
-        }
-        /* 双栏高密度规整网格 */
-        .credit-sub-grid {
-            display: grid; grid-template-columns: 130px 1fr; gap: 12px 16px; font-size: 0.85rem; line-height: 1.4;
-        }
+        .credit-header-label { font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block; }
+        .credit-sub-grid { display: grid; grid-template-columns: 130px 1fr; gap: 12px 16px; font-size: 0.85rem; line-height: 1.4; }
         .credit-role { color: #888; font-weight: bold; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.03em; padding-top: 2px; }
         .credit-names { color: #555; font-weight: 500; }
 
@@ -236,18 +134,13 @@
            ========================================================================== */
         .specimen-tabs-wrapper { position: relative; z-index: 500; margin: 40px 0 20px 0; }
         .specimen-tabs-nav {
-            display: flex; justify-content: space-between; gap: 16px; 
-            border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb;
-            transition: padding 0.3s, box-shadow 0.3s;
+            display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb; transition: padding 0.3s, box-shadow 0.3s;
         }
         .specimen-tabs-nav.is-sticky {
-            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
+            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px; box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
         }
         .tab-item {
-            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer;
-            background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
+            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer; background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
         }
         .tab-num { font-size: 0.7rem; color: #6e5d4f; letter-spacing: 0.05em; margin-bottom: 4px; }
         .tab-name { font-weight: bold; font-size: 1rem; color: #1a1a1a; }
@@ -258,64 +151,83 @@
 
         /* 画廊布局 */
         .gallery-chapter-title {
-            font-size: 0.8rem; text-transform: uppercase;
-            color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px;
-            letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
+            font-size: 0.8rem; text-transform: uppercase; color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px; letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
         }
         .specimen-full-img {
             width: 100vw; margin-left: calc(-50vw + 50%); margin-bottom: 0; background-color: #ede9df; border-bottom: 1px solid #e0dbcf;
+            position: relative; /* 🎯 锁死作用域：防止 read from right 飘出舞台 */
         }
         .specimen-full-img img { width: 100%; display: block; }
-        
-        /* 视频容器 */
-        .specimen-video-box {
-            width: 100vw; margin-left: calc(-50vw + 50%); background-color: #000; aspect-ratio: 16 / 9;
-        }
-        .specimen-video-box video { width: 100%; height: 100%; display: block; object-fit: cover; }
-
-        /* A4 对比图专用排版网格 */
-        .a4-comparison-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;
-        }
-        .a4-card {
-            background-color: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px; overflow: hidden;
-            aspect-ratio: 1 / 1.414; /* 黄金 A4 比例 */
-        }
-        .a4-card img { width: 100%; height: 100%; object-fit: cover; }
 
         /* ==========================================================================
-           【Type in Use 全屏沉浸式物理缓动吸附长廊】
+           【🎯 独立研发：数字文献自流物跑马灯 + 磁吸滑块导览控制室】
            ========================================================================== */
-        .type-in-use-section {
-            width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden; padding: 80px 0 120px 0; background: #2b231d;
-            margin-top: 120px; 
+        .sutra-long-scroll-window {
+            width: 100vw; height: 714px; overflow: hidden; position: relative; background: #ede9df;
         }
-        .type-in-use-section .gallery-chapter-title {
-            width: 90vw; margin: 0 auto 50px auto; border-top: 1px solid #6e5d4f; color: #f6f3eb; padding-top: 30px;
+        .sutra-scroll-track {
+            display: flex; width: max-content; height: 100%; will-change: transform;
         }
+        .sutra-scroll-track img { height: 100%; width: auto; object-fit: contain; display: block; -webkit-user-drag: none; }
+
+        /* 3秒淡出右往左读专属暗色遮罩 */
+        .scroll-guide-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(43, 35, 29, 0.4);
+            z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #f6f3eb; pointer-events: none; transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .guide-arrow-box { font-size: 2.5rem; animation: pulseArrow 1.5s infinite ease-in-out; font-weight: bold; margin-bottom: 10px; }
+        .guide-text-box { font-size: 0.85rem; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        @keyframes pulseArrow {
+            0% { transform: translateX(5px); opacity: 0.4; }
+            50% { transform: translateX(-15px); opacity: 1; }
+            100% { transform: translateX(5px); opacity: 0.4; }
+        }
+
+        /* 🎯 极其精致的定制极简学术级滑动条 */
+        .sutra-slider-wrapper {
+            width: 90vw; margin: 25px auto 0 auto; display: flex; flex-direction: column; gap: 8px;
+        }
+        .sutra-slider-axis {
+            width: 100%; height: 2px; background: #e0dbcf; position: relative; border-radius: 1px;
+        }
+        /* 原生 Input 隐形化注入，完美保留高级渲染 */
+        .sutra-range-input {
+            position: absolute; top: -10px; left: 0; width: 100%; height: 24px; opacity: 0; cursor: pointer; z-index: 20; margin: 0;
+        }
+        .sutra-slider-handle {
+            position: absolute; top: -5px; left: 100%; /* 💡 初始磁吸在 100% 最右端开篇 */
+            width: 40px; height: 12px; background: #5b4136; border-radius: 2px;
+            transform: translateX(-50%); transition: background-color 0.2s; pointer-events: none; z-index: 15;
+            box-shadow: 0 2px 8px rgba(91, 65, 54, 0.2);
+        }
+        .sutra-range-input:hover + .sutra-slider-handle { background: #b85a4b; }
+        .sutra-slider-caption { display: flex; justify-content: space-between; font-size: 0.68rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* 视频容器 */
+        .specimen-video-box { width: 100vw; margin-left: calc(-50vw + 50%); background-color: #000; aspect-ratio: 16 / 9; }
+        .specimen-video-box video { width: 100%; height: 100%; display: block; object-fit: cover; }
+
+        /* ==========================================================================
+           【Type in Use 横向流体跑马灯】
+           ========================================================================== */
+        .type-in-use-section { width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden; padding: 80px 0 120px 0; background: #2b231d; margin-top: 120px; }
+        .type-in-use-section .gallery-chapter-title { width: 90vw; margin: 0 auto 50px auto; border-top: 1px solid #6e5d4f; color: #f6f3eb; padding-top: 30px; }
         .marquee-container { overflow: hidden; width: 100%; display: flex; position: relative; }
         .marquee-track { display: flex; width: max-content; will-change: transform; }
         .marquee-item { width: 55vw; flex-shrink: 0; padding: 0 25px; box-sizing: border-box; transition: opacity 0.6s ease, transform 0.6s ease; }
         .marquee-img-box { width: 100%; aspect-ratio: 16 / 10; background-color: #ede9df; overflow: hidden; border: 1px solid #6e5d4f; margin-bottom: 20px; position: relative; }
         .marquee-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* YouTube 视频播放叠加层 */
-        .marquee-video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2);
-            display: flex; align-items: center; justify-content: center; text-decoration: none;
-        }
-        .play-icon-trigger {
-            width: 60px; height: 60px; background: rgba(246,243,235,0.9); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
+        .marquee-video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .play-icon-trigger { width: 60px; height: 60px; background: rgba(246,243,235,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s ease; }
         .play-icon-trigger svg { width: 20px; height: 24px; fill: #2b231d; margin-left: 4px; }
         .marquee-item:hover .play-icon-trigger { transform: scale(1.1); background: #b85a4b; }
         .marquee-item:hover .play-icon-trigger svg { fill: #f6f3eb; }
 
         .marquee-caption { font-size: 0.75rem; color: #c4b9ae; line-height: 1.5; padding: 0 4px; }
         .marquee-caption strong { color: #f6f3eb; }
-
         .marquee-track.is-focusing .marquee-item { opacity: 0.4; transform: scale(0.95); }
         .marquee-track.is-focusing .marquee-item:hover { opacity: 1; transform: scale(1.02); }
         .marquee-track.is-focusing .marquee-item:hover .marquee-img-box { border-color: #b85a4b; }
@@ -336,27 +248,24 @@
         </header>
 
         <!-- 全宽 Cover -->
-      <!-- 全宽 Cover -->
         <div class="project-hero-cover">
             <img class="hero-main-img" src="images/NotoTangut_hero_massive.webp" alt="Noto Serif Tangut Global Release Showcase">
             
-            <!-- 🎯 右下角半透柔焦实心大金杯抽屉 -->
+            <!-- 右下角绝对切齐·红褐金重工业实心勋章卡扣 -->
             <aside class="hero-floating-awards" tabindex="0" aria-label="Official Repertoire Honors">
                 <div class="award-stamp-trigger">
-                    <!-- 现代高精尖实心几何大奖杯 -->
                     <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M18 2H6a1 1 0 0 0-1 1v5c0 3.32 2.14 6.14 5 7.12V18H7a1 1 0 0 0 0 2h10a1 1 0 0 0 0-2h-3v-2.88c2.86-.98 5-3.8 5-7.12V3a1 1 0 0 0-1-1Zm-1 6c0 2.21-1.79 4-4 4s-4-1.79-4-4V4h8v4ZM3 5h1v4A5.006 5.006 0 0 1 3 5Zm17 4V5h1a5.006 5.006 0 0 1-1 4Z"/>
-                        <path d="M6 22h12a1 1 0 0 0 0-2H6a1 1 0 0 0 0 2Z"/>
+                        <path d="M19 2H5a1 1 0 0 0-1 1v4c0 3.64 2.43 6.77 6 7.66V18H7a1 1 0 0 0 0 2h10a1 1 0 0 0 0-2h-3v-3.34c3.57-.89 6-4.02 6-7.66V3a1 1 0 0 0-1-1ZM6 7V4h12v3c0 3.31-2.69 6-6 6S6 10.31 6 7Z"/>
+                        <path d="M4 21h16v1H4z"/>
                     </svg>
                 </div>
                 <div class="award-expanded-panel">
-                    <!-- 对应你的 520x300 高精证书/架构图 -->
                     <img src="images/noto-tangut-codebase.webp" alt="Google Noto Open Source Architecture Repertoire Framework">
                 </div>
             </aside>
         </div>
 
-        <!-- 🎯 完美对齐：标准五栏元数据网格（按最新数据锁死客观参数指标） -->
+        <!-- 标准五栏元数据网格 -->
         <section class="metadata-grid">
             <div><div class="meta-label">Client</div><div class="meta-value">Google Fonts</div></div>
             <div>
@@ -376,71 +285,49 @@
 
         <!-- 简介区 -->
         <section class="project-intro-container">
-            <!-- 左栏：Vision 核心故事描述 -->
             <div class="intro-text">
                 <h2>Cultural Preservation via Open-Source Infrastructure.</h2>
                 <p>As the main designer, I led the modification of Monotype’s previous version, encompassing a character set of 6,915 characters. With support from Tangut scholars, we corrected wrong characters and improved font quality. This project highlights my design expertise and passion for cultural preservation.</p>
-                
                 <div class="intro-links-group">
                     <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Tangut?preview.script=Tang&preview.lang=txg_Tang" target="_blank" class="outline-action-btn">Google Fonts Repertoire ↗</a>
                     <a href="https://github.com" target="_blank" class="outline-action-btn">GitHub Codebase Repository ↗</a>
                 </div>
             </div>
 
-            <!-- 🎯 右栏：100% 还原无缩写完整 Credit 团队分工看版 -->
             <div class="credit-grid-wrapper">
-                
-                <!-- 主创核心分工群 -->
                 <div class="credit-section-block">
                     <span class="credit-header-label">Credit of Noto Serif Tangut 2.168</span>
                     <div class="credit-sub-grid">
-                        <div class="credit-role">Design Director</div>
-                        <div class="credit-names">Zhao Liu</div>
-                        
-                        <div class="credit-role">Designer</div>
-                        <div class="credit-names">Xicheng Yang</div>
-                        
-                        <div class="credit-role">Design Assistant</div>
-                        <div class="credit-names">Peilin Song</div>
-                        
-                        <div class="credit-role">Engineering</div>
-                        <div class="credit-names">Eiso Chan</div>
-                        
-                        <div class="credit-role">Technical Support</div>
-                        <div class="credit-names">Kushim Jiang</div>
-
-                        <div class="credit-role">Foundry</div>
-                        <div class="credit-names">LIUZHAO STUDIO</div>
+                        <div class="credit-role">Design Director</div><div class="credit-names">Zhao Liu</div>
+                        <div class="credit-role">Designer</div><div class="credit-names">Xicheng Yang</div>
+                        <div class="credit-role">Design Assistant</div><div class="credit-names">Peilin Song</div>
+                        <div class="credit-role">Engineering</div><div class="credit-names">Eiso Chan</div>
+                        <div class="credit-role">Technical Support</div><div class="credit-names">Kushim Jiang</div>
+                        <div class="credit-role">Foundry</div><div class="credit-names">LIUZHAO STUDIO</div>
                     </div>
                 </div>
-
-                <!-- 学术学者学术顾问群 -->
                 <div class="credit-section-block">
                     <span class="credit-header-label">Adviser Credit</span>
                     <div class="credit-sub-grid">
-                        <div class="credit-role">Scholars</div>
-                        <div class="credit-names">Bojun Sun, Changye Jia, Feipeng Sun, Jerry You, Andrew Christopher West</div>
+                        <div class="credit-role">Scholars</div><div class="credit-names">Bojun Sun, Changye Jia, Feipeng Sun, Jerry You, Andrew Christopher West</div>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- ==========================================================================
-            【智能吸顶固定导航栏】
-            ========================================================================== */ -->
+        <!-- 吸顶三板块标签 -->
         <div class="specimen-tabs-wrapper" id="tabsWrapper">
             <div class="specimen-tabs-nav" id="stickyNav">
-                <div class="tab-item active" data-target="sec-scrolls">
-                    <span class="tab-num">Genre 01</span>
-                    <span class="tab-name">Bilingual Manuscripts</span>
+                <div class="tab-item active" data-target="specimen-01">
+                    <span class="tab-num">Noto Serif Tangut 01</span>
+                    <span class="tab-name">Bilingual typesetting</span>
                 </div>
-                <div class="tab-item" data-target="sec-comparisons">
-                    <span class="tab-num">Genre 02</span>
-                    <span class="tab-name">A4 Source Quality</span>
+                <div class="tab-item" data-target="specimen-02">
+                    <span class="tab-num">Noto Serif Tangut 02</span>
+                    <span class="tab-name">Modifications</span>
                 </div>
-                <div class="tab-item" data-target="sec-video">
-                    <span class="tab-num">Genre 03</span>
+                <div class="tab-item" data-target="specimen-03">
+                    <span class="tab-num">Noto Serif Tangut 03</span>
                     <span class="tab-name">Anatomical Motion</span>
                 </div>
             </div>
@@ -449,35 +336,57 @@
         <section class="specimen-gallery">
             
             <!-- 01. 长卷西夏文/汉字双语经文 -->
-            <div id="sec-scrolls">
+            <div id="specimen-01">
                 <div class="gallery-chapter-title">
-                    <span>Genre 01 // Bilingual Manuscripts</span>
-                    <span style="color:#aaa;">Tangut and Hanzi Dual-script Sutra Layout Rendering</span>
+                    <span>Noto Serif Tangut 01 // Bilingual Typesetting</span>
+                    <span style="color:#aaa;">Tangut and Hanzi Dual-script Sutra Layout (Read from Right to Left)</span>
                 </div>
-                <div class="specimen-full-img"><img src="images/NotoTangut_bilingual_scroll.webp" alt="Noto Serif Tangut Bilingual Scripture Long Scroll"></div>
+                <div class="specimen-full-img">
+                    
+                    <!-- 淡淡向左指引的手势覆盖层（已锁死在长卷局部作用域内） -->
+                    <div class="scroll-guide-overlay" id="sutraGuide">
+                        <div class="guide-arrow-box">←</div>
+                        <div class="guide-text-box">Read from Right to Left</div>
+                    </div>
+
+                    <!-- 流体视窗舞台 -->
+                    <div class="sutra-long-scroll-window" id="sutraWindow">
+                        <div class="sutra-scroll-track" id="sutraTrack">
+                            <img id="sutraImg" src="images/NotoTangut_bilingual_scroll.webp" alt="Noto Serif Tangut Bilingual Scripture Massive Long Scroll">
+                        </div>
+                    </div>
+
+                    <!-- 🎯 科学文献级先锋磁吸滑块操纵台 -->
+                    <div class="sutra-slider-wrapper">
+                        <div class="sutra-slider-axis">
+                            <input type="range" id="sutraRange" class="sutra-range-input" min="0" max="100" value="100">
+                            <div id="sutraHandle" class="sutra-slider-handle"></div>
+                        </div>
+                        <div class="sutra-slider-caption">
+                            <span>Sutra Epilogue // 卷尾（左端）</span>
+                            <span>Sutra Prologue // 序章卷首（右端）</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <!-- 02. A4 尺寸前后修正对比样张 -->
-            <div id="sec-comparisons">
+            <!-- 02. 全幅高清大图瀑布流 -->
+            <div id="specimen-02">
                 <div class="gallery-chapter-title">
-                    <span>Genre 02 // A4 Source Quality Control</span>
-                    <span style="color:#aaa;">Comparative Study of Extinct Character Rectification</span>
+                    <span>Noto Serif Tangut 02 // Modifications</span>
+                    <span style="color:#aaa;">Massive system reinterpretation encompassing a 6,915 character repertoire</span>
                 </div>
-                
-                <div class="a4-comparison-grid">
-                    <div class="a4-card"><img src="images/NotoTangut_compare_A4_01.webp" alt="Glyph Modification Verification 1"></div>
-                    <div class="a4-card"><img src="images/NotoTangut_compare_A4_02.webp" alt="Glyph Modification Verification 2"></div>
-                </div>
-                <div class="a4-comparison-grid">
-                    <div class="a4-card"><img src="images/NotoTangut_compare_A4_03.webp" alt="Glyph Modification Verification 3"></div>
-                    <div class="a4-card"><img src="images/NotoTangut_compare_A4_04.webp" alt="Glyph Modification Verification 4"></div>
-                </div>
+                <div class="specimen-full-img"><img src="images/NotoTangut_specimen_01.webp" alt="Noto Serif Tangut Typography Specimen 1"></div>
+                <div class="specimen-full-img"><img src="images/NotoTangut_specimen_02.webp" alt="Noto Serif Tangut Typography Specimen 2"></div>
+                <div class="specimen-full-img"><img src="images/NotoTangut_specimen_03.webp" alt="Noto Serif Tangut Typography Specimen 3"></div>
+                <div class="specimen-full-img"><img src="images/NotoTangut_specimen_04.webp" alt="Noto Serif Tangut Typography Specimen 4"></div>
             </div>
 
             <!-- 03. 演示视频 -->
-            <div id="sec-video">
+            <div id="specimen-03">
                 <div class="gallery-chapter-title">
-                    <span>Genre 03 // Anatomical Motion Video</span>
+                    <span>Noto Serif Tangut 03 // Anatomical Motion Video</span>
                     <span style="color:#aaa;">Dynamic stroke vector analysis</span>
                 </div>
                 <div class="specimen-video-box">
@@ -487,9 +396,7 @@
 
         </section>
 
-        <!-- ==========================================================================
-            【Type in Use 全屏沉浸式物理缓动吸附长廊】
-            ========================================================================== */ -->
+        <!-- Type in Use 全屏沉浸式流体长廊 -->
         <section class="type-in-use-section">
             <div class="gallery-chapter-title" style="border-top: 1px solid #6e5d4f; color: #f6f3eb;">
                 <span>Selected Type in Use</span>
@@ -499,65 +406,49 @@
             <div class="marquee-container" id="marqueeWindow">
                 <div class="marquee-track" id="marqueeTrack">
                     
-                    <!-- 卡片 1: YouTube 视频 1 -->
                     <div class="marquee-item">
                         <div class="marquee-img-box">
                             <img src="https://img.youtube.com/vi/_0yJ58RZyvw/maxresdefault.jpg" alt="YouTube Case 1 Thumbnail">
                             <a href="https://youtu.be/_0yJ58RZyvw?si=dvl0rdh4u6_AL-pw" target="_blank" class="marquee-video-overlay">
-                                <div class="play-icon-trigger">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <div class="play-icon-trigger"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                             </a>
                         </div>
                         <div class="marquee-caption"><strong>Linguistic Documentary</strong> — Research media application running Noto Serif Tangut glyph engine.</div>
                     </div>
 
-                    <!-- 卡片 2: 西夏陵景区实拍 1 -->
                     <div class="marquee-item">
-                        <div class="marquee-img-box">
-                            <img src="images/scenic_spot_use_01.webp" alt="Western Xia Tombs Signage">
-                        </div>
+                        <div class="marquee-img-box"><img src="images/scenic_spot_use_01.webp" alt="Western Xia Tombs Signage"></div>
                         <div class="marquee-caption"><strong>Wayfinding System</strong> — Official academic signage rendered in Noto Serif Tangut at Western Xia Tombs historical site.</div>
                     </div>
 
-                    <!-- 卡片 3: YouTube 视频 2 -->
                     <div class="marquee-item">
                         <div class="marquee-img-box">
                             <img src="https://img.youtube.com/vi/IxGu89gbkSw/maxresdefault.jpg" alt="YouTube Case 2 Thumbnail">
                             <a href="https://youtu.be/IxGu89gbkSw?si=4YEAfUbp18jdx84K" target="_blank" class="marquee-video-overlay">
-                                <div class="play-icon-trigger">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <div class="play-icon-trigger"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                             </a>
                         </div>
                         <div class="marquee-caption"><strong>Digital Presentation</strong> — Academic presentation utilizing the official Google Noto Tangut v2.168 layout codebase.</div>
                     </div>
 
-                    <!-- 卡片 4: 朋友发来的应用实拍 -->
                     <div class="marquee-item">
-                        <div class="marquee-img-box">
-                            <img src="images/peer_review_use_01.webp" alt="Academic Monograph Usage">
-                        </div>
+                        <div class="marquee-img-box"><img src="images/peer_review_use_01.webp" alt="Academic Monograph Usage"></div>
                         <div class="marquee-caption"><strong>Publication Output</strong> — Noto Serif Tangut applied within linguistic research paper margins and index catalogs.</div>
                     </div>
 
-                    <!-- 【第二组卡片群：供横向无缝循环使用】 -->
+                    <!-- 循环克隆组 -->
                     <div class="marquee-item">
                         <div class="marquee-img-box">
                             <img src="https://img.youtube.com/vi/_0yJ58RZyvw/maxresdefault.jpg" alt="YouTube Case 1 Thumbnail">
                             <a href="https://youtu.be/_0yJ58RZyvw?si=dvl0rdh4u6_AL-pw" target="_blank" class="marquee-video-overlay">
-                                <div class="play-icon-trigger">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <div class="play-icon-trigger"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                             </a>
                         </div>
                         <div class="marquee-caption"><strong>Linguistic Documentary</strong> — Research media application running Noto Serif Tangut glyph engine.</div>
                     </div>
 
                     <div class="marquee-item">
-                        <div class="marquee-img-box">
-                            <img src="images/scenic_spot_use_01.webp" alt="Western Xia Tombs Signage">
-                        </div>
+                        <div class="marquee-img-box"><img src="images/scenic_spot_use_01.webp" alt="Western Xia Tombs Signage"></div>
                         <div class="marquee-caption"><strong>Wayfinding System</strong> — Official academic signage rendered in Noto Serif Tangut at Western Xia Tombs historical site.</div>
                     </div>
 
@@ -565,18 +456,14 @@
                         <div class="marquee-img-box">
                             <img src="https://img.youtube.com/vi/IxGu89gbkSw/maxresdefault.jpg" alt="YouTube Case 2 Thumbnail">
                             <a href="https://youtu.be/IxGu89gbkSw?si=4YEAfUbp18jdx84K" target="_blank" class="marquee-video-overlay">
-                                <div class="play-icon-trigger">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <div class="play-icon-trigger"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                             </a>
                         </div>
                         <div class="marquee-caption"><strong>Digital Presentation</strong> — Academic presentation utilizing the official Google Noto Tangut v2.168 layout codebase.</div>
                     </div>
 
                     <div class="marquee-item">
-                        <div class="marquee-img-box">
-                            <img src="images/peer_review_use_01.webp" alt="Academic Monograph Usage">
-                        </div>
+                        <div class="marquee-img-box"><img src="images/peer_review_use_01.webp" alt="Academic Monograph Usage"></div>
                         <div class="marquee-caption"><strong>Publication Output</strong> — Noto Serif Tangut applied within linguistic research paper margins and index catalogs.</div>
                     </div>
 
@@ -586,7 +473,7 @@
         
     </div>
 
-    <!-- 原生滚动交互控制系统脚本 -->
+    <!-- 交互控制中心 -->
     <script>
         /* ==========================================================================
            1. 吸顶导航与高亮滚动联动
@@ -594,9 +481,9 @@
         const tabsWrapper = document.getElementById('tabsWrapper');
         const stickyNav = document.getElementById('stickyNav');
         const sections = [
-            { tab: document.querySelector('[data-target="sec-scrolls"]'), element: document.getElementById('sec-scrolls') },
-            { tab: document.querySelector('[data-target="sec-comparisons"]'), element: document.getElementById('sec-comparisons') },
-            { tab: document.querySelector('[data-target="sec-video"]'), element: document.getElementById('sec-video') }
+            { tab: document.querySelector('[data-target="specimen-01"]'), element: document.getElementById('specimen-01') },
+            { tab: document.querySelector('[data-target="specimen-02"]'), element: document.getElementById('specimen-02') },
+            { tab: document.querySelector('[data-target="specimen-03"]'), element: document.getElementById('specimen-03') }
         ];
 
         window.addEventListener('scroll', function() {
@@ -632,7 +519,121 @@
         });
 
         /* ==========================================================================
-           2. 磁吸居中物理缓动长廊引擎
+           2. 🎯 【长卷模块终极体：从右侧开篇渲染 + 恒速缓慢自动滑 + 阻尼滑块双向随动】
+           ========================================================================== */
+        const sWin = document.getElementById('sutraWindow');
+        const sTrack = document.getElementById('sutraTrack');
+        const sGuide = document.getElementById('sutraGuide');
+        const sImg = document.getElementById('sutraImg');
+        const sRange = document.getElementById('sutraRange');
+        const sHandle = document.getElementById('sutraHandle');
+
+        let scrollX = 0;            
+        let targetSpeed = -0.6;     // 默认缓慢流体从右往左流淌的速度
+        let currentSpeed = -0.6;
+        let isSutraHovered = false;
+        let isUserDraggingSlider = false; // 判断用户当前是否在强行拖拽滑块
+        const friction = 0.08;
+
+        // 3秒后让右往左读的指引覆盖层自然优雅淡出
+        setTimeout(() => {
+            if(sGuide) {
+                sGuide.style.opacity = '0';
+                setTimeout(() => sGuide.style.display = 'none', 800);
+            }
+        }, 3000);
+
+        // 🎯 核心黑科技机制：必须死死等 15485px 巨幅大图加载完毕后，秒速将其强行强制推到最右侧
+        function initSutraPosition() {
+            const maxScroll = sWin.clientWidth - sTrack.scrollWidth;
+            scrollX = maxScroll; // 直接初始化在最右端的极限值
+            sTrack.style.transform = `translateX(${scrollX}px)`;
+            updateSliderUI(100);  // 进度条手柄跟着秒切到 100% 卷首位置
+        }
+
+        if (sImg.complete) { initSutraPosition(); } 
+        else { sImg.onload = initSutraPosition; }
+
+        // 物理缓动渲染主循环
+        function updateSutraScroll() {
+            const maxScroll = sWin.clientWidth - sTrack.scrollWidth;
+
+            // 如果用户正在手动拉滑块，流体引擎临时静音，由滑块数据全权指挥
+            if (!isUserDraggingSlider) {
+                if (!isSutraHovered) {
+                    scrollX += currentSpeed;
+                } else {
+                    currentSpeed += (targetSpeed - currentSpeed) * friction;
+                    scrollX += currentSpeed;
+                }
+
+                // 物理边界锁死保护
+                if (scrollX > 0) scrollX = 0;
+                if (scrollX < maxScroll) scrollX = maxScroll;
+
+                sTrack.style.transform = `translateX(${scrollX}px)`;
+
+                // 🎯 随动奇迹：长图自己在走的时候，反向计算百分比，推着下方的滑块跟着平移
+                if (maxScroll < 0) {
+                    const currentPercent = (scrollX / maxScroll) * 100;
+                    sRange.value = currentPercent;
+                    updateSliderUI(currentPercent);
+                }
+            }
+
+            requestAnimationFrame(updateSutraScroll);
+        }
+
+        // 物理滑块手柄平移同步器
+        function updateSliderUI(percent) {
+            sHandle.style.left = percent + '%';
+        }
+
+        // 🎯 监听滑块拖拽事件：实现 100% 像素级精准导览
+        sRange.addEventListener('input', function() {
+            isUserDraggingSlider = true;
+            const percent = parseFloat(this.value);
+            updateSliderUI(percent);
+
+            const maxScroll = sWin.clientWidth - sTrack.scrollWidth;
+            // 百分比映射到长卷的真实负数坐标中
+            scrollX = (percent / 100) * maxScroll;
+            sTrack.style.transform = `translateX(${scrollX}px)`;
+        });
+
+        sRange.addEventListener('change', function() {
+            isUserDraggingSlider = false; // 拖动松开鼠标后，流体自动流淌引擎重新接管
+        });
+
+        // 鼠标在长廊视窗内漂移时的边缘加速器
+        sWin.addEventListener('mousemove', function(e) {
+            isSutraHovered = true;
+            const rect = sWin.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const winW = rect.width;
+            const threshold = 0.3; 
+            
+            if (mouseX < winW * threshold) {
+                const intensity = (winW * threshold - mouseX) / (winW * threshold);
+                targetSpeed = intensity * 14; // 向左倒带加速
+            } else if (mouseX > winW * (1 - threshold)) {
+                const intensity = (mouseX - winW * (1 - threshold)) / (winW * threshold);
+                targetSpeed = -intensity * 14; // 向右冲刺加速
+            } else {
+                targetSpeed = -0.4;
+            }
+        });
+
+        sWin.addEventListener('mouseleave', function() {
+            isSutraHovered = false;
+            targetSpeed = -0.6; currentSpeed = -0.6;
+        });
+
+        // 启动数字文献大阵
+        requestAnimationFrame(updateSutraScroll);
+
+        /* ==========================================================================
+           3. 磁吸居中物理缓动长廊引擎（Type in Use）
            ========================================================================== */
         const track = document.getElementById('marqueeTrack');
         const win = document.getElementById('marqueeWindow');
@@ -640,27 +641,24 @@
         
         let currentX = 0, targetX = 0;
         const baseSpeed = 1.2;
-        let isHovered = false;
+        let isMarqueeHovered = false;
         const ease = 0.06; 
 
-        function animate() {
-            if (!isHovered) {
-                targetX -= baseSpeed;
-                currentX = targetX;
+        function animateMarquee() {
+            if (!isMarqueeHovered) {
+                targetX -= baseSpeed; currentX = targetX;
                 const halfWidth = track.scrollWidth / 2;
-                if (Math.abs(currentX) >= halfWidth) {
-                    currentX = 0; targetX = 0;
-                }
+                if (Math.abs(currentX) >= halfWidth) { currentX = 0; targetX = 0; }
             } else {
                 currentX += (targetX - currentX) * ease;
             }
             track.style.transform = `translateX(${currentX}px)`;
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateMarquee);
         }
 
         items.forEach((item) => {
             item.addEventListener('mouseenter', () => {
-                isHovered = true;
+                isMarqueeHovered = true;
                 track.classList.add('is-focusing');
                 const winWidth = win.offsetWidth;
                 const itemWidth = item.offsetWidth;
@@ -670,12 +668,12 @@
         });
 
         win.addEventListener('mouseleave', () => {
-            isHovered = false;
+            isMarqueeHovered = false;
             track.classList.remove('is-focusing');
             targetX = currentX;
         });
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateMarquee);
     </script>
 </body>
 </html>
