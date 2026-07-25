@@ -159,6 +159,158 @@
         .placeholder-text {
             color: #888; font-family: 'Lyean Sans', sans-serif; font-size: 0.85rem; text-align: center; padding: 20px; line-height: 1.5;
         }
+        /* ==========================================================================
+           【📱 独立字厂全站通用 · 移动端视网膜级自适应安全补丁系统】
+           ========================================================================== */
+        @media (max-width: 768px) {
+            /* 1. 视窗安全边距框定：防止内容死死贴在手机屏幕边缘 */
+            .container {
+                max-width: 92vw;
+                padding: 40px 0 0 0;
+            }
+            
+            /* 2. 顶部导航重组：在手机上自动变为上下规整错叠 */
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+            header nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px 15px;
+            }
+            header nav a {
+                margin-left: 0; /* 斩断 PC 端的左边距干扰 */
+                font-size: 0.75rem;
+            }
+
+            /* 3. 巨幅标题降级：防止超大字号在手机上野蛮断行 */
+            h1 { font-size: 2.4rem !important; line-height: 1.15; margin-bottom: 20px; }
+            .intro-text h2 { font-size: 1.8rem !important; line-height: 1.25; margin-bottom: 20px; }
+            .public-work-title { font-size: 1.8rem !important; line-height: 1.25; margin-bottom: 30px; }
+
+            /* 4. 核心骨架融流：一律由“并排”降维解构为“单列垂直堆叠” */
+            .hero-section {
+                grid-template-columns: 1fr !important;
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+            .project-intro-container, 
+            .exhibition-main-grid,
+            .archive-flex-panel {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+                margin-bottom: 40px;
+            }
+
+            /* 5. 粒子舞台与底部信息看板移动端校准 */
+            .particle-stage-box {
+                border-left: none !important;
+                padding-left: 0 !important;
+                border-bottom: 1px solid #e0dbcf;
+                padding-bottom: 30px;
+                margin-top: 20px;
+            }
+            .hero-specimen-info-panel {
+                grid-template-columns: 1fr !important; /* 手机上元数据参数一字排开向下 */
+                gap: 15px;
+            }
+
+            /* 6. 五栏元数据网格全自动软着陆 */
+            .metadata-grid {
+                grid-template-columns: 1fr 1fr !important; /* 手机上自动变成稳固的双列卡片 */
+                gap: 24px 20px;
+                padding: 30px 0;
+                margin-top: 40px;
+                margin-bottom: 40px;
+            }
+
+            /* 7. 右侧学术 Credit 名单区降噪 */
+            .credit-grid-wrapper {
+                border-left: none !important; /* 砍掉手机上丑陋的左侧长立线 */
+                padding-left: 0 !important;
+                margin-top: 20px;
+                max-height: none !important; /* 手机上取消局部微滚动，让其自然铺开 */
+            }
+            .credit-sub-grid {
+                grid-template-columns: 100px 1fr !important; /* 缩窄角色栏，给长名字留出空间 */
+                gap: 8px 12px;
+            }
+
+            /* 8. Talks & Publications 文献列表精细化对齐 */
+            .list-grid {
+                grid-template-columns: 1fr !important; /* 双盒子变单盒子垂直并列 */
+                gap: 30px;
+            }
+            .list-box { padding: 25px !important; }
+            .list-item {
+                grid-template-columns: 45px 1fr !important; /* 手机上隐去 [Link ↗]，让右侧大标题直接可点 */
+                gap: 12px;
+                position: relative;
+            }
+            /* 💡 高阶交互：手机上把 [Link ↗] 做成全透明图层覆盖在整行上，手机用户随便点哪里都能直接跳转！ */
+            .list-item div:last-child {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                opacity: 0;
+            }
+            .list-item div:last-child a {
+                display: block; width: 100%; height: 100%;
+            }
+
+            /* 9. Noto 经文长卷与可变滑块移动端体验保底 */
+            .sutra-long-scroll-window {
+                height: 380px !important; /* 手机上高度减半，防止上下塞满屏幕 */
+            }
+            .sutra-slider-wrapper { width: 100vw !important; margin-left: -4vw; }
+
+            /* 10. TangutBux 3+3 A4 满宽双列纵廊全量自适应 */
+            .phd-academic-split-grid {
+                grid-template-columns: 1fr !important; /* 3+3 强行合并为一列垂直到底 */
+                gap: 60px;
+            }
+            /* 🎯 绝杀：手机上如果侧标继续 sticky 悬浮会极其遮挡视线，这里将其优雅推回文档流，当作每一列的顶部大标题 */
+            .sticky-taxonomy-sidebar {
+                position: relative !important;
+                top: 0 !important;
+                margin-bottom: 0 !important;
+                width: 100% !important;
+                box-sizing: border-box;
+            }
+            .left-indicator-badge, .right-indicator-badge {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                text-align: left !important;
+                padding: 0 0 15px 0;
+            }
+            .a4-card-monument {
+                border-left: none !important;
+                border-right: none !important;
+            }
+
+            /* 11. Type in Use 落地展厅大图精细校准 */
+            .type-in-use-intro-zone h3 { font-size: 1.6rem !important; }
+            .alphabettes-link-cover-card::after {
+                display: none !important; /* 手机上无法悬停，直接隐藏提示标签 */
+            }
+
+            /* 12. Footer 底部大闭环 */
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                gap: 50px;
+                margin-bottom: 50px;
+            }
+            .footer-bio h2 { font-size: 2rem !important; }
+            .footer-contact { padding: 25px !important; }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
