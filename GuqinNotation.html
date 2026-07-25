@@ -42,7 +42,7 @@
         .specimen-tabs-wrapper, .specimen-tabs-wrapper *,
         .gallery-chapter-title, .gallery-chapter-title *,
         .credit-grid-wrapper, .credit-grid-wrapper *,
-        .infrastructure-specs-grid, .infrastructure-specs-grid *,
+        .culture-context-title,
         .tag {
             font-family: 'Lyean Sans', sans-serif !important;
         }
@@ -59,33 +59,14 @@
         header nav a:hover { color: #b85a4b; }
 
         /* ==========================================================================
-           【全宽 Hero 大图 + 悬浮荣誉抽屉】
+           【全宽 Hero 大图】
            ========================================================================== */
         .project-hero-cover {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    position: relative;
-    border-bottom: 1px solid #e0dbcf;
-    
-    /* 核心机制 1：强制容器锁死为你 AI 画板的 16:7 比例 */
-    aspect-ratio: 16 / 7; 
-    
-    /* 核心机制 2：切断原本死板的 65vh 高度限制，让高度随宽度自适应 */
-    height: auto !important; 
-    min-height: 40vh;
-}
+            width: 100vw; margin-left: calc(-50vw + 50%); position: relative; border-bottom: 1px solid #e0dbcf;
+            aspect-ratio: 16 / 7; height: auto !important; min-height: 40vh;
+        }
+        .project-hero-cover img.hero-main-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-.project-hero-cover img.hero-main-img {
-    width: 100%;
-    height: 100%;
-    
-    /* 核心机制 3：从 cover 改为 contain，确保整张图完整塞进容器，绝对不切边 */
-    object-fit: contain; 
-    
-    display: block;
-}
-
-       
         /* ==========================================================================
            【五栏元数据网格 - 🎯 客观物理指标参数，全站统一】
            ========================================================================== */
@@ -97,10 +78,19 @@
         .meta-value { font-size: 1.05rem; line-height: 1.5; font-weight: bold; word-wrap: break-word; }
 
         /* ==========================================================================
-           【简介与精细名单看板区】
+           【文化前置背景与简介看板区 — 🎯 模块化优雅重组】
            ========================================================================== */
         .project-intro-container { display: grid; grid-template-columns: 3.1fr 1.9fr; gap: 60px; margin-bottom: 80px; align-items: flex-start; }
         .intro-text { max-width: 800px; }
+        
+        /* 新增：前置文化学术文献导言样式 */
+        .culture-context-block {
+            margin-bottom: 50px; padding-bottom: 40px; border-bottom: 1px dashed #e0dbcf;
+        }
+        .culture-context-title {
+            font-size: 0.75rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 15px; display: block;
+        }
+        
         .intro-text h2 { font-size: 2.8rem; font-weight: normal; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
         .intro-text p { font-size: 1.2rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
 
@@ -122,7 +112,7 @@
         .credit-names { color: #555; font-weight: 500; }
 
         /* ==========================================================================
-           【智能吸顶固定导航栏】
+           【智能吸顶固定导航栏 — 🎯 精准精校三板块】
            ========================================================================== */
         .specimen-tabs-wrapper { position: relative; z-index: 500; margin: 40px 0 20px 0; }
         .specimen-tabs-nav {
@@ -157,25 +147,6 @@
         }
         .specimen-full-img img { width: 100%; display: block; }
 
-        /* ==========================================================================
-           【🎯 无 Use 图时的平替：Type System 基建规范技术文献展示区】
-           ========================================================================== */
-        .infrastructure-use-section {
-            width: 100vw; margin-left: calc(-50vw + 50%); background: #1c1917; padding: 90px 0 140px 0; margin-top: 120px; color: #f6f3eb;
-        }
-        .infrastructure-use-section .gallery-chapter-title {
-            width: 90vw; margin: 0 auto 60px auto; border-top: 1px solid #443e3a; color: #f6f3eb; padding-top: 30px;
-        }
-        .infrastructure-specs-grid {
-            max-width: 90vw; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px;
-        }
-        .spec-tech-card {
-            border-top: 1px solid #b85a4b; padding-top: 25px;
-        }
-        .spec-tech-num { font-size: 0.75rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; display: block; }
-        .spec-tech-title { font-size: 1.4rem; font-weight: normal; color: #f6f3eb; margin-bottom: 15px; }
-        .spec-tech-desc { font-size: 0.95rem; color: #b4afab; line-height: 1.5; font-family: "Lyean", serif !important; }
-
     </style>
 </head>
 <body>
@@ -194,8 +165,6 @@
         <!-- 全宽 Hero Cover -->
         <div class="project-hero-cover">
             <img class="hero-main-img" src="images/Guqin_hero_massive.webp" alt="Guqin Reduced Character Notation Typographic Specimen Engine">
-            
-            
         </div>
 
         <!-- 五栏元数据网格 - 🎯 纯技术客观参数对齐 -->
@@ -207,10 +176,21 @@
             <div><div class="meta-label">Period</div><div class="meta-value">Sept 2018 to Oct 2024</div></div>
         </section>
 
-        <!-- 简介区 -->
+        <!-- 简介与背景文献区 -->
         <section class="project-intro-container">
-            <!-- 左栏：Vision 核心科技突破 -->
+            <!-- 左栏：先导文化背景叙事 + 核心技术突破 -->
             <div class="intro-text">
+                
+                <!-- 🎯 满足要求：在字库设计前，植入极具尊严的古琴减字谱英文历史定义说明 -->
+                <div class="culture-context-block">
+                    <span class="culture-context-title">Linguistic & Musical Context</span>
+                    <p style="font-size: 1.1rem; line-height: 1.65; color: #555; font-style: italic; margin: 0;">
+                        Guqin Notation, historically known as Jianzipu (减字谱), is a unique ideographic music notation system developed in China during the Tang Dynasty. Unlike Western staff notation which records pitch, Jianzipu acts as a structural formula—combining Chinese character strokes into single compound clusters to document precise finger positions, left-hand slide techniques, and right-hand plucking methods. Preserving this heritage in the digital age presents a monumental typographic bottleneck due to the near-infinite variable combinations of stroke symbols.
+                    </p>
+                </div>
+
+                <!-- 核心字库产品设计叙事 -->
+                <span class="culture-context-title" style="margin-bottom: 10px;">Digital Infrastructure</span>
                 <h2>Traditional Chinese Music Notation Digital Infrastructure.</h2>
                 <p>The project is a precedent for typeface design without codepoints, counting over 200,000 reduced character forms, following ancient norms for strokes and structure, and designed in a unified standard. It is also the only character database project development for the international encoding of the notation system for Guqin and will be used in the future.</p>
             </div>
@@ -234,81 +214,64 @@
         </section>
 
         <!-- ==========================================================================
-            // 吸顶样张陈列 — 集中留白做图区
+            // 吸顶样张陈列 — 🎯 完美精准校准为三张高清字体样张瀑布流
             ========================================================================== */ -->
         <div class="specimen-tabs-wrapper" id="tabsWrapper">
             <div class="specimen-tabs-nav" id="stickyNav">
                 <div class="tab-item active" data-target="specimen-01">
                     <span class="tab-num">Sheet 01</span>
-                    <span class="tab-name">Reduced Glyph Matrix</span>
+                    <span class="tab-name">Anatomy & Deciphering</span>
                 </div>
                 <div class="tab-item" data-target="specimen-02">
                     <span class="tab-num">Sheet 02</span>
-                    <span class="tab-name">Ancient Norm Structure</span>
+                    <span class="tab-name">Ancient Block-Print Specimen</span>
+                </div>
+                <div class="tab-item" data-target="specimen-03">
+                    <span class="tab-num">Sheet 03</span>
+                    <span class="tab-name">Parametric Glyph Matrix</span>
                 </div>
             </div>
         </div>
 
         <section class="specimen-gallery">
+            <!-- 样张 01：古琴构造、减字谱单字如何解读（左右手结构分析图） -->
             <div id="specimen-01">
                 <div class="gallery-chapter-title">
-                    <span>Sheet 01 // Reduced Glyph Matrix</span>
-                    <span style="color:#aaa;">Unified standardization of dynamic algorithmic stroke synthesis</span>
+                    <span>Sheet 01 // Notation Anatomy & Deciphering Layout</span>
+                    <span style="color:#aaa;">Structural mapping of left-hand positions and right-hand string plucking formulas</span>
                 </div>
-                <div class="specimen-full-img"><img src="images/Guqin_specimen_01.webp" alt="Guqin Reduced Glyph Specimen Sheet 1"></div>
+                <div class="specimen-full-img"><img src="images/Guqin_specimen_01.webp" alt="Guqin Instrument and Character Deciphering Anatomy Sheet 1"></div>
             </div>
 
+            <!-- 样张 02：竖排版传统古籍式样张 -->
             <div id="specimen-02">
                 <div class="gallery-chapter-title">
-                    <span>Sheet 02 // Ancient Norm Structure</span>
-                    <span style="color:#aaa;">Preserving structural taxonomy of historic musical manuscripts</span>
+                    <span>Sheet 02 // Classical Block-Print Vertical Typesetting</span>
+                    <span style="color:#aaa;">Preserving structural taxonomy and fluid calligraphic rhythm of historic musical manuscripts</span>
                 </div>
-                <div class="specimen-full-img"><img src="images/Guqin_specimen_02.webp" alt="Guqin Ancient Structural Analysis Sheet 2"></div>
+                <div class="specimen-full-img"><img src="images/Guqin_specimen_02.webp" alt="Guqin Ancient Vertical Block Book Typographic Specimen Sheet 2"></div>
+            </div>
+
+            <!-- 样张 03：附加延伸的大幅综合样张图 -->
+            <div id="specimen-03">
+                <div class="gallery-chapter-title">
+                    <span>Sheet 03 // Non-Codepoint Algorithmic Synthesis Repertoire</span>
+                    <span style="color:#aaa;">Unified standardization of dynamic programmatic vector stroke stacking</span>
+                </div>
+                <div class="specimen-full-img"><img src="images/Guqin_specimen_03.webp" alt="Guqin Extansive Parametric System Design Repertoire Sheet 3"></div>
             </div>
         </section>
 
-        <!-- ==========================================================================
-            【🎨 替代平替：Type System 基建规范技术文献展示区】
-            ========================================================================== */ -->
-        <section class="infrastructure-use-section">
-            <div class="gallery-chapter-title">
-                <span>Technical Specifications & Infrastructure</span>
-                <span>The Architecture of Non-Codepoint Variable Synthesis</span>
-            </div>
-
-            <div class="infrastructure-specs-grid">
-                <!-- 模块 1 -->
-                <div class="spec-tech-card">
-                    <span class="spec-tech-num">Specification 01</span>
-                    <h4 class="spec-tech-title">Non-Codepoint Rendering</h4>
-                    <p class="spec-tech-desc">Bypassing conventional Unicode map constraints to achieve real-time responsive component stacking for massive musical notation clusters.</p>
-                </div>
-
-                <!-- 模块 2 -->
-                <div class="spec-tech-card">
-                    <span class="spec-tech-num">Specification 02</span>
-                    <h4 class="spec-tech-title">200K+ Forms Database</h4>
-                    <p class="spec-tech-desc">A comprehensive, rigorously unified structural repertoire serving as the definitive global database baseline for historic Guqin script research.</p>
-                </div>
-
-                <!-- 模块 3 -->
-                <div class="spec-tech-card">
-                    <span class="spec-tech-num">Specification 03</span>
-                    <h4 class="spec-tech-title">ISO Global Foundation</h4>
-                    <p class="spec-tech-desc">Engineered as the baseline blueprint for upcoming international encoding systems, securing future digital permanence for traditional manuscripts.</p>
-                </div>
-            </div>
-        </section>
-        
     </div>
 
-    <!-- 吸顶联动控制脚本 -->
+    <!-- 吸顶及滚动联动控制核心脚本 -->
     <script>
         const tabsWrapper = document.getElementById('tabsWrapper');
         const stickyNav = document.getElementById('stickyNav');
         const sections = [
             { tab: document.querySelector('[data-target="specimen-01"]'), element: document.getElementById('specimen-01') },
-            { tab: document.querySelector('[data-target="specimen-02"]'), element: document.getElementById('specimen-02') }
+            { tab: document.querySelector('[data-target="specimen-02"]'), element: document.getElementById('specimen-02') },
+            { tab: document.querySelector('[data-target="specimen-03"]'), element: document.getElementById('specimen-03') }
         ];
 
         window.addEventListener('scroll', function() {

@@ -26,7 +26,7 @@
         }
         
         body {
-            margin: 0; padding: 0;
+            margin: 0; padding: 0 0 100px 0; /* 底部预留舒适的呼吸气口 */
             background-color: #f6f3eb;
             color: #1a1a1a;
             overflow-x: hidden;
@@ -35,14 +35,14 @@
             max-width: 90vw; margin: 0 auto; padding: 60px 0 0 0;
         }
         
-        /* 原子级强力穿透！保证 100% 的 Sans（无衬线）属性块都调用专属的 Lyean Sans */
         header, header *, 
         nav, nav *, 
         .metadata-grid, .metadata-grid *, 
         .specimen-tabs-wrapper, .specimen-tabs-wrapper *,
         .gallery-chapter-title, .gallery-chapter-title *,
         .credit-grid-wrapper, .credit-grid-wrapper *,
-        .variable-specs-grid, .variable-specs-grid *,
+        .sticky-taxonomy-sidebar, .sticky-taxonomy-sidebar *,
+        .type-in-use-intro-zone, .type-in-use-intro-zone *,
         .tag {
             font-family: 'Lyean Sans', sans-serif !important;
         }
@@ -59,36 +59,16 @@
         header nav a:hover { color: #b85a4b; }
 
         /* ==========================================================================
-           【全宽 Hero 大图 + 悬浮抽屉】
+           【全宽 Hero 大图】
            ========================================================================== */
-        ..project-hero-cover {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    position: relative;
-    border-bottom: 1px solid #e0dbcf;
-    
-    /* 核心机制 1：强制容器锁死为你 AI 画板的 16:7 比例 */
-    aspect-ratio: 16 / 7; 
-    
-    /* 核心机制 2：切断原本死板的 65vh 高度限制，让高度随宽度自适应 */
-    height: auto !important; 
-    min-height: 40vh;
-}
-
-.project-hero-cover img.hero-main-img {
-    width: 100%;
-    height: 100%;
-    
-    /* 核心机制 3：从 cover 改为 contain，确保整张图完整塞进容器，绝对不切边 */
-    object-fit: contain; 
-    
-    display: block;
-}
-
-      
+        .project-hero-cover {
+            width: 100vw; margin-left: calc(-50vw + 50%); position: relative; border-bottom: 1px solid #e0dbcf;
+            aspect-ratio: 16 / 7; height: auto !important; min-height: 40vh;
+        }
+        .project-hero-cover img.hero-main-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         /* ==========================================================================
-           【五栏元数据网格 - 🎯 客观学术参数指标锁死对齐】
+           【五栏元数据网格】
            ========================================================================== */
         .metadata-grid {
             display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px;
@@ -100,45 +80,38 @@
         /* ==========================================================================
            【简介与精细名单看板区】
            ========================================================================== */
-        .project-intro-container { display: grid; grid-template-columns: 3.1fr 1.9fr; gap: 60px; margin-bottom: 80px; align-items: flex-start; }
+        .project-intro-container { display: grid; grid-template-columns: 3.1fr 1.9fr; gap: 60px; margin-bottom: 60px; align-items: flex-start; }
         .intro-text { max-width: 800px; }
         .intro-text h2 { font-size: 2.8rem; font-weight: normal; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
         .intro-text p { font-size: 1.2rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
 
-        /* 右侧团队分工看板样式 */
-        .credit-grid-wrapper {
-            border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px;
-        }
+        .credit-grid-wrapper { border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px; }
         .credit-section-block { margin-bottom: 35px; }
         .credit-section-block:last-child { margin-bottom: 0; }
-        
-        .credit-header-label {
-            font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;
-            margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block;
-        }
-        .credit-sub-grid {
-            display: grid; grid-template-columns: 125px 1fr; gap: 12px 16px; font-size: 0.85rem; line-height: 1.45;
-        }
+        .credit-header-label { font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block; }
+        .credit-sub-grid { display: grid; grid-template-columns: 125px 1fr; gap: 12px 16px; font-size: 0.85rem; line-height: 1.45; }
         .credit-role { color: #888; font-weight: bold; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.03em; padding-top: 2px; }
         .credit-names { color: #555; font-weight: 500; }
+
+        /* 简介下方的第一张 2880px 旗舰独立大样张系统 */
+        .specimen-flagship-full {
+            width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 20px; margin-bottom: 40px;
+            background-color: #ede9df; border-bottom: 1px solid #e0dbcf;
+        }
+        .specimen-flagship-full img { width: 100%; display: block; }
 
         /* ==========================================================================
            【智能吸顶固定导航栏】
            ========================================================================== */
         .specimen-tabs-wrapper { position: relative; z-index: 500; margin: 40px 0 20px 0; }
         .specimen-tabs-nav {
-            display: flex; justify-content: space-between; gap: 16px; 
-            border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb;
-            transition: padding 0.3s, box-shadow 0.3s;
+            display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb; transition: padding 0.3s, box-shadow 0.3s;
         }
         .specimen-tabs-nav.is-sticky {
-            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
+            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px; box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
         }
         .tab-item {
-            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer;
-            background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
+            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer; background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
         }
         .tab-num { font-size: 0.7rem; color: #6e5d4f; letter-spacing: 0.05em; margin-bottom: 4px; }
         .tab-name { font-weight: bold; font-size: 1rem; color: #1a1a1a; }
@@ -149,36 +122,80 @@
 
         /* 画廊布局 */
         .gallery-chapter-title {
-            font-size: 0.8rem; text-transform: uppercase;
-            color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px;
-            letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
+            font-size: 0.8rem; text-transform: uppercase; color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px; letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
+        }
+
+        /* ==========================================================================
+           【全屏 100vw 0边距、高低绝对对齐双流纵廊系统】
+           ========================================================================== */
+        .phd-academic-fullwidth-box {
+            width: 100vw; margin-left: calc(-50vw + 50%); position: relative; box-sizing: border-box;
+        }
+
+        .phd-academic-split-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: 100%; margin-bottom: 60px; position: relative; box-sizing: border-box;
         }
         
-        /* A4 尺寸对比网格 */
-        .a4-comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-        .a4-card { background-color: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px; overflow: hidden; aspect-ratio: 1 / 1.414; }
-        .a4-card img { width: 100%; height: 100%; object-fit: cover; }
+        .academic-column-channel { 
+            display: flex; flex-direction: column; gap: 50px; position: relative; width: 100%;
+        }
+        
+        /* 悬浮侧标防切边对齐 */
+        .sticky-taxonomy-sidebar {
+            position: -webkit-sticky; position: sticky; top: 140px; z-index: 100; display: flex; flex-direction: column; gap: 4px; padding: 12px 0; margin-bottom: -104px; border-top: 2px solid #b85a4b; width: fit-content; mix-blend-mode: multiply; pointer-events: none; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .left-indicator-badge { align-self: flex-start; text-align: left; margin-left: 5vw; }
+        .right-indicator-badge { align-self: flex-end; text-align: right; margin-right: 5vw; }
+
+        .sticky-taxonomy-sidebar span.badge-num { font-size: 0.65rem; color: #b85a4b; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+        .sticky-taxonomy-sidebar h4.badge-title { font-size: 1.15rem; font-weight: bold; color: #1a1a1a; margin: 0; letter-spacing: -0.01em; line-height: 1.2; }
+        .sticky-taxonomy-sidebar p.badge-desc { font-size: 0.72rem; color: #888; margin: 4px 0 0 0; max-width: 140px; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.03em; }
+
+        .phd-academic-split-grid:hover .sticky-taxonomy-sidebar { transform: scale(1.02); }
+
+        .a4-card-monument {
+            width: 100%; aspect-ratio: 1 / 1.414; background-color: #ede9df; border-top: 1px solid #e0dbcf; border-bottom: 1px solid #e0dbcf; overflow: hidden; box-shadow: 0 30px 70px rgba(43, 35, 29, 0.08); border-radius: 0;
+        }
+        .a4-card-monument img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
         /* 视频容器 */
         .specimen-video-box { width: 100vw; margin-left: calc(-50vw + 50%); background-color: #000; aspect-ratio: 16 / 9; }
         .specimen-video-box video { width: 100%; height: 100%; display: block; object-fit: cover; }
 
         /* ==========================================================================
-           【Type System 实验技术文献展示区】
+           【🎯 满足要求：温润米色纸张底色 · 2880px 全屏超高精落地学术展厅】
            ========================================================================== */
-        .variable-use-section {
-            width: 100vw; margin-left: calc(-50vw + 50%); background: #1a1a1a; padding: 90px 0 140px 0; margin-top: 120px; color: #f6f3eb;
+        .type-in-use-showcase-zone {
+            width: 100vw; margin-left: calc(-50vw + 50%); background: #f6f3eb; /* 100% 砍掉黑色，融入全站纸张白 */
+            padding: 80px 0 20px 0; margin-top: 100px;
         }
-        .variable-use-section .gallery-chapter-title {
-            width: 90vw; margin: 0 auto 60px auto; border-top: 1px solid #333; color: #f6f3eb; padding-top: 30px;
+        .type-in-use-intro-zone {
+            width: 90vw; margin: 0 auto 45px auto; max-width: 820px; text-align: left;
         }
-        .variable-specs-grid {
-            max-width: 90vw; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px;
+        .type-in-use-intro-zone h3 {
+            font-size: 2.2rem; font-weight: normal; color: #1a1a1a; margin-top: 0; margin-bottom: 15px; line-height: 1.3;
         }
-        .spec-tech-card { border-top: 1px solid #b85a4b; padding-top: 25px; }
-        .spec-tech-num { font-size: 0.75rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; display: block; }
-        .spec-tech-title { font-size: 1.4rem; font-weight: normal; color: #f6f3eb; margin-bottom: 15px; }
-        .spec-tech-desc { font-size: 0.95rem; color: #a3a3a3; line-height: 1.5; font-family: "Lyean", serif !important; }
+        .type-in-use-intro-zone p {
+            font-size: 1.15rem; line-height: 1.65; color: #555; font-family: "Lyean", serif !important; margin: 0;
+        }
+        
+        /* 磁吸官网交互海报卡片组件 */
+        .alphabettes-link-cover-card {
+            display: block; width: 100vw; background-color: #ede9df; border-top: 1px solid #e0dbcf; border-bottom: 1px solid #e0dbcf; overflow: hidden; position: relative; text-decoration: none; cursor: pointer;
+        }
+        .alphabettes-link-cover-card img {
+            width: 100%; display: block; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* 鼠标滑过有种微妙含蓄的内敛大字厂缩放阻尼反馈 */
+        .alphabettes-link-cover-card:hover img {
+            transform: scale(1.015);
+        }
+        /* 黑科技：在图片右下角挂载一个精美的极简外部跳转指示标签 */
+        .alphabettes-link-cover-card::after {
+            content: "LAUNCH WEBSITE ↗"; position: absolute; bottom: 30px; right: 5vw; background: rgba(26,26,26,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #f6f3eb; padding: 10px 18px; border-radius: 3px; font-family: 'Lyean Sans', sans-serif !important; font-size: 0.68rem; font-weight: bold; letter-spacing: 0.08em; opacity: 0; transform: translateY(5px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 10;
+        }
+        .alphabettes-link-cover-card:hover::after { opacity: 1; transform: translateY(0); }
 
     </style>
 </head>
@@ -198,71 +215,96 @@
         <!-- 全宽 Hero Cover -->
         <div class="project-hero-cover">
             <img class="hero-main-img" src="images/TangutBux_hero_massive.webp" alt="TangutBux Historical Woodblock Revival Engine">
-            
-           
         </div>
 
-        <!-- 五栏元数据网格 - 🎯 纯技术客观参数完全对齐 -->
+        <!-- 五栏元数据网格 -->
         <section class="metadata-grid">
             <div><div class="meta-label">Client</div><div class="meta-value">Independent Research / No Client</div></div>
             <div><div class="meta-label">Typeface Model</div><div class="meta-value">Historical Woodblock Revival & Variable Font</div></div>
             <div><div class="meta-label">Source Baseline</div><div class="meta-value">Engraver Bu (卜) Repertoire Restoration</div></div>
-            <div><div class="meta-label">Period</div><div class="meta-value">2025 to the Present</div></div>
+            <div><div class="meta-label">Period</div><div class="meta-style" style="font-weight: bold; font-size: 1.05rem;">2025 to the Present</div></div>
             <div><div class="meta-label">Project Paradigm</div><div class="meta-value">PhD Research Infrastructure (WIP)</div></div>
         </section>
 
         <!-- 简介区 -->
         <section class="project-intro-container">
-            <!-- 左栏：Vision 博士课题背景叙事 -->
             <div class="intro-text">
                 <h2>Historical Reinterpretation via Variable Font Technology.</h2>
                 <p>Developed as part of my PhD research, TangutBux is a typeface based on a historical woodblock print by an engraver whose family name was Bu (卜). Since the engraver's first name remains unknown, 'X' is often used to complete the name. It is an ongoing work-in-progress project focused on specialized research constraints.</p>
             </div>
 
-            <!-- 右栏：完整无缩写主创团队分工名单看版 -->
             <div class="credit-grid-wrapper">
                 <div class="credit-section-block">
                     <span class="credit-header-label">Research & Design Credit</span>
                     <div class="credit-sub-grid">
-                        <div class="credit-role">Type Design</div>
-                        <div class="credit-names">Xicheng Yang</div>
-                        
-                        <div class="credit-role">Context</div>
-                        <div class="credit-names">PhD Research Core Matrix</div>
-                        
-                        <div class="credit-role">Current Use</div>
-                        <div class="credit-names">Official Header System of Alphabette</div>
+                        <div class="credit-role">Type Design</div><div class="credit-names">Xicheng Yang</div>
+                        <div class="credit-role">Context</div><div class="credit-names">PhD Research Core Matrix</div>
+                        <div class="credit-role">Current Use</div><div class="credit-names">Official Header System of Alphabette</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==========================================================================
-            // 吸顶样张与排版压力测试陈列 — 🎯 精准装载你的 A4 测试文件与可变滑块视频
-            ========================================================================== */ -->
+        <!-- 旗舰独立大样张系统 -->
+        <div class="specimen-flagship-full">
+            <img src="images/TangutBux_flagship_full.webp" alt="TangutBux Comprehensive 2880px System Specimen Master Chart">
+        </div>
+
+        <!-- 吸顶标签控制 -->
         <div class="specimen-tabs-wrapper" id="tabsWrapper">
             <div class="specimen-tabs-nav" id="stickyNav">
                 <div class="tab-item active" data-target="sec-a4">
                     <span class="tab-num">Sheet 01</span>
-                    <span class="tab-name">A4 Stress Test Sheets</span>
+                    <span class="tab-name">A4 Parallel Roster Columns</span>
                 </div>
                 <div class="tab-item" data-target="sec-variable">
                     <span class="tab-num">Sheet 02</span>
                     <span class="tab-name">Variable Axis Motion</span>
                 </div>
+                <div class="tab-item" data-target="sec-use">
+                    <span class="tab-num">Sheet 03</span>
+                    <span class="tab-name">Type in Use</span>
+                </div>
             </div>
         </div>
 
         <section class="specimen-gallery">
-            <!-- 1. A4 排版测试文件网格（在 AI 里建 1200x1697px 画板导出图丢进来） -->
+            
+            <!-- 1. 全宽化高低绝对对齐双流纵廊系统 -->
             <div id="sec-a4">
-                <div class="gallery-chapter-title">
-                    <span>Sheet 01 // Typography Stress Test Sheets</span>
-                    <span style="color:#aaa;">A4 document proofs evaluating historical woodblock weight transformation</span>
+                <div class="gallery-chapter-title" style="width: 90vw; margin: 60px auto 40px auto;">
+                    <span>Sheet 01 // Typography Parallel Test Columns</span>
+                    <span style="color:#aaa;">Left: TangutBux Text Baseline  //  Right: Secondary Parametric Variants</span>
                 </div>
-                <div class="a4-comparison-grid">
-                    <div class="a4-card"><img src="images/TangutBux_proof_A4_01.webp" alt="TangutBux A4 Specimen Verification 1"></div>
-                    <div class="a4-card"><img src="images/TangutBux_proof_A4_02.webp" alt="TangutBux A4 Specimen Verification 2"></div>
+
+                <div class="phd-academic-fullwidth-box">
+                    <div class="phd-academic-split-grid">
+                        
+                        <!-- 👈 左通道：TangutBux Text (3张连续 A4 竖连 + 磁吸左标) -->
+                        <div class="academic-column-channel">
+                            <div class="sticky-taxonomy-sidebar left-indicator-badge">
+                                <span class="badge-num">Matrix Channel A</span>
+                                <h4 class="badge-title">TangutBux Text</h4>
+                                <p class="badge-desc">Standard Woodblock Carving Calibration</p>
+                            </div>
+                            <div class="a4-card-monument"><img src="images/TangutBux_proof_A4_01.webp" alt="TangutBux Text Sheet 1"></div>
+                            <div class="a4-card-monument"><img src="images/TangutBux_proof_A4_02.webp" alt="TangutBux Text Sheet 2"></div>
+                            <div class="a4-card-monument"><img src="images/TangutBux_proof_A4_03.webp" alt="TangutBux Text Sheet 3"></div>
+                        </div>
+
+                        <!-- 👉 右通道：TangutBux Secondary style (3张连续 A4 竖连 + 磁吸右标) -->
+                        <div class="academic-column-channel">
+                            <div class="sticky-taxonomy-sidebar right-indicator-badge">
+                                <span class="badge-num">Matrix Channel B</span>
+                                <h4 class="badge-title">Secondary Style</h4>
+                                <p class="badge-desc">Parametric Variable Structural Variants</p>
+                            </div>
+                            <div class="a4-card-monument"><img src="images/TangutBux_proof_A4_04.webp" alt="TangutBux Secondary Sheet 1"></div>
+                            <div class="a4-card-monument"><img src="images/TangutBux_proof_A4_05.webp" alt="TangutBux Secondary Sheet 2"></div>
+                            <div class="a4-card-monument"><img src="images/TangutBux_proof_A4_06.webp" alt="TangutBux Secondary Sheet 3"></div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -273,46 +315,41 @@
                     <span style="color:#aaa;">Responsive vector morphing across weight and structural parameters</span>
                 </div>
                 <div class="specimen-video-box">
-                    <video controls preload="none" src="videos/tangutbux_variable_slider.mp4" poster="images/tangutbux_video_poster.webp"></video>
+                   <!-- 🎯 终极全自动、静音、防浏览器阻断、无限循环播放的重工业视频引擎 -->
+<video id="variableVideo" autoplay loop muted playsinline webkit-playsinline preload="auto" src="videos/tangutbux_variable_slider.mp4" poster="images/tangutbux_video_poster.webp"></video>
                 </div>
-            </div>
-        </section>
-
-        <!-- 技术规格区 -->
-        <section class="variable-use-section">
-            <div class="gallery-chapter-title">
-                <span>PhD Curation & Specifications</span>
-                <span>The Parametric Restoration of Block-Print Ideographs</span>
             </div>
 
-            <div class="variable-specs-grid">
-                <div class="spec-tech-card">
-                    <span class="spec-tech-num">Parameter 01</span>
-                    <h4 class="spec-tech-title">Bu (卜) Style Revival</h4>
-                    <p class="spec-tech-desc">Extracting the idiosyncratic carving traits of the historic master engraver 'Bu X', digitizing the unique woodblock edge cuts into scalable bezier vectors.</p>
-                </div>
-                <div class="spec-tech-card">
-                    <span class="spec-tech-num">Parameter 02</span>
-                    <h4 class="spec-tech-title">Variable Interpolation</h4>
-                    <p class="spec-tech-desc">Injecting modern interpolation axes into ancient text forms, allowing dynamic weight shifting while strictly preserving historic structural rules.</p>
-                </div>
-                <div class="spec-tech-card">
-                    <span class="spec-tech-num">Parameter 03</span>
-                    <h4 class="spec-tech-title">Alphabette System</h4>
-                    <p class="spec-tech-desc">Deployed as the flagship header element on the Alphabette design platform, field-testing the typeface's responsiveness within high-end editorial display grids.</p>
+            <!-- 3. 🎯 满足要求：全量重组的 Type in Use 温润书卷落照大展厅 -->
+            <div id="sec-use">
+                <div class="type-in-use-showcase-zone">
+                    <div class="type-in-use-intro-zone">
+                        <h3>Type in Use: TangutBux</h3>
+                        <p>TangutBux was deployed in Alphabettes' header system. The header presents a phonetic transliteration of “Alphabettes” in Tangut, read as “a lə pha be tshi”.</p>
+                    </div>
+                    
+                    <!-- 💡 磁吸高精 2880px 大图卡片，绑定官方外跳超级链接 -->
+                    <a href="https://www.alphabettes.org/" target="_blank" class="alphabettes-link-cover-card">
+                        <img src="images/tangutbux_alphabette_header_use.webp" alt="TangutBux Transliteration Rendered Live on Alphabettes Header Platform">
+                    </a>
                 </div>
             </div>
+
         </section>
         
     </div>
 
-    <!-- 吸顶及高亮联动控制脚本 -->
+    <!-- 脚本控制系统 -->
     <script>
+        /* ==========================================================================
+           1. 吸顶及高亮联动控制 — 🎯 已自动合龙注入第 3 标签联动雷达
+           ========================================================================== */
         const tabsWrapper = document.getElementById('tabsWrapper');
         const stickyNav = document.getElementById('stickyNav');
         const sections = [
             { tab: document.querySelector('[data-target="sec-a4"]'), element: document.getElementById('sec-a4') },
-            { tab: document.querySelector('[data-target="sec-variable"]'), element: document.getElementById('sec-variable') }
+            { tab: document.querySelector('[data-target="sec-variable"]'), element: document.getElementById('sec-variable') },
+            { tab: document.querySelector('[data-target="sec-use"]'), element: document.getElementById('sec-use') }
         ];
 
         window.addEventListener('scroll', function() {
@@ -341,11 +378,29 @@
                 const targetId = this.getAttribute('data-target');
                 const targetContent = document.getElementById(targetId);
                 if (targetContent) {
-                    const titleElement = targetContent.querySelector('.gallery-chapter-title');
+                    // 针对 A4 栅格化总标和大文字块做的优化锚点跳转计算
+                    let titleElement = targetContent.querySelector('.gallery-chapter-title') || targetContent.querySelector('.type-in-use-intro-zone');
                     titleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
+
+        /* ==========================================================================
+           2. 可变滑块动画视窗物理雷达感应全自动循环控制
+           ========================================================================== */
+        const video = document.getElementById('variableVideo');
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    video.play().catch(err => {});
+                } else {
+                    video.pause();
+                }
+            });
+        }, {
+            threshold: 0.25 
+        });
+        videoObserver.observe(video);
     </script>
 </body>
 </html>

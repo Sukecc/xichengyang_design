@@ -26,7 +26,7 @@
         }
         
         body {
-            margin: 0; padding: 0;
+            margin: 0; padding: 0 0 120px 0; /* 底部预留舒适的书卷留白气口 */
             background-color: #f6f3eb;
             color: #1a1a1a;
             overflow-x: hidden;
@@ -39,10 +39,7 @@
         header, header *, 
         nav, nav *, 
         .metadata-grid, .metadata-grid *, 
-        .specimen-tabs-wrapper, .specimen-tabs-wrapper *,
-        .gallery-chapter-title, .gallery-chapter-title *,
         .credit-grid-wrapper, .credit-grid-wrapper *,
-        .exhibition-archive-section, .exhibition-archive-section *,
         .tag {
             font-family: 'Lyean Sans', sans-serif !important;
         }
@@ -62,28 +59,10 @@
            【全宽 Hero 大图】
            ========================================================================== */
         .project-hero-cover {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    position: relative;
-    border-bottom: 1px solid #e0dbcf;
-    
-    /* 核心机制 1：强制容器锁死为你 AI 画板的 16:7 比例 */
-    aspect-ratio: 16 / 7; 
-    
-    /* 核心机制 2：切断原本死板的 65vh 高度限制，让高度随宽度自适应 */
-    height: auto !important; 
-    min-height: 40vh;
-}
-
-.project-hero-cover img.hero-main-img {
-    width: 100%;
-    height: 100%;
-    
-    /* 核心机制 3：从 cover 改为 contain，确保整张图完整塞进容器，绝对不切边 */
-    object-fit: contain; 
-    
-    display: block;
-}
+            width: 100vw; margin-left: calc(-50vw + 50%); position: relative; border-bottom: 1px solid #e0dbcf;
+            aspect-ratio: 16 / 7; height: auto !important; min-height: 40vh;
+        }
+        .project-hero-cover img.hero-main-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         /* ==========================================================================
            【五栏元数据网格 - 🎯 客观物理数据锁死对齐】
@@ -98,15 +77,15 @@
         /* ==========================================================================
            【简介与庞大 Credit 看板区 - 双栏响应式】
            ========================================================================== */
-        .project-intro-container { display: grid; grid-template-columns: 2.8fr 2.2fr; gap: 60px; margin-bottom: 80px; align-items: flex-start; }
+        .project-intro-container { display: grid; grid-template-columns: 2.8fr 2.2fr; gap: 60px; margin-bottom: 60px; align-items: flex-start; }
         .intro-text { max-width: 800px; }
         .intro-text h2 { font-size: 2.8rem; font-weight: normal; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
         .intro-text p { font-size: 1.2rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
 
-        /* 右侧超大型 Credit 高级降噪看板（容纳全部中英联合团队、主办机构与赞助商） */
+        /* 右侧超大型 Credit 高级降噪看板 */
         .credit-grid-wrapper {
             border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px;
-            max-height: 95vh; overflow-y: auto; padding-right: 10px; /* 防止内容过长允许柔和微滚动 */
+            max-height: 95vh; overflow-y: auto; padding-right: 10px; 
         }
         .credit-grid-wrapper::-webkit-scrollbar { width: 4px; }
         .credit-grid-wrapper::-webkit-scrollbar-thumb { background: #e0dbcf; border-radius: 2px; }
@@ -122,7 +101,6 @@
             font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;
             margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block;
         }
-        /* 紧凑的高密度对齐矩阵 */
         .credit-sub-grid {
             display: grid; grid-template-columns: 125px 1fr; gap: 10px 16px; font-size: 0.85rem; line-height: 1.45; margin-bottom: 15px;
         }
@@ -131,60 +109,12 @@
         
         .credit-pure-list { font-size: 0.82rem; line-height: 1.5; color: #555; margin-bottom: 8px; }
 
-        /* ==========================================================================
-           【智能吸顶固定导航栏】
-           ========================================================================== */
-        .specimen-tabs-wrapper { position: relative; z-index: 500; margin: 40px 0 20px 0; }
-        .specimen-tabs-nav {
-            display: flex; justify-content: space-between; gap: 16px; 
-            border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb;
-            transition: padding 0.3s, box-shadow 0.3s;
+        /* 🎯 2880px 全宽旗舰主样张终点站（100% 干净纯粹展示） */
+        .specimen-flagship-full {
+            width: 100vw; margin-left: calc(-50vw + 50%); margin-top: 20px;
+            background-color: #ede9df; border-top: 1px solid #e0dbcf; border-bottom: 1px solid #e0dbcf;
         }
-        .specimen-tabs-nav.is-sticky {
-            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
-        }
-        .tab-item {
-            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer;
-            background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
-        }
-        .tab-num { font-size: 0.7rem; color: #6e5d4f; letter-spacing: 0.05em; margin-bottom: 4px; }
-        .tab-name { font-weight: bold; font-size: 1rem; color: #1a1a1a; }
-        .tab-item:hover { transform: scale(1.04); background: #e3ded2; box-shadow: 0 6px 20px rgba(43,35,29,0.08); }
-        .tab-item.active { background: #2b231d; border-color: #2b231d; transform: scale(1.01); }
-        .tab-item.active .tab-num { color: #c4b9ae; }
-        .tab-item.active .tab-name { color: #f6f3eb; }
-
-        /* 画廊布局 */
-        .gallery-chapter-title {
-            font-size: 0.8rem; text-transform: uppercase;
-            color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px;
-            letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
-        }
-        .specimen-full-img {
-            width: 100vw; margin-left: calc(-50vw + 50%); margin-bottom: 0; background-color: #ede9df; border-bottom: 1px solid #e0dbcf;
-        }
-        .specimen-full-img img { width: 100%; display: block; }
-
-        /* ==========================================================================
-           【展览文献与展馆实录图看版】
-           ========================================================================== */
-        .exhibition-archive-section {
-            width: 100vw; margin-left: calc(-50vw + 50%); background: #1f1d1b; padding: 90px 0 140px 0; margin-top: 120px; color: #f6f3eb;
-        }
-        .exhibition-archive-section .gallery-chapter-title {
-            width: 90vw; margin: 0 auto 60px auto; border-top: 1px solid #443c36; color: #f6f3eb; padding-top: 30px;
-        }
-        .archive-flex-panel {
-            max-width: 90vw; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 3.5fr; gap: 60px;
-        }
-        .archive-meta-panel h4 { font-size: 1.6rem; font-weight: normal; margin-top: 0; margin-bottom: 20px; line-height: 1.3; color: #f6f3eb; }
-        .archive-meta-panel p { font-size: 0.95rem; color: #c8c2bc; line-height: 1.6; }
-        
-        .archive-photo-wall { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .photo-frame { background: #2b2521; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .specimen-flagship-full img { width: 100%; display: block; }
 
     </style>
 </head>
@@ -206,7 +136,7 @@
             <img class="hero-main-img" src="images/Exhibition_hero_massive.webp" alt="Way of Type Exhibition Graphic Design System Main Visual">
         </div>
 
-        <!-- 五栏元数据网格 - 🎯 客观指标完美对齐 -->
+        <!-- 五栏元数据网格 -->
         <section class="metadata-grid">
             <div><div class="meta-label">Project Scope</div><div class="meta-value">Graphic Design & Exhibition Identity</div></div>
             <div><div class="meta-label">Guided By</div><div class="meta-value">China Foreign Languages Publishing Administration</div></div>
@@ -223,10 +153,10 @@
                 <p>The exhibition is an abridged version of <i>Way of Type: Modernisation of Chinese Typography in China</i> which toured seven cities in China before travelling to the UK, and is a prestigious academic collaboration between the University of Reading and the Central Academy of Fine Arts, Beijing.</p>
             </div>
 
-            <!-- 🎯 右栏：无损完全消化、极其震撼的重组文献级 Credit 看板 -->
+            <!-- 右栏：中英联合团队机构文献级 Credit 看板 -->
             <div class="credit-grid-wrapper">
                 
-                <!-- 1. 核心视觉设计归属（你的主战位） -->
+                <!-- 1. 核心视觉设计归属 -->
                 <div class="credit-section-block">
                     <span class="credit-header-label" style="color:#1a1a1a; border-bottom: 2px solid #1a1a1a;">EXHIBITION GRAPHICS</span>
                     <div class="credit-sub-grid">
@@ -235,7 +165,7 @@
                     </div>
                 </div>
 
-                <!-- 2. 联合策展与主创团队 (中英双列) -->
+                <!-- 2. 联合策展与主创团队 -->
                 <div class="credit-section-block">
                     <span class="credit-header-label">Curatorial & Design Team</span>
                     
@@ -256,10 +186,9 @@
                     </div>
                 </div>
 
-                <!-- 3. 官方权威指导、主协办机构矩阵 -->
+                <!-- 3. 主协办机构 -->
                 <div class="credit-section-block">
                     <span class="credit-header-label">Institutional Framework</span>
-                    
                     <div class="credit-sub-grid">
                         <div class="credit-role">Guided By</div>
                         <div class="credit-names" style="font-size:0.8rem;">China Foreign Languages Publishing Administration (中国外文局)</div>
@@ -279,7 +208,7 @@
                     </div>
                 </div>
 
-                <!-- 4. 顶级学术赞助与特别鸣谢 -->
+                <!-- 4. 学术赞助与特别鸣谢 -->
                 <div class="credit-section-block">
                     <span class="credit-header-label">Special Thanks & Sponsors</span>
                     <div class="credit-pure-list"><strong>Scholars:</strong> Thomas Mullaney (墨磊宁), Yiyuan Ma (马忆原), Lixing (邢立)</div>
@@ -289,102 +218,12 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-            // 吸顶样张陈列
-            ========================================================================== */ -->
-        <div class="specimen-tabs-wrapper" id="tabsWrapper">
-            <div class="specimen-tabs-nav" id="stickyNav">
-                <div class="tab-item active" data-target="specimen-01">
-                    <span class="tab-num">System 01</span>
-                    <span class="tab-name">Visual Identity</span>
-                </div>
-                <div class="tab-item" data-target="specimen-02">
-                    <span class="tab-num">System 02</span>
-                    <span class="tab-name">Environmental Graphics</span>
-                </div>
-            </div>
+        <!-- 🎯 终点大底座：2880px 满宽独立大样张（网页滑到这里戛然而止，干净利落） -->
+        <div class="specimen-flagship-full">
+            <img src="images/Exhibition_flagship_master.webp" alt="Way of Type Exhibition Core Design System Master Repertoire Chart">
         </div>
-
-        <section class="specimen-gallery">
-            <div id="specimen-01">
-                <div class="gallery-chapter-title">
-                    <span>System 01 // Visual Identity System</span>
-                    <span style="color:#aaa;">Typography layout and dual-language editorial standard</span>
-                </div>
-                <div class="specimen-full-img"><img src="images/Exhibition_specimen_01.webp" alt="Exhibition Graphic Identity Specimen Sheet 1"></div>
-            </div>
-
-            <div id="specimen-02">
-                <div class="gallery-chapter-title">
-                    <span>System 02 // Environmental & Wayfinding Design</span>
-                    <span style="color:#aaa;">Information architecture rendering within Reading exhibition space</span>
-                </div>
-                <div class="specimen-full-img"><img src="images/Exhibition_specimen_02.webp" alt="Exhibition Wayfinding Graphic Sheet 2"></div>
-            </div>
-        </section>
-
-        <!-- 展览文献实录馆 -->
-        <section class="exhibition-archive-section">
-            <div class="gallery-chapter-title">
-                <span>Exhibition Archive & Documentation</span>
-                <span>From 7-City China Tour to the United Kingdom</span>
-            </div>
-
-            <div class="archive-flex-panel">
-                <div class="archive-meta-panel">
-                    <h4>UK Curatorial Installation</h4>
-                    <p>Capturing the physical rendering of the abridged exhibition graphics deployed onsite at the University of Reading's gallery spaces. The design system links historical multi-technique movable blocks with cutting-edge digital font reproductions.</p>
-                </div>
-
-                <div class="archive-photo-wall">
-                    <div class="photo-frame"><img src="images/exhibition_live_uk_01.webp" alt="Way of Type Installation View 01"></div>
-                    <div class="photo-frame"><img src="images/exhibition_live_uk_02.webp" alt="Way of Type Installation View 02"></div>
-                </div>
-            </div>
-        </section>
         
     </div>
 
-    <!-- 吸顶控制脚本 -->
-    <script>
-        const tabsWrapper = document.getElementById('tabsWrapper');
-        const stickyNav = document.getElementById('stickyNav');
-        const sections = [
-            { tab: document.querySelector('[data-target="specimen-01"]'), element: document.getElementById('specimen-01') },
-            { tab: document.querySelector('[data-target="specimen-02"]'), element: document.getElementById('specimen-02') }
-        ];
-
-        window.addEventListener('scroll', function() {
-            const wrapperTop = tabsWrapper.getBoundingClientRect().top;
-            if (wrapperTop <= 0) {
-                stickyNav.classList.add('is-sticky');
-                tabsWrapper.style.paddingBottom = stickyNav.offsetHeight + 'px';
-            } else {
-                stickyNav.classList.remove('is-sticky');
-                tabsWrapper.style.paddingBottom = '0px';
-            }
-
-            let currentActive = sections[0].tab;
-            sections.forEach(sec => {
-                const rect = sec.element.getBoundingClientRect();
-                if (rect.top <= 200) { currentActive = sec.tab; }
-            });
-            sections.forEach(sec => {
-                if(sec.tab === currentActive) { sec.tab.classList.add('active'); } 
-                else { sec.tab.classList.remove('active'); }
-            });
-        });
-
-        document.querySelectorAll('.tab-item').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const targetContent = document.getElementById(targetId);
-                if (targetContent) {
-                    const titleElement = targetContent.querySelector('.gallery-chapter-title');
-                    titleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
