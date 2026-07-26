@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +17,6 @@
             font-family: 'Lyean';
             src: url('fonts/Lyean-Italic.woff2') format('woff2');
             font-weight: normal; font-style: italic; font-display: swap;
-        }
-        @font-face {
-            font-family: 'Lyean';
-            src: url('fonts/Lyean-Bold.woff2') format('woff2');
-            font-weight: bold; font-style: normal; font-display: swap;
         }
         @font-face {
             font-family: 'Lyean Sans';
@@ -51,23 +46,37 @@
         header, header *, 
         nav, nav *, 
         .hero-specimen-info-panel, .hero-specimen-info-panel *,
-        .tag, .project-card .tag, .more-link, .list-year, footer, footer * {
+        .project-filter, .project-filter *,
+        .tag, .gallery-card .tag, .more-link, .list-year, .script-badge, footer, footer * {
             font-family: 'Lyean Sans', sans-serif !important;
+            font-weight: normal !important; /* 🎯 100% 强行抹除浏览器对 Sans 的野蛮伪粗体发胀 */
         }
 
-        /* 顶部导航 */
+        /* ==========================================================================
+           【导航栏布局优化与字号跃升】
+           ========================================================================== */
         header {
             display: flex; justify-content: space-between; align-items: center;
             text-transform: uppercase;
+            border-bottom: 1px solid #e0dbcf;
+            padding-bottom: 25px;
+            margin-bottom: 60px;
         }
-        header div, header nav a {
-            font-size: 0.8rem; letter-spacing: 0.1em;
+        header div a {
+            font-size: 1.35rem !important; 
+            letter-spacing: 0.05em;
             text-decoration: none; color: #1a1a1a;
         }
-        header nav a { margin-left: 20px; }
+        header nav a { 
+            font-size: 1.2rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
+            margin-left: 40px; 
+            transition: color 0.2s;
+        }
         header nav a:hover { color: #b85a4b; }
         
-        .tag { font-size: 0.75rem; color: #b85a4b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 15px; }
+        .tag { font-size: 0.85rem; color: #b85a4b; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
         h1 { font-size: 4rem; font-weight: normal; line-height: 1.1; margin: 0 0 30px 0; }
         
         /* Hero 区域：两栏拆分 */
@@ -75,7 +84,7 @@
             display: grid; 
             grid-template-columns: 1fr 1.1fr; 
             gap: 60px; 
-            margin-bottom: 120px; 
+            margin-bottom: 100px; 
             align-items: center; 
         }
 
@@ -122,16 +131,15 @@
             flex-direction: column;
         }
         .info-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem; 
             text-transform: uppercase;
             color: #b85a4b;
             letter-spacing: 0.05em;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .info-value {
-            font-size: 0.95rem;
+            font-size: 1.1rem !important; 
             color: #1a1a1a;
-            font-weight: 500;
             line-height: 1.4;
             transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity;
@@ -139,223 +147,277 @@
         .info-value.fade-out { opacity: 0; }
 
         /* ==========================================================================
-           【作品集横向滚动区域 — 完美同步 4:3 资产复用系统】
+           【全景错落画廊陈列区】
            ========================================================================== */
-        .projects-header {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-bottom: 30px;
+        .projects-header-zone {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            scroll-margin-top: 120px;
         }
-        .section-title { font-size: 2.2rem; font-weight: normal; margin: 0; }
-        .more-link { font-size: 0.9rem; color: #b85a4b; text-decoration: none; letter-spacing: 0.05em; font-weight: bold; }
-        .more-link:hover { text-decoration: underline; }
-
-        .scroll-container {
-            display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 24px; padding-bottom: 30px; margin-bottom: 100px;
-            scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
-        }
-        .scroll-container::-webkit-scrollbar { height: 6px; }
-        .scroll-container::-webkit-scrollbar-track { background: #ede9df; }
-        .scroll-container::-webkit-scrollbar-thumb { background: #b85a4b; border-radius: 3px; }
-
-        .project-card { flex: 0 0 340px; text-decoration: none; color: inherit; box-sizing: border-box; transition: transform 0.3s ease; }
-        .project-card:hover { transform: translateY(-3px); }
-
-        .project-image-box { 
-            width: 100%; 
-            aspect-ratio: 4 / 3; 
-            background-color: #ede9df; 
-            border-radius: 4px; 
-            overflow: hidden; 
-            margin-bottom: 15px; 
-            border: 1px solid #e0dbcf;
-        }
-        .project-image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .project-card:hover .project-image-box img { transform: scale(1.02); }
+        .section-title { font-size: 2.8rem; font-weight: normal; margin: 0 0 25px 0; color: #1a1a1a; }
         
-        .project-card h3 { font-size: 1.8rem; font-weight: normal; margin: 5px 0 5px 0; line-height: 1.2; }
+        /* 🎯 完美清洗：全面摒弃所有的 & 连字符，换装为纯粹英式无衬线 AND */
+        .project-filter {
+            display: flex; gap: 40px;
+            font-size: 1.15rem !important; 
+            letter-spacing: 0.08em; 
+            border-bottom: 1px solid #e0dbcf; padding-bottom: 20px; margin-bottom: 60px;
+            color: #888;
+        }
+        .filter-item { cursor: pointer; transition: color 0.2s; text-transform: uppercase; }
+        .filter-item:hover, .filter-item.active { color: #1a1a1a; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 100px 60px;
+            margin-bottom: 140px;
+        }
+        
+        .gallery-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-card.hidden { display: none !important; }
+
+        .gallery-image-box {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: #ede9df;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            border: 1px solid #e0dbcf;
+            box-shadow: 0 10px 40px rgba(43, 35, 29, 0.03);
+        }
+        .gallery-image-box img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-card:hover .gallery-image-box img { transform: scale(1.025); }
+        
+        .card-meta-badge-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 14px;
+            gap: 20px;
+        }
+        .script-badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .script-badge {
+            font-size: 0.95rem !important; 
+            color: #554a40;
+            background-color: #ede9df;
+            padding: 4px 10px;
+            border-radius: 3px;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+        .card-year-label {
+            font-family: 'Lyean Sans', sans-serif !important;
+            font-size: 1rem;
+            color: #b85a4b;
+            letter-spacing: 0.02em;
+            padding-top: 4px;
+            white-space: nowrap;
+        }
+
+        .gallery-card h3 { font-size: 2.3rem; font-weight: normal; margin: 0 0 12px 0; line-height: 1.2; } 
+        .gallery-desc { font-size: 1.25rem !important; color: #444; line-height: 1.65; max-width: 540px; margin: 0; }
 
         /* ==========================================================================
-           【Talks & Publications】
+           【Talks and Publications】
            ========================================================================== */
-        .public-work-section { margin-bottom: 120px; }
-        .public-work-title { font-size: 3rem; font-weight: normal; max-width: 800px; line-height: 1.2; margin-bottom: 50px; }
+        .public-work-section { margin-bottom: 140px; scroll-margin-top: 120px; }
+        .public-work-title { font-size: 3.2rem; font-weight: normal; max-width: 850px; line-height: 1.2; margin-bottom: 50px; }
         
         .list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .list-box { background-color: #faf9f5; border: 1px solid #e0dbcf; padding: 40px; border-radius: 4px; }
-        .list-box h4 { font-family: "Lyean", serif !important; font-size: 1.8rem; font-weight: normal; margin: 0 0 20px 0; }
+        
+        .list-box-header-zone {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
+        }
+        .list-box h4 { font-family: "Lyean", serif !important; font-size: 2rem; font-weight: normal; margin: 0; }
+        
+        .more-link { 
+            font-size: 0.95rem !important; 
+            color: #b85a4b; 
+            background-color: #ede9df;
+            border: 1px solid #c4b9ae;
+            padding: 6px 14px;
+            border-radius: 3px;
+            text-decoration: none; 
+            letter-spacing: 0.08em; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .more-link:hover { 
+            background-color: #b85a4b;
+            border-color: #b85a4b;
+            color: #f6f3eb; 
+            text-decoration: none; 
+        }
         
         .list-item { 
             display: grid; 
-            grid-template-columns: 60px 1fr auto; 
+            grid-template-columns: 70px 1fr auto; 
             gap: 20px; 
-            padding: 20px 0; 
+            padding: 24px 0; 
             border-top: 1px solid #e0dbcf; 
-            font-size: 1.05rem; 
-            line-height: 1.4; 
+            font-size: 1.25rem !important; 
+            line-height: 1.55; 
         }
-        .list-year { font-size: 0.85rem; color: #b85a4b; font-weight: bold; }
-        .list-item a { font-size: 0.75rem; color: #b85a4b; text-decoration: none; font-weight: bold; }
+        .list-year { font-size: 1rem; color: #b85a4b; letter-spacing: 0.02em; }
+        .list-item a { font-size: 0.9rem; color: #b85a4b; text-decoration: none; letter-spacing: 0.02em; }
         .list-item a:hover { text-decoration: underline; }
 
         /* ==========================================================================
-           【Footer】
+           【🎨 终极完美对齐版式：左右两栏底边绝对切齐，法律防线完美右对齐悬挂】
            ========================================================================== */
-        footer { background-color: #1a1a1a; color: #f6f3eb; padding: 80px 5vw; margin-top: 60px; }
-        .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 100px; margin-bottom: 80px; }
-        .footer-bio h2 { font-style: italic; font-weight: normal; font-size: 3rem; line-height: 1.2; margin: 0 0 30px 0; font-family: "Lyean", serif !important; }
-        .footer-bio p { color: #ccc; font-size: 1.1rem; line-height: 1.6; font-family: "Lyean", serif !important; }
+        footer { background-color: #1a1a1a; color: #f6f3eb; padding: 100px 5vw; margin-top: 60px; scroll-margin-top: 60px; }
         
-        .footer-contact { background-color: #262421; border: 1px solid #363430; padding: 40px; border-radius: 4px; }
-        .footer-contact h4 { font-size: 1.5rem; font-weight: normal; margin: 0 0 20px 0; }
-        .footer-contact p a { color: #f6f3eb; text-decoration: none; border-bottom: 1px solid #666; padding-bottom: 2px; }
-        .footer-contact p a:hover { border-color: #b85a4b; color: #b85a4b; }
-        
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #363430; padding-top: 40px; font-size: 0.9rem; color: #888; }
-    
-    /* ==========================================================================
-           【📱 独立字厂全站移动端 · 物理锁死与流体自适应无损校准系统 · 终极完全体】
-           ========================================================================== */
-        /* 🎯 绝杀元凶：在所有设备上，坚决切断由于 100vw 溢出导致的手机左右晃动和白边 */
-        html, body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-            position: relative;
+        /* 💡 核心机制：align-items: flex-end 强迫左右两栏的最底端像素死死咬合、绝对平齐 */
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.3fr 1fr; 
+            gap: 120px; 
+            margin-bottom: 40px; 
+            align-items: flex-end; 
         }
+        .footer-bio h2 { font-style: italic; font-weight: normal; font-size: 3.2rem; line-height: 1.2; margin: 0 0 30px 0; font-family: "Lyean", serif !important; }
+        .footer-bio p { color: #ccc; font-size: 1.25rem; line-height: 1.65; font-family: "Lyean", serif !important; margin: 0; } 
+        .footer-bio p + p { margin-top: 20px; } 
+        
+        /* 右侧联络大厅加固：彻底向右靠拢 */
+        .footer-contact-architecture {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end; /* 👈 100% 靠右吸附 */
+            text-align: right;     /* 👈 文本完全右对齐 */
+            gap: 18px; 
+            padding: 0; margin: 0;
+            width: 100%;
+        }
+        
+        .contact-monument-title {
+            font-size: 1.35rem !important; 
+            letter-spacing: 0.15em; 
+            color: #b85a4b; 
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .contact-primary-mail {
+            font-size: 1.55rem !important; 
+            margin: 0;
+            line-height: 1.1;
+        }
+        .contact-primary-mail a {
+            color: #f6f3eb;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .contact-primary-mail a:hover { color: #b85a4b; }
+        
+        .contact-social-links { 
+            display: flex; 
+            justify-content: flex-end; 
+            gap: 28px; 
+            margin: 4px 0 0 0; padding: 0; 
+        }
+        .contact-social-links a { 
+            color: #888; 
+            text-decoration: none; 
+            font-size: 1.3rem !important; 
+            letter-spacing: 0.02em; 
+            transition: color 0.2s, border-color 0.2s;
+            padding-bottom: 2px;
+            border-bottom: 1px solid transparent;
+        }
+        .contact-social-links a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        
+        /* 🎯 满足要求：字厂 Web Font 保护声明完美右对齐悬挂，无缝切齐 Biography 的最底线 */
+        .footer-eula-footnote-right {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #2a2824; /* 低调的暗线隔离 */
+            text-align: right; /* 👈 100% 右对齐 */
+            width: 100%;
+        }
+        .footer-eula-footnote-right p {
+            font-family: 'Lyean Sans', sans-serif !important; 
+            font-size: 0.92rem !important; 
+            line-height: 1.6 !important; 
+            color: #666 !important; /* 优雅的暗灰色 */
+            max-width: 440px; /* 控制行宽防止溢出，使其在右侧完美成块 */
+            margin: 0 0 0 auto; /* 强迫块容器本身向右靠拢 */
+        }
+        .footer-eula-footnote-right p i { font-family: "Lyean", serif !important; font-style: italic; color: #aaa; }
+        .footer-eula-footnote-right p a { color: #b85a4b; text-decoration: none; border-bottom: 1px solid #444; }
+        .footer-eula-footnote-right p a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        
+        .footer-bottom { border-top: 1px solid #262421; padding-top: 40px; font-size: 0.95rem; color: #666; }
 
+        /* ==========================================================================
+           流体自适应移动端补丁系统
+           ========================================================================== */
+        html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
         @media (max-width: 768px) {
-            /* 1. 视窗安全卡位：强迫内容在手机两侧留出安全气口，绝不切边 */
-            .container {
-                max-width: 92vw !important;
-                width: 92vw !important;
-                margin: 0 auto !important;
-                padding: 40px 0 0 0 !important;
-            }
-            
-            /* 2. 导航栏降维：PC端一字排开，手机上一律变垂直优雅错叠 */
-            header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 16px !important;
-                margin-bottom: 40px !important;
-            }
-            header nav {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                gap: 10px 15px !important;
-            }
-            header nav a {
-                margin-left: 0 !important;
-                font-size: 0.75rem !important;
-            }
-
-            /* 3. 字号物理降级：防超长单字撑爆手机屏幕 */
+            .container { max-width: 92vw !important; width: 92vw !important; margin: 0 auto !important; padding: 40px 0 0 0 !important; }
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 40px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 10px 15px !important; }
+            header nav a { margin-left: 0 !important; font-size: 0.95rem !important; }
+            header div a { font-size: 1.15rem !important; }
             h1 { font-size: 2.2rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
             .intro-text h2 { font-size: 1.7rem !important; line-height: 1.25 !important; margin-bottom: 20px !important; }
             .public-work-title { font-size: 1.6rem !important; line-height: 1.25 !important; margin-bottom: 30px !important; }
-
-            /* 4. 黄金并排一律变单列：全站 Grid/Flex 横向排版一刀切全部向下流淌 */
-            .hero-section,
-            .project-intro-container, 
-            .exhibition-main-grid,
-            .archive-flex-panel {
-                grid-template-columns: 1fr !important;
-                gap: 35px !important;
-                margin-bottom: 50px !important;
-            }
-
-            /* 5. 粒子舞台与底部看板在移动端的重构 */
-            .particle-stage-box {
-                border-left: none !important;
-                padding-left: 0 !important;
-                border-bottom: 1px solid #e0dbcf !important;
-                padding-bottom: 30px !important;
-                margin-top: 10px !important;
-                aspect-ratio: 1 / 1 !important;
-            }
-            .hero-specimen-info-panel {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-                margin-top: 25px !important;
-            }
-
-            /* 6. 全局客观元数据参数网格：自动软着陆为两列平分 */
-            .metadata-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 20px 16px !important;
-                padding: 25px 0 !important;
-                margin-top: 30px !important;
-                margin-bottom: 30px !important;
-            }
-
-            /* 7. 右侧学术 Credit 名单降维 */
-            .credit-grid-wrapper {
-                border-left: none !important;
-                padding-left: 0 !important;
-                margin-top: 20px !important;
-                max-height: none !important; /* 手机上铺开，取消微滚动 */
-            }
-            .credit-sub-grid {
-                grid-template-columns: 95px 1fr !important;
-                gap: 8px 10px !important;
-            }
-
-            /* 8. 画廊网格与 4:3 缩略图卡片重构 */
-            .projects-grid {
-                grid-template-columns: 1fr !important; /* 错落双栏秒变单列垂直 */
-                gap: 45px !important;
-            }
-            .gallery-card {
-                transform: none !important; /* 手机上抹平 PC 端的垂直错落 */
-            }
+            .hero-section, .project-intro-container, .exhibition-main-grid, .archive-flex-panel { grid-template-columns: 1fr !important; gap: 35px !important; margin-bottom: 50px !important; }
+            .particle-stage-box { border-left: none !important; padding-left: 0 !important; border-bottom: 1px solid #e0dbcf !important; padding-bottom: 30px !important; margin-top: 10px !important; aspect-ratio: 1 / 1 !important; }
+            .hero-specimen-info-panel { grid-template-columns: 1fr !important; gap: 12px !important; margin-top: 25px !important; }
+            .metadata-grid { grid-template-columns: 1fr 1fr !important; gap: 20px 16px !important; padding: 25px 0 !important; margin-top: 30px !important; margin-bottom: 30px !important; }
+            .credit-grid-wrapper { border-left: none !important; padding-left: 0 !important; margin-top: 20px !important; max-height: none !important; }
+            .credit-sub-grid { grid-template-columns: 95px 1fr !important; gap: 8px 10px !important; }
+            .projects-grid { grid-template-columns: 1fr !important; gap: 45px !important; margin-bottom: 60px !important; }
+            .project-filter { font-size: 0.95rem !important; gap: 20px !important; flex-wrap: wrap !important; }
+            .gallery-card { transform: none !important; }
             .gallery-card h3 { font-size: 1.6rem !important; }
-
-            /* 9. 2880px 旗舰大图与全宽图片安全降维 */
-            .project-hero-cover,
-            .specimen-full-img,
-            .specimen-flagship-full,
-            .alphabettes-link-cover-card {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-                border-radius: 0 !important;
-            }
-
-            /* 10. 🎯 绝杀：TangutBux 满宽 3+3 A4 纵廊大变身 */
-            .phd-academic-fullwidth-box {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-            }
-            .phd-academic-split-grid {
-                grid-template-columns: 1fr !important; /* 3对3变一列垂直到底 */
-                gap: 50px !important;
-            }
-            /* 手机上强制让悬浮侧标回到图片上方做精致的行标头 */
-            .sticky-taxonomy-sidebar {
-                position: relative !important;
-                top: 0 !important;
-                margin-bottom: 0 !important;
-                width: 100% !important;
-                padding: 0 0 10px 0 !important;
-            }
+            .gallery-desc { font-size: 1.1rem !important; }
+            .card-meta-badge-line { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+            .script-badge { font-size: 0.85rem !important; padding: 3px 8px !important; }
+            .project-hero-cover, .specimen-full-img, .specimen-flagship-full, .alphabettes-link-cover-card { width: 100vw !important; margin-left: calc(-50vw + 50%) !important; border-radius: 0 !important; }
+            .phd-academic-fullwidth-box { width: 100vw !important; margin-left: calc(-50vw + 50%) !important; }
+            .phd-academic-split-grid { grid-template-columns: 1fr !important; gap: 50px !important; }
+            .sticky-taxonomy-sidebar { position: relative !important; top: 0 !important; margin-bottom: 0 !important; width: 100% !important; padding: 0 0 10px 0 !important; }
             .left-indicator-badge { margin-left: 4vw !important; text-align: left !important; }
             .right-indicator-badge { margin-right: 0 !important; margin-left: 4vw !important; text-align: left !important; }
             .a4-card-monument { border-radius: 0 !important; }
-
-            /* 11. Noto 经文长卷与滑块精调 */
             .sutra-long-scroll-window { height: 320px !important; }
             .sutra-slider-wrapper { width: 92vw !important; margin: 20px auto 0 auto !important; }
-
-            /* 12. Talks & Publications 文献栏高能防错位 */
             .list-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
             .list-box { padding: 20px !important; }
-            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; position: relative !important; }
-            /* 手机上全透明覆盖，抓取任意位置皆可点击外部链接 */
+            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; position: relative !important; font-size: 1.1rem !important; }
             .list-item div:last-child { position: absolute !important; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
             .list-item div:last-child a { display: block; width: 100%; height: 100%; }
-
-            /* 13. Footer 底部洗练落地 */
-            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            
+            /* 手机端底部对齐降级自适应流体复位 */
+            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
             .footer-bio h2 { font-size: 1.8rem !important; }
-            .footer-contact { padding: 20px !important; }
+            .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; margin-top: 10px !important; gap: 15px !important; }
+            .contact-social-links { justify-content: flex-start !important; gap: 20px !important; }
+            .footer-eula-footnote-right { text-align: left !important; margin-top: 20px !important; }
+            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.85rem !important; max-width: 100% !important; }
+            .contact-primary-mail { font-size: 1.35rem !important; }
+            .contact-social-links a { font-size: 1.1rem !important; }
+            
             .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
         }
     </style>
@@ -363,13 +425,14 @@
 <body>
 
     <div class="container">
-        <!-- 导航 -->
+        <!-- 导航区 -->
         <header>
-            <div style="font-weight: bold;"><a href="index.html" style="margin:0; text-decoration: none; color: inherit;">XICHENG YANG</a></div>
+            <div><a href="index.html">XICHENG YANG</a></div>
             <nav>
-                <a href="projects.html">PROJECTS</a>
+                <a href="#projects-anchor">PROJECTS</a>
                 <a href="talks.html">TALKS</a>
                 <a href="bio.html">BIO</a>
+                <a href="#bio-anchor">CONTACT</a>
             </nav>
         </header>
 
@@ -379,12 +442,11 @@
                 <div class="tag" style="margin-bottom: 35px;">Typeface Design · Research</div>
                 <h1>Hi :)<br>I’m Xicheng</h1>
                 
-                <!-- 🎯 史诗级精校：融合你全部高含金量履历的顶奢第一人称学术导言（完美锁定560px黄金行宽） -->
-                <p style="font-size: 1.15rem; line-height: 1.65; color: #222; max-width: 560px; margin-bottom: 20px;">
+                <p style="font-size: 1.35rem; line-height: 1.65; color: #222; max-width: 580px; margin-bottom: 25px;">
                     I am a typeface designer and researcher holding a PhD from the University of Reading (2026). Specialising in Chinese, Tangut, Latin scripts, and complex multi-script typography, my practice bridges meticulous historical script analysis with contemporary digital typeface infrastructure.
                 </p>
-                <p style="font-size: 1.05rem; line-height: 1.6; color: #555; max-width: 560px; margin-bottom: 0;">
-                    With a proven track record of delivering custom type systems for global foundries and academic leaders, my work has been recognised by the New York TDC, Tokyo TDC, and shortlisted for the Malee Scholarship. 
+                <p style="font-size: 1.2rem; line-height: 1.6; color: #555; max-width: 580px; margin-bottom: 0; letter-spacing: 0.01em;">
+                    With a proven track record of delivering custom type systems for global foundries and academic leaders, my work has been recognised by the Tokyo TDC, and won the New York TDC Award.
                 </p>
             </div>
             
@@ -396,102 +458,186 @@
                 <!-- 元数据参数看板 DOM 节点 -->
                 <div class="hero-specimen-info-panel">
                     <div class="info-block">
-                        <span class="info-label">Typeface</span>
+                        <span class="info-label">Specimen Style</span>
                         <span class="info-value" id="info-name">TangutBux</span>
                     </div>
                     <div class="info-block">
-                        <span class="info-label">Script</span>
+                        <span class="info-label">Script System</span>
                         <span class="info-value" id="info-script">Tangut</span>
                     </div>
                     <div class="info-block">
-                        <span class="info-label">Translation</span>
+                        <span class="info-label">Glyph Translation</span>
                         <span class="info-value" id="info-translation">“Speak”</span>
                     </div>
                 </div>
             </div>
         </main>
 
-        <!-- 作品横向展示区 -->
-        <section id="scrollSection">
-            <div class="projects-header">
-                <div class="section-title">Selected type projects</div>
-                <a href="projects.html" class="more-link">MORE →</a>
-            </div>
+        <!-- 作品全景展示画廊区 -->
+        <section class="projects-header-zone" id="projects-anchor">
+            <div class="section-title">Selected type projects</div>
             
-            <div class="scroll-container" id="projectScroller">
-                <!-- 1. Lyean -->
-                <a href="Lyean.html" class="project-card">
-                    <div class="project-image-box"><img src="images/Lyean.webp" alt="Lyean Typeface"></div>
+            <!-- 分类过滤器 -->
+            <div class="project-filter">
+                <span class="filter-item active" data-filter="all">ALL</span>
+                <span class="filter-item" data-filter="typeface">TYPEFACE DESIGN</span>
+                <span class="filter-item" data-filter="tools">DESIGN AND SYSTEM UTILITIES</span>
+            </div>
+
+            <!-- 错落双栏画廊区 -->
+            <div class="projects-grid" id="galleryGrid">
+                
+                <!-- Project 1: Lyean -->
+                <a href="Lyean.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/Lyean.webp" alt="Lyean Typeface Family"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Chinese Characters (Hanzi)</span>
+                            <span class="script-badge">Latin Script</span>
+                            <span class="script-badge">Arabic</span>
+                            <span class="script-badge">Japanese Kana</span>
+                            <span class="script-badge">Hangul</span>
+                        </div>
+                        <div class="card-year-label">2022</div>
+                    </div>
                     <h3>Lyean</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Multi-script type family · 2022</div>
+                    <p class="gallery-desc">An award-winning expansive typeface family harmonising Latin, Arabic, and Simplified Chinese scripts under a unified typographic voice.</p>
                 </a>
-                <!-- 2. AraTangut -->
-                <a href="AraTangut.html" class="project-card">
-                    <div class="project-image-box"><img src="images/AraTangut.webp" alt="AraTangut Custom Font"></div>
+
+                <!-- Project 2: AraTangut -->
+                <a href="AraTangut.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/AraTangut.webp" alt="AraTangut Custom Font"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Tangut Script</span>
+                        </div>
+                        <div class="card-year-label">2023–Present</div>
+                    </div>
                     <h3>AraTangut</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Custom font · 2023–present</div>
+                    <p class="gallery-desc">A research-grade custom revival typeface designed for Professor Arakawa Shintarō, breaking new paradigms in digital typography for the extinct Tangut script.</p>
                 </a>
-                <!-- 3. Shanghai Sky -->
-                <a href="Shanghaisky.html" class="project-card">
-                    <div class="project-image-box"><img src="images/Shanghaisky.webp" alt="Shanghai Sky"></div>
+
+                <!-- Project 3: Shanghai Sky -->
+                <a href="Shanghaisky.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/Shanghaisky.webp" alt="Shanghai Sky Typeface System"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Chinese Characters (Hanzi)</span>
+                            <span class="script-badge">Latin Script</span>
+                            <span class="script-badge">Manchu Script</span>
+                            <span class="script-badge">Japanese Kana</span>
+                        </div>
+                        <div class="card-year-label">2025</div>
+                    </div>
                     <h3>Shanghai Sky</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Custom display font · 2025</div>
+                    <p class="gallery-desc">Awarded the 70th New York TDC Award. A radical multi-script display system combining Kaishu, Running Script, and Small Seal Script textures.</p>
                 </a>
-                <!-- 4. Noto Serif Tangut -->
-                <a href="NotoSerifTangut.html" class="project-card">
-                    <div class="project-image-box"><img src="images/NotoSerifTangut.webp" alt="Noto Serif Tangut"></div>
+
+                <!-- Project 4: Noto Serif Tangut -->
+                <a href="NotoSerifTangut.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/NotoSerifTangut.webp" alt="Noto Serif Tangut"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Tangut Script</span>
+                        </div>
+                        <div class="card-year-label">2021</div>
+                    </div>
                     <h3>Noto Serif Tangut</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Google font · 2021</div>
+                    <p class="gallery-desc">A massive systemic redesign and technical overhaul of the official Google Fonts Tangut repertoire, encompassing 6,915 characters.</p>
                 </a>
-                <!-- 5. Guqin Notation -->
-                <a href="GuqinNotation.html" class="project-card">
-                    <div class="project-image-box"><img src="images/guqin_tool.webp" alt="Guqin Notation System"></div>
-                    <h3>Guqin Notation</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Digital font database · 2018–2024</div>
+
+                <!-- Project 5: Guqin Notation -->
+                <a href="GuqinNotation.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/guqin_tool.webp" alt="Guqin Reduced Character Notation"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Jianzi Characters</span>
+                        </div>
+                        <div class="card-year-label">2018–2024</div>
+                    </div>
+                    <h3>Guqin Notation System</h3>
+                    <p class="gallery-desc">A milestone non-codepoint variable synthesis system database generating over 200,000 reduced character forms following ancient norms.</p>
                 </a>
-                <!-- 6. TangutBux (PhD Project) -->
-                <a href="TangutBux.html" class="project-card">
-                    <div class="project-image-box"><img src="images/TangutBux_thumb.webp" alt="TangutBux PhD Project"></div>
+                
+                <!-- Project 6: TangutBux -->
+                <a href="TangutBux.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/TangutBux_thumb.webp" alt="TangutBux PhD Project Concept"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Tangut Script</span>
+                        </div>
+                        <div class="card-year-label">2025–Present</div>
+                    </div>
                     <h3>TangutBux</h3>
-                    <div class="tag" style="margin-bottom: 6px;">PhD research font · 2025–Present</div>
+                    <p class="gallery-desc">Developed for the PhD research as a proof-of-concept, a Tangut typeface with traditional block-print style traits.</p>
                 </a>
-                <!-- 7. HanJiangYaKai -->
-                <a href="HanJiangYaKai.html" class="project-card">
-                    <div class="project-image-box"><img src="images/hanjiang_thumb.webp" alt="HanJiangYaKai"></div>
+                
+                <!-- Project 7: HanJiangYaKai -->
+                <a href="HanJiangYaKai.html" class="gallery-card" data-category="typeface">
+                    <div class="gallery-image-box"><img src="images/hanjiang_thumb.webp" alt="HanJiangYaKai Experimental Concept"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Chinese Characters (Hanzi)</span>
+                        </div>
+                        <div class="card-year-label">2025–Present</div>
+                    </div>
                     <h3>HanJiangYaKai</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Experimental font concept · 2025</div>
+                    <p class="gallery-desc">Shortlisted in the 13th Founder Award. An ongoing, highly limited experimental typeface exploring contemporary structural dynamics of Kai style.</p>
                 </a>
-                <!-- 8. Way of Type Exhibition Design -->
-                <a href="ExhibitionDesign.html" class="project-card">
-                    <div class="project-image-box"><img src="images/exhibition_design_thumb.webp" alt="Way of Type Exhibition Graphic Design"></div>
-                    <h3>Way of Type</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Exhibition Identity & Graphics · 2023</div>
+
+                <!-- Project 8: Way of Type Exhibition Design -->
+                <a href="ExhibitionDesign.html" class="gallery-card" data-category="tools">
+                    <div class="gallery-image-box"><img src="images/exhibition_design_thumb.webp" alt="Way of Type Exhibition Graphic Design"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Exhibition Graphics System</span>
+                        </div>
+                        <div class="card-year-label">2023</div>
+                    </div>
+                    <h3>Way of Type Exhibition Design</h3>
+                    <p class="gallery-desc">The complete visual identity, wayfinding, and spatial graphic design for the prestigious curatorial collaboration finalised between CAFA and University of Reading.</p>
                 </a>
-                <!-- 9. Tangut Search Utility -->
-                <a href="TangutSearchUtility.html" class="project-card">
-                    <div class="project-image-box"><img src="images/tangut_tool.webp" alt="Tangut Search Engine Tool"></div>
-                    <h3>Tangut Search Utility</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Interactive research utility · 2026</div>
+
+                <!-- Project 9: Tangut Search Utility -->
+                <a href="TangutSearchUtility.html" class="gallery-card" data-category="tools">
+                    <div class="gallery-image-box"><img src="images/tangut_tool.webp" alt="Tangut Composition Lookup Engine"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Interactive Font Search Utility</span>
+                        </div>
+                        <div class="card-year-label">2026</div>
+                    </div>
+                    <h3>Tangut Character Composition and Search Utility</h3>
+                    <p class="gallery-desc">A custom-coded vanilla JS frontend interactive lookup application developed to resolve complex stroke and radical decomposition bottlenecks.</p>
                 </a>
-                <!-- 10. EXCEL Tangut Tool -->
-                <a href="EXCELtangutTool.html" class="project-card">
-                    <div class="project-image-box"><img src="images/excel_tangut_matrix.webp" alt="EXCEL Tangut Tool"></div>
-                    <h3>EXCEL Tangut Tool</h3>
-                    <div class="tag" style="margin-bottom: 6px;">Internal research matrix · 2025</div>
+
+                <!-- Project 10: Excel Tangut Tool -->
+                <a href="EXCELtangutTool.html" class="gallery-card" data-category="tools">
+                    <div class="gallery-image-box"><img src="images/excel_tangut_matrix.webp" alt="Excel Tangut Dictionary Mapping Automation Utility"></div>
+                    <div class="card-meta-badge-line">
+                        <div class="script-badge-container">
+                            <span class="script-badge">Internal Research Matrix</span>
+                        </div>
+                        <div class="card-year-label">2025</div>
+                    </div>
+                    <h3>Copy copy Tangut</h3>
+                    <p class="gallery-desc">An internally deployed proprietary database framework and automated Excel macro scripting layer engineered to map Tangut ideographs to multi-variant Hanzi records.</p>
                 </a>
-            </div> 
+
+            </div>
         </section>
 
         <!-- Talks 列表区 -->
-        <section class="public-work-section">
-            <div class="tag">Speaking & Writing</div>
+        <section class="public-work-section" id="talks-anchor">
+            <div class="tag">Speaking and Writing</div>
             <div class="public-work-title">Public work around letters, tools, and reading culture.</div>
             
             <div class="list-grid">
+                
                 <div class="list-box">
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
-                        <h4 style="margin: 0;">Presentations</h4>
-                        <a href="talks.html" class="more-link" style="font-size: 0.8rem;">MORE ↗</a>
+                    <div class="list-box-header-zone">
+                        <h4>Presentations</h4>
+                        <a href="talks.html" class="more-link">MORE ↗</a>
                     </div>
                     <div class="list-item">
                         <div class="list-year">2026</div>
@@ -505,26 +651,26 @@
                     </div>
                     <div class="list-item">
                         <div class="list-year">2024</div>
-                        <div>The development of modern Chinese punctuation and challenges in typography — <i>Typography Theory Practice</i></div>
+                        <div>The modernisation of modern Chinese punctuation and challenges in typography — <i>Typography Theory Practice</i></div>
                         <div><a href="https://youtu.be/AYHgPJtJV1Y" target="_blank">[Link&nbsp;↗]</a></div>
                     </div>
                 </div>
                 
                 <div class="list-box" style="background-color: #ede9df;">
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
-                        <h4 style="margin: 0;">Publications</h4>
-                        <a href="talks.html" class="more-link" style="font-size: 0.8rem;">MORE ↗</a>
+                    <div class="list-box-header-zone">
+                        <h4>Publications</h4>
+                        <a href="talks.html" class="more-link">MORE ↗</a>
                     </div>
-                    <div class="list-item" style="grid-template-columns: 60px 1fr auto;">
+                    <div class="list-item" style="grid-template-columns: 70px 1fr auto;">
                         <div class="list-year">2026</div>
                         <div>Hanzi - Chinese Characters — <i>Granshan</i></div>
                         <div><a href="https://granshan.com/insights/hanzi-chinese-characters" target="_blank">[Link&nbsp;↗]</a></div>
                     </div>
-                    <div class="list-item" style="grid-template-columns: 60px 1fr;">
+                    <div class="list-item" style="grid-template-columns: 70px 1fr;">
                         <div class="list-year">2025</div>
                         <div>Remaking the Tangut script: new paradigms in designing digital typefaces for extinct writing systems — <i>LetterSeed 28. Ahn Graphics</i></div>
                     </div>
-                    <div class="list-item" style="grid-template-columns: 60px 1fr;">
+                    <div class="list-item" style="grid-template-columns: 70px 1fr;">
                         <div class="list-year">2024</div>
                         <div>The development of modern Chinese punctuation and challenges in typography — <i>Print culture, China Printing Museum.</i></div>
                     </div>
@@ -533,41 +679,92 @@
         </section>
     </div>
 
-    <footer>
+    <!-- Footer 模块 -->
+    <footer id="bio-anchor">
         <div class="container" style="max-width: 90vw; padding: 0;">
+            
+            <!-- 🎯 双栏顶级网格平衡：左栏传记，右栏由 CONTACT 看板与 WOFF2 保护声明共同构成右吸附矩阵 -->
             <div class="footer-grid">
-                
-                <!-- 🎯 完美收尾：把第三人称详细学术背景履历，安放在底部 Bio 展台进行宏大闭环 -->
                 <div class="footer-bio">
                     <div class="tag" style="color: #b85a4b;">Biography</div>
-                    <h2>A practice centered<br>on typographic voice.</h2>
+                    <h2>A practice centred<br>on typographic voice.</h2>
                     <p>
-                        Xicheng Yang is a typeface designer and researcher currently based in the UK. She graduated with distinction from the MA in Typeface Design at the University of Reading (2022), where she subsequently completed her doctorate in 2026. Her specialised research on the development of digital typefaces for the Tangut script—an extinct writing system used in northwestern China between the 11th and 13th centuries.
+                        I am a typeface designer and researcher currently based in the UK. I graduated with distinction from the MA in Typeface Design at the University of Reading (2022), where I subsequently completed my doctorate in 2026. My research focuses on the development of digital typefaces for the Tangut script—an extinct writing system used in northwestern China between the 11th and 13th centuries.
                     </p>
-                    <p style="color: #aaa; font-size: 0.95rem; margin-top: 15px;">
-                        She redesigned Noto Serif Tangut for Google Fonts and engineered the custom typeface AraTangut for Professor Arakawa Shintarō. Her research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
+                    <p style="color: #ccc; font-size: 1.25rem; margin-top: 15px; line-height: 1.6;">
+                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. I redesigned Noto Serif Tangut for Google Fonts and engineered the custom revival typeface AraTangut for Professor Arakawa Shintarō. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
                     </p>
                 </div>
                 
-                <div class="footer-contact">
-                    <h4>Contact</h4>
-                    <p style="font-size: 1.1rem; margin: 30px 0 10px 0;"><a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a></p>
-                    <p style="font-size: 0.85rem; color: #888;">
-                        <a href="https://www.instagram.com/sukecc0206/" style="color: #f6f3eb; text-decoration: none; margin-right:15px;">Instagram</a>
-                        <a href="https://www.linkedin.com/in/xicheng-yang-946343227/" style="color: #f6f3eb; text-decoration: none; margin-right:15px;">LinkedIn</a>
-                        <a href="https://x.com/threecczhu?s=21&t=TUlvxIVUFUdTaBI_Rd-r8A" style="color: #f6f3eb; text-decoration: none;">X</a>
-                    </p>
+                <!-- 右侧极客对齐联络与资产保护看板 -->
+                <div class="footer-contact-architecture">
+                    <h3 class="contact-monument-title">CONTACT</h3>
+                    
+                    <div class="contact-channel-roster">
+                        <div class="contact-primary-mail">
+                            <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>
+                        </div>
+                        
+                        <div class="contact-social-links">
+                            <a href="https://www.instagram.com/sukecc0206/" target="_blank">Instagram</a>
+                            <a href="https://www.linkedin.com/in/xicheng-yang-946343227/" target="_blank">LinkedIn</a>
+                            <a href="https://x.com/threecczhu?s=21&t=TUlvxIVUFUdTaBI_Rd-r8A" target="_blank">X</a>
+                        </div>
+                    </div>
+
+                    <!-- 🎯 满足要求：字厂保护声明完美右对齐，底边缘死死卡齐左侧传记的最后一行文字像素 -->
+                    <div class="footer-eula-footnote-right">
+                        <p>
+                            The proprietary web font assets deployed on this repository—including <i>Lyean Regular</i>, <i>Lyean Italic</i>, and <i>Lyean Sans</i>—are hosted strictly under descriptive portfolio presentation allowances. Any unauthorised extraction, decompilation, redistribution, or secondary utilisation of these <code>.woff2</code> binaries for commercial or private licensing is strictly prohibited. For legitimate font licensing enquiries, please contact <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>.
+                        </p>
+                    </div>
                 </div>
+
             </div>
+            
             <div class="footer-bottom">
                 <div style="color: #aaa;">© 2026 Xicheng Yang</div>
-                <div style="color: #aaa;">Type, spacing, reading.</div>
             </div>
         </div>
     </footer>
 
-    <!-- 粒子脚本 -->
+    <!-- 核心驱动脚本 -->
     <script>
+        const filterItems = document.querySelectorAll('.filter-item');
+        const cards = document.querySelectorAll('.gallery-card');
+
+        filterItems.forEach(item => {
+            item.addEventListener('click', () => {
+                filterItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const targetFilter = item.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (targetFilter === 'all' || cardCategory === targetFilter) {
+                        card.classList.remove('hidden'); 
+                    } else {
+                        card.classList.add('hidden');    
+                    }
+                });
+
+                recalculateLayout();
+            });
+        });
+
+        function recalculateLayout() {
+            const visibleCards = document.querySelectorAll('.gallery-card:not(.hidden)');
+            visibleCards.forEach((card, index) => {
+                if (index % 2 === 1) {
+                    card.style.transform = 'translateY(50px)'; 
+                } else {
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        /* 粒子画布引擎 */
         const SPECIMEN_DATA = [
             { imageSrc: "images/tangut_particle_src.webp", name: "TangutBux", script: "Tangut", translation: "“Speak”" },
             { imageSrc: "images/tangut_particle_src_02.webp", name: "Lyean Regular", script: "Simplified Chinese (Hanzi)", translation: "“Forever”" },
@@ -642,7 +839,7 @@
             nameEl.classList.add('fade-out'); scriptEl.classList.add('fade-out'); translationEl.classList.add('fade-out');
             setTimeout(() => {
                 const data = SPECIMEN_DATA[nextIndex];
-                nameEl.textContent = data.name || "—"; scriptEl.toggleAttribute
+                nameEl.textContent = data.name || "—";
                 scriptEl.textContent = data.script || "—"; translationEl.textContent = data.translation ? data.translation : "—";
                 nameEl.classList.remove('fade-out'); scriptEl.classList.remove('fade-out'); translationEl.classList.remove('fade-out');
             }, 300);
@@ -719,26 +916,7 @@
 
         window.addEventListener("resize", () => initScene(currentDataIndex));
         initScene(0); drawLoop();
-
-        const scroller = document.getElementById('projectScroller');
-        const scrollSection = document.getElementById('scrollSection');
-        let isSectionHovered = false; let scrollerMouseX = 0; let speed = 0; let animationFrame;
-
-        scrollSection.addEventListener('mouseenter', () => { isSectionHovered = true; startLoop(); });
-        scrollSection.addEventListener('mouseleave', () => { isSectionHovered = false; speed = 0; cancelAnimationFrame(animationFrame); });
-        scrollSection.addEventListener('mousemove', (e) => {
-            const rect = scrollSection.getBoundingClientRect();
-            scrollerMouseX = e.clientX - rect.left;
-            const width = rect.width; const threshold = 0.25; 
-            if (scrollerMouseX > width * (1 - threshold)) { speed = ((scrollerMouseX - width * (1 - threshold)) / (width * threshold)) * 8; } 
-            else if (scrollerMouseX < width * threshold) { speed = ((scrollerMouseX - width * threshold) / (width * threshold)) * 8; } 
-            else { speed = 0; }
-        });
-
-        function startLoop() {
-            function update() { if (!isSectionHovered) return; scroller.scrollLeft += speed; animationFrame = requestAnimationFrame(update); }
-            cancelAnimationFrame(animationFrame); animationFrame = requestAnimationFrame(update);
-        }
+        recalculateLayout();
     </script>
 </body>
 </html>
