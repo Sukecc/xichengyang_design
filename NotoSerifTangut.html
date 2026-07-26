@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noto Serif Tangut — Project Detail | XICHENG YANG</title>
     <style>
         /* ==========================================================================
-           【Lyean Serif & Sans 核心家族系统】
+           【Lyean Serif & Sans 核心家族系统 - 严格权重真粗体映射】
            ========================================================================== */
         @font-face {
             font-family: 'Lyean';
             src: url('fonts/Lyean-Regular.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Lyean';
+            src: url('fonts/Lyean-Italic.woff2') format('woff2');
+            font-weight: normal; font-style: italic; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Lyean';
+            src: url('fonts/Lyean-Bold.woff2') format('woff2');
+            font-weight: bold; font-style: normal; font-display: swap;
         }
         @font-face {
             font-family: 'Lyean Sans';
@@ -25,16 +35,18 @@
             -webkit-font-smoothing: antialiased;
         }
         
+        html { scroll-behavior: smooth; }
+
         body {
             margin: 0; padding: 0;
             background-color: #f6f3eb;
             color: #1a1a1a;
-            overflow-x: hidden;
         }
         .container {
             max-width: 90vw; margin: 0 auto; padding: 60px 0 0 0;
         }
         
+        /* 🎯 强力穿透！保证 100% 的 无衬线（Sans）属性区域都完美调用 Lyean Sans */
         header, header *, 
         nav, nav *, 
         .metadata-grid, .metadata-grid *, 
@@ -45,33 +57,56 @@
         .credit-grid-wrapper, .credit-grid-wrapper *,
         .marquee-caption, .marquee-caption *,
         .scroll-guide-overlay, .sutra-slider-wrapper *,
-        .tag {
+        .tag, footer, footer * {
             font-family: 'Lyean Sans', sans-serif !important;
+            font-weight: normal !important; /* 🎯 100% 强行抹除浏览器对 Sans 的野蛮伪粗体发胀 */
         }
 
+        /* ==========================================================================
+           【导航栏布局优化与字号跃升 - 100% 对齐首页】
+           ========================================================================== */
         header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 60px; text-transform: uppercase;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e0dbcf;
+            padding-bottom: 25px;
+            margin-bottom: 60px;
         }
-        header div, header nav a {
-            font-size: 0.8rem; letter-spacing: 0.1em;
-            text-decoration: none; color: #1a1a1a; 
+        header div a {
+            font-size: 1.35rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
         }
-        header nav a { margin-left: 20px; }
+        header nav a { 
+            font-size: 1.2rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
+            margin-left: 40px; 
+            transition: color 0.2s;
+        }
         header nav a:hover { color: #b85a4b; }
 
         /* ==========================================================================
-           【全宽 Hero 大图】
+           【全宽 Hero 大图 + 悬浮荣誉抽屉】
            ========================================================================== */
         .project-hero-cover {
-            width: 100vw; margin-left: calc(-50vw + 50%); position: relative; border-bottom: 1px solid #e0dbcf;
-            aspect-ratio: 16 / 7; height: auto !important; min-height: 40vh;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            position: relative;
+            border-bottom: 1px solid #e0dbcf;
+            aspect-ratio: 16 / 7; 
+            height: auto !important; 
+            min-height: 40vh;
         }
-        .project-hero-cover img.hero-main-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        /* ==========================================================================
-           【🎨 终极重火力：Hero 右下角绝对切齐 · 红褐金实心勋章卡扣】
-           ========================================================================== */
+        .project-hero-cover img.hero-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            display: block;
+        }
+
+        /* 🎨 终极重火力：Hero 右下角绝对切齐 · 黑金红褐实心钢印勋章系统 */
         .hero-floating-awards { position: absolute; bottom: 0; right: 0; z-index: 100; cursor: pointer; outline: none; }
         .award-stamp-trigger {
             width: 80px; height: 64px; background: #5b4136; border-radius: 6px 0 0 0; 
@@ -110,7 +145,7 @@
            ========================================================================== */
         .project-intro-container { display: grid; grid-template-columns: 3.1fr 1.9fr; gap: 60px; margin-bottom: 80px; align-items: flex-start; }
         .intro-text { max-width: 800px; }
-        .intro-text h2 { font-size: 2.8rem; font-weight: normal; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
+        .intro-text h2 { font-size: 2.8rem; font-weight: bold !important; font-family: "Lyean", serif !important; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
         .intro-text p { font-size: 1.2rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
 
         .intro-links-group { display: flex; gap: 15px; margin-top: 40px; }
@@ -155,12 +190,12 @@
         }
         .specimen-full-img {
             width: 100vw; margin-left: calc(-50vw + 50%); margin-bottom: 0; background-color: #ede9df; border-bottom: 1px solid #e0dbcf;
-            position: relative; /* 🎯 锁死作用域：防止 read from right 飘出舞台 */
+            position: relative;
         }
         .specimen-full-img img { width: 100%; display: block; }
 
         /* ==========================================================================
-           【🎯 独立研发：数字文献自流物跑马灯 + 磁吸滑块导览控制室】
+           【数字文献自流物跑马灯 + 磁吸滑块导览控制室】
            ========================================================================== */
         .sutra-long-scroll-window {
             width: 100vw; height: 714px; overflow: hidden; position: relative; background: #ede9df;
@@ -170,7 +205,6 @@
         }
         .sutra-scroll-track img { height: 100%; width: auto; object-fit: contain; display: block; -webkit-user-drag: none; }
 
-        /* 3秒淡出右往左读专属暗色遮罩 */
         .scroll-guide-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(43, 35, 29, 0.4);
             z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -185,27 +219,23 @@
             100% { transform: translateX(5px); opacity: 0.4; }
         }
 
-        /* 🎯 极其精致的定制极简学术级滑动条 */
         .sutra-slider-wrapper {
             width: 90vw; margin: 25px auto 0 auto; display: flex; flex-direction: column; gap: 8px;
         }
         .sutra-slider-axis {
             width: 100%; height: 2px; background: #e0dbcf; position: relative; border-radius: 1px;
         }
-        /* 原生 Input 隐形化注入，完美保留高级渲染 */
         .sutra-range-input {
             position: absolute; top: -10px; left: 0; width: 100%; height: 24px; opacity: 0; cursor: pointer; z-index: 20; margin: 0;
         }
         .sutra-slider-handle {
-            position: absolute; top: -5px; left: 100%; /* 💡 初始磁吸在 100% 最右端开篇 */
-            width: 40px; height: 12px; background: #5b4136; border-radius: 2px;
+            position: absolute; top: -5px; left: 100%; width: 40px; height: 12px; background: #5b4136; border-radius: 2px;
             transform: translateX(-50%); transition: background-color 0.2s; pointer-events: none; z-index: 15;
             box-shadow: 0 2px 8px rgba(91, 65, 54, 0.2);
         }
         .sutra-range-input:hover + .sutra-slider-handle { background: #b85a4b; }
         .sutra-slider-caption { display: flex; justify-content: space-between; font-size: 0.68rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
 
-        /* 视频容器 */
         .specimen-video-box { width: 100vw; margin-left: calc(-50vw + 50%); background-color: #000; aspect-ratio: 16 / 9; }
         .specimen-video-box video { width: 100%; height: 100%; display: block; object-fit: cover; }
 
@@ -232,150 +262,62 @@
         .marquee-track.is-focusing .marquee-item:hover { opacity: 1; transform: scale(1.02); }
         .marquee-track.is-focusing .marquee-item:hover .marquee-img-box { border-color: #b85a4b; }
 
-/* ==========================================================================
-           【📱 独立字厂全站移动端 · 物理锁死与流体自适应无损校准系统 · 终极完全体】
+        /* ==========================================================================
+           【🎨 100% 克隆首页：左右两栏绝对切齐、法律声明大黑页脚】
            ========================================================================== */
-        /* 🎯 绝杀元凶：在所有设备上，坚决切断由于 100vw 溢出导致的手机左右晃动和白边 */
-        html, body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-            position: relative;
-        }
+        footer { background-color: #1a1a1a; color: #f6f3eb; padding: 100px 5vw; margin-top: 60px; scroll-margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 120px; margin-bottom: 40px; align-items: flex-end; }
+        .footer-bio h2 { font-style: italic; font-weight: normal; font-size: 3.2rem; line-height: 1.2; margin: 0 0 30px 0; font-family: "Lyean", serif !important; }
+        .footer-bio p { color: #ccc; font-size: 1.25rem; line-height: 1.65; font-family: "Lyean", serif !important; margin: 0; } 
+        .footer-bio p + p { margin-top: 20px; } 
+        
+        .footer-contact-architecture { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; gap: 18px; padding: 0; margin: 0; width: 100%; }
+        .contact-monument-title { font-size: 1.35rem !important; letter-spacing: 0.15em; color: #b85a4b; margin: 0; line-height: 1; }
+        .contact-primary-mail { font-size: 1.55rem !important; margin: 0; line-height: 1.1; }
+        .contact-primary-mail a { color: #f6f3eb; text-decoration: none; transition: color 0.2s; }
+        .contact-primary-mail a:hover { color: #b85a4b; }
+        
+        .contact-social-links { display: flex; justify-content: flex-end; gap: 28px; margin: 4px 0 0 0; padding: 0; }
+        .contact-social-links a { color: #888; text-decoration: none; font-size: 1.3rem !important; letter-spacing: 0.02em; transition: color 0.2s, border-color 0.2s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+        .contact-social-links a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        
+        .footer-eula-footnote-right { margin-top: 25px; padding-top: 20px; border-top: 1px solid #2a2824; text-align: right; width: 100%; }
+        .footer-eula-footnote-right p { font-size: 0.92rem !important; line-height: 1.6 !important; color: #666 !important; max-width: 440px; margin: 0 0 0 auto; }
+        .footer-eula-footnote-right p i { font-family: "Lyean", serif !important; font-style: italic; color: #aaa; }
+        .footer-eula-footnote-right p a { color: #b85a4b; text-decoration: none; border-bottom: 1px solid #444; }
+        .footer-eula-footnote-right p a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        .footer-bottom { border-top: 1px solid #262421; padding-top: 40px; font-size: 0.95rem; color: #666; }
 
+        /* ==========================================================================
+           【流体自适应移动端补丁系统 - 100% 物理锁死】
+           ========================================================================== */
+        html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
         @media (max-width: 768px) {
-            /* 1. 视窗安全卡位：强迫内容在手机两侧留出安全气口，绝不切边 */
-            .container {
-                max-width: 92vw !important;
-                width: 92vw !important;
-                margin: 0 auto !important;
-                padding: 40px 0 0 0 !important;
-            }
-            
-            /* 2. 导航栏降维：PC端一字排开，手机上一律变垂直优雅错叠 */
-            header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 16px !important;
-                margin-bottom: 40px !important;
-            }
-            header nav {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                gap: 10px 15px !important;
-            }
-            header nav a {
-                margin-left: 0 !important;
-                font-size: 0.75rem !important;
-            }
-
-            /* 3. 字号物理降级：防超长单字撑爆手机屏幕 */
+            .container { max-width: 92vw !important; width: 92vw !important; margin: 0 auto !important; padding: 40px 0 0 0 !important; }
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 40px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 10px 15px !important; }
+            header nav a { margin-left: 0 !important; font-size: 0.75rem !important; }
+            header div a { font-size: 1.15rem !important; }
             h1 { font-size: 2.2rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
             .intro-text h2 { font-size: 1.7rem !important; line-height: 1.25 !important; margin-bottom: 20px !important; }
-            .public-work-title { font-size: 1.6rem !important; line-height: 1.25 !important; margin-bottom: 30px !important; }
 
-            /* 4. 黄金并排一律变单列：全站 Grid/Flex 横向排版一刀切全部向下流淌 */
-            .hero-section,
-            .project-intro-container, 
-            .exhibition-main-grid,
-            .archive-flex-panel {
-                grid-template-columns: 1fr !important;
-                gap: 35px !important;
-                margin-bottom: 50px !important;
-            }
+            .project-intro-container { grid-template-columns: 1fr !important; gap: 35px !important; }
+            .metadata-grid { grid-template-columns: 1fr 1fr !important; gap: 20px 16px !important; padding: 25px 0 !important; }
+            .credit-grid-wrapper { border-left: none !important; padding-left: 0 !important; margin-top: 20px !important; }
+            
+            .specimen-tabs-nav { flex-wrap: wrap !important; gap: 8px !important; }
+            .tab-item { padding: 8px 12px !important; }
+            .tab-name { font-size: 0.85rem !important; }
+            .project-hero-cover { border-radius: 0 !important; }
 
-            /* 5. 粒子舞台与底部看板在移动端的重构 */
-            .particle-stage-box {
-                border-left: none !important;
-                padding-left: 0 !important;
-                border-bottom: 1px solid #e0dbcf !important;
-                padding-bottom: 30px !important;
-                margin-top: 10px !important;
-                aspect-ratio: 1 / 1 !important;
-            }
-            .hero-specimen-info-panel {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-                margin-top: 25px !important;
-            }
-
-            /* 6. 全局客观元数据参数网格：自动软着陆为两列平分 */
-            .metadata-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 20px 16px !important;
-                padding: 25px 0 !important;
-                margin-top: 30px !important;
-                margin-bottom: 30px !important;
-            }
-
-            /* 7. 右侧学术 Credit 名单降维 */
-            .credit-grid-wrapper {
-                border-left: none !important;
-                padding-left: 0 !important;
-                margin-top: 20px !important;
-                max-height: none !important; /* 手机上铺开，取消微滚动 */
-            }
-            .credit-sub-grid {
-                grid-template-columns: 95px 1fr !important;
-                gap: 8px 10px !important;
-            }
-
-            /* 8. 画廊网格与 4:3 缩略图卡片重构 */
-            .projects-grid {
-                grid-template-columns: 1fr !important; /* 错落双栏秒变单列垂直 */
-                gap: 45px !important;
-            }
-            .gallery-card {
-                transform: none !important; /* 手机上抹平 PC 端的垂直错落 */
-            }
-            .gallery-card h3 { font-size: 1.6rem !important; }
-
-            /* 9. 2880px 旗舰大图与全宽图片安全降维 */
-            .project-hero-cover,
-            .specimen-full-img,
-            .specimen-flagship-full,
-            .alphabettes-link-cover-card {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-                border-radius: 0 !important;
-            }
-
-            /* 10. 🎯 绝杀：TangutBux 满宽 3+3 A4 纵廊大变身 */
-            .phd-academic-fullwidth-box {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-            }
-            .phd-academic-split-grid {
-                grid-template-columns: 1fr !important; /* 3对3变一列垂直到底 */
-                gap: 50px !important;
-            }
-            /* 手机上强制让悬浮侧标回到图片上方做精致的行标头 */
-            .sticky-taxonomy-sidebar {
-                position: relative !important;
-                top: 0 !important;
-                margin-bottom: 0 !important;
-                width: 100% !important;
-                padding: 0 0 10px 0 !important;
-            }
-            .left-indicator-badge { margin-left: 4vw !important; text-align: left !important; }
-            .right-indicator-badge { margin-right: 0 !important; margin-left: 4vw !important; text-align: left !important; }
-            .a4-card-monument { border-radius: 0 !important; }
-
-            /* 11. Noto 经文长卷与滑块精调 */
-            .sutra-long-scroll-window { height: 320px !important; }
-            .sutra-slider-wrapper { width: 92vw !important; margin: 20px auto 0 auto !important; }
-
-            /* 12. Talks & Publications 文献栏高能防错位 */
-            .list-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-            .list-box { padding: 20px !important; }
-            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; position: relative !important; }
-            /* 手机上全透明覆盖，抓取任意位置皆可点击外部链接 */
-            .list-item div:last-child { position: absolute !important; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
-            .list-item div:last-child a { display: block; width: 100%; height: 100%; }
-
-            /* 13. Footer 底部洗练落地 */
-            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
             .footer-bio h2 { font-size: 1.8rem !important; }
-            .footer-contact { padding: 20px !important; }
+            .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; margin-top: 10px !important; gap: 15px !important; }
+            .contact-social-links { justify-content: flex-start !important; gap: 20px !important; }
+            .footer-eula-footnote-right { text-align: left !important; margin-top: 20px !important; }
+            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.85rem !important; max-width: 100% !important; }
+            .contact-primary-mail { font-size: 1.35rem !important; }
+            .contact-social-links a { font-size: 1.1rem !important; }
             .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
         }
     </style>
@@ -383,17 +325,18 @@
 <body>
 
     <div class="container">
-        <!-- 导航 -->
+        <!-- 统一化头部导航区 -->
         <header>
-            <div><a href="index.html" style="margin:0; text-decoration: none; color: inherit; font-weight: normal;">XICHENG YANG</a></div>
+            <div><a href="index.html">XICHENG YANG</a></div>
             <nav>
-                <a href="projects.html" style="color: #b85a4b; font-weight: bold;">PROJECTS</a>
+                <a href="index.html#projects-anchor" style="color: #b85a4b; font-weight: bold;">PROJECTS</a>
                 <a href="talks.html">TALKS</a>
                 <a href="bio.html">BIO</a>
+                <a href="#contact-anchor-target">CONTACT</a>
             </nav>
         </header>
 
-        <!-- 全宽 Cover -->
+        <!-- 全宽 Hero Cover -->
         <div class="project-hero-cover">
             <img class="hero-main-img" src="images/NotoTangut_hero_massive.webp" alt="Noto Serif Tangut Global Release Showcase">
             
@@ -489,20 +432,17 @@
                 </div>
                 <div class="specimen-full-img">
                     
-                    <!-- 淡淡向左指引的手势覆盖层（已锁死在长卷局部作用域内） -->
                     <div class="scroll-guide-overlay" id="sutraGuide">
                         <div class="guide-arrow-box">←</div>
                         <div class="guide-text-box">Read from Right to Left</div>
                     </div>
 
-                    <!-- 流体视窗舞台 -->
                     <div class="sutra-long-scroll-window" id="sutraWindow">
                         <div class="sutra-scroll-track" id="sutraTrack">
                             <img id="sutraImg" src="images/NotoTangut_bilingual_scroll.webp" alt="Noto Serif Tangut Bilingual Scripture Massive Long Scroll">
                         </div>
                     </div>
 
-                    <!-- 🎯 科学文献级先锋磁吸滑块操纵台 -->
                     <div class="sutra-slider-wrapper">
                         <div class="sutra-slider-axis">
                             <input type="range" id="sutraRange" class="sutra-range-input" min="0" max="100" value="100">
@@ -619,11 +559,55 @@
         
     </div>
 
+    <!-- ==========================================================================
+       【🎨 100% 首页统一：左右两栏绝对切齐、法律声明大黑页脚】
+       ========================================================================== */ -->
+    <footer id="contact-anchor-target">
+        <div class="container" style="max-width: 90vw; padding: 0;">
+            
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="tag" style="color: #b85a4b;">Biography</div>
+                    <h2>A practice centred<br>on typographic voice.</h2>
+                    <p>
+                        I am a typeface designer and researcher currently based in the UK. I graduated with distinction from the MA in Typeface Design at the University of Reading (2022), where I subsequently completed my doctorate in 2026. My research focuses on the development of digital typefaces for the Tangut script—an extinct writing system used in northwestern China between the 11th and 13th centuries.
+                    </p>
+                    <p style="color: #ccc; font-size: 1.25rem; margin-top: 15px; line-height: 1.6;">
+                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. My independent font design has won awards, including the New York TDC Award and recognition from the Tokyo TDC for AraTangut. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
+                    </p>
+                </div>
+                
+                <div class="footer-contact-architecture">
+                    <h3 class="contact-monument-title">CONTACT</h3>
+                    
+                    <div class="contact-channel-roster">
+                        <div class="contact-primary-mail">
+                            <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>
+                        </div>
+                        
+                        <div class="contact-social-links">
+                            <a href="https://www.instagram.com/sukecc0206/" target="_blank">Instagram</a>
+                            <a href="https://www.linkedin.com/in/xicheng-yang-946343227/" target="_blank">LinkedIn</a>
+                            <a href="https://x.com/threecczhu?s=21&t=TUlvxIVUFUdTaBI_Rd-r8A" target="_blank">X</a>
+                        </div>
+                    </div>
+
+                    <div class="footer-eula-footnote-right">
+                        <p>
+                            The proprietary web font assets deployed on this repository—including <i>Lyean Regular</i>, <i>Lyean Italic</i>, and <i>Lyean Sans</i>—are hosted strictly under descriptive portfolio presentation allowances. Any unauthorised extraction, decompilation, redistribution, or secondary utilisation of these <code>.woff2</code> binaries for commercial or private licensing is strictly prohibited. For legitimate font licensing enquiries, please contact <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div style="color: #aaa;">© 2026 Xicheng Yang</div>
+            </div>
+        </div>
+    </footer>
+
     <!-- 交互控制中心 -->
     <script>
-        /* ==========================================================================
-           1. 吸顶导航与高亮滚动联动
-           ========================================================================== */
         const tabsWrapper = document.getElementById('tabsWrapper');
         const stickyNav = document.getElementById('stickyNav');
         const sections = [
@@ -664,9 +648,6 @@
             });
         });
 
-        /* ==========================================================================
-           2. 🎯 【长卷模块终极体：从右侧开篇渲染 + 恒速缓慢自动滑 + 阻尼滑块双向随动】
-           ========================================================================== */
         const sWin = document.getElementById('sutraWindow');
         const sTrack = document.getElementById('sutraTrack');
         const sGuide = document.getElementById('sutraGuide');
@@ -675,13 +656,12 @@
         const sHandle = document.getElementById('sutraHandle');
 
         let scrollX = 0;            
-        let targetSpeed = -0.6;     // 默认缓慢流体从右往左流淌的速度
+        let targetSpeed = -0.6;     
         let currentSpeed = -0.6;
         let isSutraHovered = false;
-        let isUserDraggingSlider = false; // 判断用户当前是否在强行拖拽滑块
+        let isUserDraggingSlider = false;
         const friction = 0.08;
 
-        // 3秒后让右往左读的指引覆盖层自然优雅淡出
         setTimeout(() => {
             if(sGuide) {
                 sGuide.style.opacity = '0';
@@ -689,22 +669,19 @@
             }
         }, 3000);
 
-        // 🎯 核心黑科技机制：必须死死等 15485px 巨幅大图加载完毕后，秒速将其强行强制推到最右侧
         function initSutraPosition() {
             const maxScroll = sWin.clientWidth - sTrack.scrollWidth;
-            scrollX = maxScroll; // 直接初始化在最右端的极限值
+            scrollX = maxScroll; 
             sTrack.style.transform = `translateX(${scrollX}px)`;
-            updateSliderUI(100);  // 进度条手柄跟着秒切到 100% 卷首位置
+            updateSliderUI(100); 
         }
 
         if (sImg.complete) { initSutraPosition(); } 
         else { sImg.onload = initSutraPosition; }
 
-        // 物理缓动渲染主循环
         function updateSutraScroll() {
             const maxScroll = sWin.clientWidth - sTrack.scrollWidth;
 
-            // 如果用户正在手动拉滑块，流体引擎临时静音，由滑块数据全权指挥
             if (!isUserDraggingSlider) {
                 if (!isSutraHovered) {
                     scrollX += currentSpeed;
@@ -713,13 +690,11 @@
                     scrollX += currentSpeed;
                 }
 
-                // 物理边界锁死保护
                 if (scrollX > 0) scrollX = 0;
                 if (scrollX < maxScroll) scrollX = maxScroll;
 
                 sTrack.style.transform = `translateX(${scrollX}px)`;
 
-                // 🎯 随动奇迹：长图自己在走的时候，反向计算百分比，推着下方的滑块跟着平移
                 if (maxScroll < 0) {
                     const currentPercent = (scrollX / maxScroll) * 100;
                     sRange.value = currentPercent;
@@ -730,28 +705,24 @@
             requestAnimationFrame(updateSutraScroll);
         }
 
-        // 物理滑块手柄平移同步器
         function updateSliderUI(percent) {
             sHandle.style.left = percent + '%';
         }
 
-        // 🎯 监听滑块拖拽事件：实现 100% 像素级精准导览
         sRange.addEventListener('input', function() {
             isUserDraggingSlider = true;
             const percent = parseFloat(this.value);
             updateSliderUI(percent);
 
             const maxScroll = sWin.clientWidth - sTrack.scrollWidth;
-            // 百分比映射到长卷的真实负数坐标中
             scrollX = (percent / 100) * maxScroll;
             sTrack.style.transform = `translateX(${scrollX}px)`;
         });
 
         sRange.addEventListener('change', function() {
-            isUserDraggingSlider = false; // 拖动松开鼠标后，流体自动流淌引擎重新接管
+            isUserDraggingSlider = false; 
         });
 
-        // 鼠标在长廊视窗内漂移时的边缘加速器
         sWin.addEventListener('mousemove', function(e) {
             isSutraHovered = true;
             const rect = sWin.getBoundingClientRect();
@@ -761,10 +732,10 @@
             
             if (mouseX < winW * threshold) {
                 const intensity = (winW * threshold - mouseX) / (winW * threshold);
-                targetSpeed = intensity * 14; // 向左倒带加速
+                targetSpeed = intensity * 14; 
             } else if (mouseX > winW * (1 - threshold)) {
                 const intensity = (mouseX - winW * (1 - threshold)) / (winW * threshold);
-                targetSpeed = -intensity * 14; // 向右冲刺加速
+                targetSpeed = -intensity * 14; 
             } else {
                 targetSpeed = -0.4;
             }
@@ -775,12 +746,8 @@
             targetSpeed = -0.6; currentSpeed = -0.6;
         });
 
-        // 启动数字文献大阵
         requestAnimationFrame(updateSutraScroll);
 
-        /* ==========================================================================
-           3. 磁吸居中物理缓动长廊引擎（Type in Use）
-           ========================================================================== */
         const track = document.getElementById('marqueeTrack');
         const win = document.getElementById('marqueeWindow');
         const items = document.querySelectorAll('.marquee-item');

@@ -66,14 +66,38 @@
             max-width: 90vw; margin: 0 auto; padding: 60px 0;
         }
         
+       /* 🎯 强力穿透！保证 100% 的 无衬线（Sans）属性区域都完美调用 Lyean Sans */
+        header, header *, 
+        nav, nav *, 
+        .tag, footer, footer * {
+            font-family: 'Lyean Sans', sans-serif !important;
+            font-weight: normal !important;
+        }
+
+        /* ==========================================================================
+           【导航栏布局优化与字号跃升 - 100% 对齐首页】
+           ========================================================================== */
         header {
             display: flex; justify-content: space-between; align-items: center;
-            font-family: 'Lyean Sans', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em;
-            margin-bottom: 80px; text-transform: uppercase;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e0dbcf;
+            padding-bottom: 25px;
+            margin-bottom: 60px;
         }
-        header a { text-decoration: none; color: #1a1a1a; margin-left: 20px; }
-        header a:hover { color: #b85a4b; }
-        header a.active { color: #b85a4b; font-weight: bold; }
+        header div a {
+            font-size: 1.35rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
+        }
+        header nav a { 
+            font-size: 1.2rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
+            margin-left: 40px; 
+            transition: color 0.2s;
+        }
+        header nav a:hover { color: #b85a4b; }
+        header nav a.active { color: #b85a4b; font-weight: bold; }
 
         .tag { font-family: 'Lyean Sans', sans-serif; font-size: 0.75rem; color: #b85a4b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 15px; }
         
@@ -326,11 +350,11 @@
 <body>
 
     <div class="container">
-        <!-- 顶部导航 -->
+        <!-- 统一化头部导航区 (BIO 处于高亮激活态) -->
         <header>
-            <div style="font-weight: bold;"><a href="index.html" style="margin:0; text-decoration: none; color: inherit;">XICHENG YANG</a></div>
+            <div><a href="index.html">XICHENG YANG</a></div>
             <nav>
-                <a href="projects.html">PROJECTS</a>
+                <a href="index.html#projects-anchor">PROJECTS</a>
                 <a href="talks.html">TALKS</a>
                 <a href="bio.html" class="active">BIO</a>
             </nav>

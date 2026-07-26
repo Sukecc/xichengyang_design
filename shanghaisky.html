@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shanghai Sky — Project Detail | XICHENG YANG</title>
     <style>
         /* ==========================================================================
-           【Lyean Serif & Sans 核心家族系统】
+           【Lyean Serif & Sans 核心家族系统 - 严格权重真粗体映射】
            ========================================================================== */
         @font-face {
             font-family: 'Lyean';
             src: url('fonts/Lyean-Regular.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Lyean';
+            src: url('fonts/Lyean-Italic.woff2') format('woff2');
+            font-weight: normal; font-style: italic; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Lyean';
+            src: url('fonts/Lyean-Bold.woff2') format('woff2');
+            font-weight: bold; font-style: normal; font-display: swap;
         }
         @font-face {
             font-family: 'Lyean Sans';
@@ -25,165 +35,99 @@
             -webkit-font-smoothing: antialiased;
         }
         
+        html { scroll-behavior: smooth; }
+
         body {
             margin: 0; padding: 0;
             background-color: #f6f3eb;
             color: #1a1a1a;
-            overflow-x: hidden;
         }
         .container {
             max-width: 90vw; margin: 0 auto; padding: 60px 0 0 0;
         }
         
-        /* 原子级强力穿透！保证 100% 的 Sans（无衬线）属性块都调用专属的 Lyean Sans */
+        /* 🎯 强力穿透！保证 100% 的 无衬线（Sans）属性区域都完美调用 Lyean Sans */
         header, header *, 
         nav, nav *, 
         .metadata-grid, .metadata-grid *, 
         .specimen-tabs-wrapper, .specimen-tabs-wrapper *,
         .gallery-chapter-title, .gallery-chapter-title *,
+        .award-stamp-trigger, .award-stamp-trigger *,
         .credit-grid-wrapper, .credit-grid-wrapper *,
         .exhibition-timeline, .exhibition-timeline *,
-        .tag {
+        .tag, footer, footer * {
             font-family: 'Lyean Sans', sans-serif !important;
+            font-weight: normal !important; /* 🎯 100% 强行抹除浏览器对 Sans 的野蛮伪粗体发胀 */
         }
 
+        /* ==========================================================================
+           【导航栏布局优化与字号跃升 - 100% 对齐首页】
+           ========================================================================== */
         header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 60px; text-transform: uppercase;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e0dbcf;
+            padding-bottom: 25px;
+            margin-bottom: 60px;
         }
-        header div, header nav a {
-            font-size: 0.8rem; letter-spacing: 0.1em;
-            text-decoration: none; color: #1a1a1a; 
+        header div a {
+            font-size: 1.35rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
         }
-        header nav a { margin-left: 20px; }
+        header nav a { 
+            font-size: 1.2rem !important; 
+            letter-spacing: 0.05em;
+            text-decoration: none; color: #1a1a1a;
+            margin-left: 40px; 
+            transition: color 0.2s;
+        }
         header nav a:hover { color: #b85a4b; }
 
         /* ==========================================================================
            【全宽 Hero 大图 + 悬浮荣誉抽屉】
            ========================================================================== */
         .project-hero-cover {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    position: relative;
-    border-bottom: 1px solid #e0dbcf;
-    
-    /* 核心机制 1：强制容器锁死为你 AI 画板的 16:7 比例 */
-    aspect-ratio: 16 / 7; 
-    
-    /* 核心机制 2：切断原本死板的 65vh 高度限制，让高度随宽度自适应 */
-    height: auto !important; 
-    min-height: 40vh;
-}
-
-.project-hero-cover img.hero-main-img {
-    width: 100%;
-    height: 100%;
-    
-    /* 核心机制 3：从 cover 改为 contain，确保整张图完整塞进容器，绝对不切边 */
-    object-fit: contain; 
-    
-    display: block;
-}
-
-       /* ==========================================================================
-           【🎨 终极重火力：Hero 右下角绝对切齐 · 黑金红褐实心钢印勋章系统】
-           ========================================================================== */
-        /* 🎯 物理切齐：死死磁吸在 Hero 画面右下角，右边缘与下边缘 100% 像素级对齐 */
-        .hero-floating-awards { 
-            position: absolute; 
-            bottom: 0; 
-            right: 0; 
-            z-index: 100; 
-            cursor: pointer; 
-            outline: none; 
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            position: relative;
+            border-bottom: 1px solid #e0dbcf;
+            aspect-ratio: 16 / 7; 
+            height: auto !important; 
+            min-height: 40vh;
         }
-        
-        /* 🎯 显眼度拉满：沉稳的字厂工艺红褐色底座方块 */
+
+        .project-hero-cover img.hero-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            display: block;
+        }
+
+        /* 🎨 终极重火力：Hero 右下角绝对切齐 · 黑金红褐实心钢印勋章系统 */
+        .hero-floating-awards { position: absolute; bottom: 0; right: 0; z-index: 100; cursor: pointer; outline: none; }
         .award-stamp-trigger {
-            width: 80px; 
-            height: 64px; 
-            background: #5b4136; /* 注入你的红褐底色，瞬间稳住大图阵脚 */
-            
-            /* 完美的左上角微圆角，右、下边缘保持直角，与大图边界绝对咬合 */
-            border-radius: 6px 0 0 0; 
-            border: 1px solid rgba(178, 149, 112, 0.25);
-            border-right: none;
-            border-bottom: none;
-            
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            box-shadow: -10px -10px 40px rgba(0, 0, 0, 0.12);
-            
-            /* 横向插拔无缝阻尼感 */
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: width;
+            width: 80px; height: 64px; background: #5b4136; border-radius: 6px 0 0 0; 
+            border: 1px solid rgba(178, 149, 112, 0.25); border-right: none; border-bottom: none;
+            display: flex; align-items: center; justify-content: center; box-shadow: -10px -10px 40px rgba(0, 0, 0, 0.12);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: width;
         }
-        
-        /* 🎯 重火力大杯：100% 纯实心、面积放大 1.5 倍的皇家高饱和度几何纯金大杯 */
-        .award-stamp-trigger svg { 
-            width: 32px; 
-            height: 32px; 
-            fill: #d4b383; /* 皇家重工业纯金反差 */
-            opacity: 1;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill 0.4s;
-        }
+        .award-stamp-trigger svg { width: 32px; height: 32px; fill: #d4b383; opacity: 1; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill 0.4s; }
 
-        /* 🎯 展开看板：通过 CSS 变量 var(--award-ratio) 自动柔性匹配 150pt 或 300pt 的图纸 */
         .award-expanded-panel {
-            position: absolute; 
-            bottom: 76px; /* 完美卡在红褐方块的上方边缘线 */
-            right: 15px; 
-            
-            background: rgba(254, 253, 250, 0.95); 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            
-            border: 1px solid #c4b9ae;
-            padding: 12px; 
-            border-radius: 6px; 
-            box-shadow: -20px 20px 60px rgba(43, 35, 29, 0.22);
-            
-            width: 280px; 
-            aspect-ratio: var(--award-ratio, 520 / 300); /* 💡 核心：自适应比例底座 */
-            
-            opacity: 0; 
-            visibility: hidden; 
-            transform: translateY(10px) scale(0.97);
+            position: absolute; bottom: 76px; right: 15px; background: rgba(254, 253, 250, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #c4b9ae; padding: 12px; border-radius: 6px; box-shadow: -20px 20px 60px rgba(43, 35, 29, 0.22);
+            width: 280px; aspect-ratio: 520 / 300; opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.97);
             transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
         }
-        .award-expanded-panel img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            border-radius: 2px; 
-            mix-blend-mode: multiply; /* 💡 黑科技：让白底图完美融进半透柔焦背景 */
-        }
+        .award-expanded-panel img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; mix-blend-mode: multiply; }
+
+        .hero-floating-awards:hover .award-stamp-trigger, .hero-floating-awards:focus .award-stamp-trigger { width: 110px; background: #2b231d; }
+        .hero-floating-awards:hover .award-stamp-trigger svg, .hero-floating-awards:focus .award-stamp-trigger svg { fill: #b85a4b; transform: scale(1.1) rotate(-3deg); }
+        .hero-floating-awards:hover .award-expanded-panel, .hero-floating-awards:focus .award-expanded-panel { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
 
         /* ==========================================================================
-           【红褐金勋章卡扣无缝横向联动状态】
-           ========================================================================== */
-        .hero-floating-awards:hover .award-stamp-trigger, 
-        .hero-floating-awards:focus .award-stamp-trigger { 
-            width: 110px; /* 鼠标滑过，方块向左横向伸长，机械美感拉满 */
-            background: #2b231d; /* 划过时微调为更沉稳的深墨褐 */
-        }
-        
-        .hero-floating-awards:hover .award-stamp-trigger svg,
-        .hero-floating-awards:focus .award-stamp-trigger svg {
-            fill: #b85a4b; /* 黄金大杯瞬间变红，产生强烈的动态操控爽感 */
-            transform: scale(1.1) rotate(-3deg);
-        }
-        
-        .hero-floating-awards:hover .award-expanded-panel, 
-        .hero-floating-awards:focus .award-expanded-panel { 
-            opacity: 1; 
-            visibility: visible; 
-            transform: translateY(0) scale(1); 
-        }
-
-        /* ==========================================================================
-           【五栏元数据网格 - 🎯 保持全站高度统一】
+           【五栏元数据网格】
            ========================================================================== */
         .metadata-grid {
             display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px;
@@ -193,27 +137,18 @@
         .meta-value { font-size: 1.05rem; line-height: 1.5; font-weight: bold; word-wrap: break-word; }
 
         /* ==========================================================================
-           【简介与精细名单看板区】
+           【简介与分工区】
            ========================================================================== */
         .project-intro-container { display: grid; grid-template-columns: 3.1fr 1.9fr; gap: 60px; margin-bottom: 80px; align-items: flex-start; }
         .intro-text { max-width: 800px; }
-        .intro-text h2 { font-size: 2.8rem; font-weight: normal; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
+        .intro-text h2 { font-size: 2.8rem; font-weight: bold !important; font-family: "Lyean", serif !important; margin-top: 0; margin-bottom: 30px; line-height: 1.2; }
         .intro-text p { font-size: 1.2rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
 
-        /* 右侧大型大群 Credit 看板样式 */
-        .credit-grid-wrapper {
-            border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px;
-        }
+        .credit-grid-wrapper { border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px; }
         .credit-section-block { margin-bottom: 35px; }
         .credit-section-block:last-child { margin-bottom: 0; }
-        
-        .credit-header-label {
-            font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;
-            margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block;
-        }
-        .credit-sub-grid {
-            display: grid; grid-template-columns: 125px 1fr; gap: 12px 16px; font-size: 0.85rem; line-height: 1.45;
-        }
+        .credit-header-label { font-size: 0.72rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; border-bottom: 1px solid #ede9df; padding-bottom: 4px; display: block; }
+        .credit-sub-grid { display: grid; grid-template-columns: 125px 1fr; gap: 12px 16px; font-size: 0.85rem; line-height: 1.45; }
         .credit-role { color: #888; font-weight: bold; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.03em; padding-top: 2px; }
         .credit-names { color: #555; font-weight: 500; }
 
@@ -222,18 +157,13 @@
            ========================================================================== */
         .specimen-tabs-wrapper { position: relative; z-index: 500; margin: 40px 0 20px 0; }
         .specimen-tabs-nav {
-            display: flex; justify-content: space-between; gap: 16px; 
-            border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb;
-            transition: padding 0.3s, box-shadow 0.3s;
+            display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid #c4b9ae; padding-bottom: 20px; background-color: #f6f3eb; transition: padding 0.3s, box-shadow 0.3s;
         }
         .specimen-tabs-nav.is-sticky {
-            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
+            position: fixed; top: 0; left: 5vw; width: 90vw; padding-top: 20px; padding-bottom: 20px; box-shadow: 0 10px 30px rgba(246, 243, 235, 0.95);
         }
         .tab-item {
-            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer;
-            background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
+            flex: 1; display: flex; flex-direction: column; padding: 14px 20px; cursor: pointer; background: #ede9df; border: 1px solid #e0dbcf; border-radius: 4px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: bottom center;
         }
         .tab-num { font-size: 0.7rem; color: #6e5d4f; letter-spacing: 0.05em; margin-bottom: 4px; }
         .tab-name { font-weight: bold; font-size: 1rem; color: #1a1a1a; }
@@ -244,9 +174,7 @@
 
         /* 画廊布局 */
         .gallery-chapter-title {
-            font-size: 0.8rem; text-transform: uppercase;
-            color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px;
-            letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
+            font-size: 0.8rem; text-transform: uppercase; color: #b85a4b; border-top: 1px solid #e0dbcf; padding-top: 40px; margin-top: 100px; margin-bottom: 40px; letter-spacing: 0.1em; display: flex; justify-content: space-between; scroll-margin-top: 140px;
         }
         .specimen-full-img {
             width: 100vw; margin-left: calc(-50vw + 50%); margin-bottom: 0; background-color: #ede9df; border-bottom: 1px solid #e0dbcf;
@@ -254,75 +182,28 @@
         .specimen-full-img img { width: 100%; display: block; }
 
         /* ==========================================================================
-           【🚨 全新设计：Type in Use 沉浸式文献展览海报长廊】
+           【沉浸式文献大排场：Type in Use 跨界巡展文献室】
            ========================================================================== */
- /* ==========================================================================
-           【🎨 栅格重构：双栏完美并排 + 左栏横图绝对磁吸左对齐、防撑满系统】
-           ========================================================================== */
-        /* 外层主网格稳如铁板：左栏 2.2份，右栏 2.8份，并排不准散架 */
-        .exhibition-main-grid {
-            max-width: 90vw; 
-            margin: 0 auto; 
-            display: grid; 
-            grid-template-columns: 2.2fr 2.8fr; 
-            gap: 80px; 
-            align-items: flex-start;
-        }
+        .exhibition-use-section { width: 100vw; margin-left: calc(-50vw + 50%); background: #2b231d; padding: 80px 0 140px 0; margin-top: 120px; color: #f6f3eb; }
+        .exhibition-use-section .gallery-chapter-title { width: 90vw; margin: 0 auto 60px auto; border-top: 1px solid #6e5d4f; color: #f6f3eb; padding-top: 30px; }
+        
+        .exhibition-main-grid { max-width: 90vw; margin: 0 auto; display: grid; grid-template-columns: 2.2fr 2.8fr; gap: 80px; align-items: flex-start; }
+        .exhibition-visual-stage { display: flex; flex-direction: column; gap: 40px; width: 100%; align-items: flex-start; }
 
-        /* 🎯 核心修复：在这里让左边所有的卡片，默认全部绝对向左咬合磁吸 */
-        .exhibition-visual-stage { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 40px; 
-            width: 100%;
-            align-items: flex-start; /* 👈 就是这一行！让左栏内部的所有不同比例图紙完美靠左，右侧自然空出边距 */
-        }
-
-        /* 第一张高精海报卡片：严格锁死 A4 纵向比例 */
-        .high-res-poster-card {
-            width: 100%; 
-            aspect-ratio: 1 / 1.414; 
-            background-color: transparent; 
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35); 
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 4px;
-        }
+        .high-res-poster-card { width: 100%; aspect-ratio: 1 / 1.414; background-color: transparent; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.03); border-radius: 4px; }
         .high-res-poster-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* 第二张高精海报卡片：精准死锁你的 574.24 x 382.12 mm 物理图纸比例 */
-        .high-res-landscape-card {
-            width: 100%;
-            aspect-ratio: 574.24 / 382.12; 
-            background-color: transparent;
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35); 
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 4px;
-        }
+        .high-res-landscape-card { width: 100%; aspect-ratio: 574.24 / 382.12; background-color: transparent; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.03); border-radius: 4px; }
         .high-res-landscape-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* 24套小图完整拼贴文献长卷大图：尺寸与第二张图完全对齐 */
-        .matrix-full-map-card {
-            width: 100%;
-            aspect-ratio: 574.24 / 382.12; 
-            background-color: transparent;
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35); 
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 4px;
-            opacity: 0.75;
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .matrix-full-map-card { width: 100%; aspect-ratio: 574.24 / 382.12; background-color: transparent; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.03); border-radius: 4px; opacity: 0.75; transition: opacity 0.4s ease; }
         .matrix-full-map-card:hover { opacity: 1; }
         .matrix-full-map-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* 右栏：重磅大奖、历史巡展时间轴（样式保持不动） */
         .exhibition-meta-details { max-width: 600px; }
         .exhibition-meta-details h3 { font-size: 2.2rem; font-weight: normal; margin-top: 0; margin-bottom: 10px; line-height: 1.3; }
-        .exhibition-meta-details .prize-badge { font-family: 'Lyean Sans', sans-serif !important; font-size: 0.75rem; color: #b85a4b; font-weight: bold; border: 1px solid #b85a4b; padding: 4px 10px; border-radius: 2px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 35px; }
+        .exhibition-meta-details .prize-badge { font-size: 0.75rem; color: #b85a4b; font-weight: bold; border: 1px solid #b85a4b; padding: 4px 10px; border-radius: 2px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 35px; }
         
-        /* 干净的高级展览文献时间轴 */
         .exhibition-timeline { margin: 40px 0; padding-left: 20px; border-left: 1px solid #4a3e36; }
         .timeline-node { margin-bottom: 30px; position: relative; }
         .timeline-node:last-child { margin-bottom: 0; }
@@ -330,150 +211,62 @@
         .node-date { font-size: 0.75rem; font-weight: bold; color: #b85a4b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.05em; }
         .node-desc { font-size: 0.95rem; color: #ccc; line-height: 1.4; }
 
-/* ==========================================================================
-           【📱 独立字厂全站移动端 · 物理锁死与流体自适应无损校准系统 · 终极完全体】
+        /* ==========================================================================
+           【🎨 100% 克隆首页：左右两栏绝对切齐、法律声明大黑页脚】
            ========================================================================== */
-        /* 🎯 绝杀元凶：在所有设备上，坚决切断由于 100vw 溢出导致的手机左右晃动和白边 */
-        html, body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-            position: relative;
-        }
+        footer { background-color: #1a1a1a; color: #f6f3eb; padding: 100px 5vw; margin-top: 0; scroll-margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 120px; margin-bottom: 40px; align-items: flex-end; }
+        .footer-bio h2 { font-style: italic; font-weight: normal; font-size: 3.2rem; line-height: 1.2; margin: 0 0 30px 0; font-family: "Lyean", serif !important; }
+        .footer-bio p { color: #ccc; font-size: 1.25rem; line-height: 1.65; font-family: "Lyean", serif !important; margin: 0; } 
+        .footer-bio p + p { margin-top: 20px; } 
+        
+        .footer-contact-architecture { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; gap: 18px; padding: 0; margin: 0; width: 100%; }
+        .contact-monument-title { font-size: 1.35rem !important; letter-spacing: 0.15em; color: #b85a4b; margin: 0; line-height: 1; }
+        .contact-primary-mail { font-size: 1.55rem !important; margin: 0; line-height: 1.1; }
+        .contact-primary-mail a { color: #f6f3eb; text-decoration: none; transition: color 0.2s; }
+        .contact-primary-mail a:hover { color: #b85a4b; }
+        
+        .contact-social-links { display: flex; justify-content: flex-end; gap: 28px; margin: 4px 0 0 0; padding: 0; }
+        .contact-social-links a { color: #888; text-decoration: none; font-size: 1.3rem !important; letter-spacing: 0.02em; transition: color 0.2s, border-color 0.2s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+        .contact-social-links a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        
+        .footer-eula-footnote-right { margin-top: 25px; padding-top: 20px; border-top: 1px solid #2a2824; text-align: right; width: 100%; }
+        .footer-eula-footnote-right p { font-size: 0.92rem !important; line-height: 1.6 !important; color: #666 !important; max-width: 440px; margin: 0 0 0 auto; }
+        .footer-eula-footnote-right p i { font-family: "Lyean", serif !important; font-style: italic; color: #aaa; }
+        .footer-eula-footnote-right p a { color: #b85a4b; text-decoration: none; border-bottom: 1px solid #444; }
+        .footer-eula-footnote-right p a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        .footer-bottom { border-top: 1px solid #262421; padding-top: 40px; font-size: 0.95rem; color: #666; }
 
+        /* ==========================================================================
+           【流体自适应移动端补丁系统 - 100% 物理锁死】
+           ========================================================================== */
+        html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
         @media (max-width: 768px) {
-            /* 1. 视窗安全卡位：强迫内容在手机两侧留出安全气口，绝不切边 */
-            .container {
-                max-width: 92vw !important;
-                width: 92vw !important;
-                margin: 0 auto !important;
-                padding: 40px 0 0 0 !important;
-            }
-            
-            /* 2. 导航栏降维：PC端一字排开，手机上一律变垂直优雅错叠 */
-            header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 16px !important;
-                margin-bottom: 40px !important;
-            }
-            header nav {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                gap: 10px 15px !important;
-            }
-            header nav a {
-                margin-left: 0 !important;
-                font-size: 0.75rem !important;
-            }
-
-            /* 3. 字号物理降级：防超长单字撑爆手机屏幕 */
+            .container { max-width: 92vw !important; width: 92vw !important; margin: 0 auto !important; padding: 40px 0 0 0 !important; }
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 40px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 10px 15px !important; }
+            header nav a { margin-left: 0 !important; font-size: 0.75rem !important; }
+            header div a { font-size: 1.15rem !important; }
             h1 { font-size: 2.2rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
             .intro-text h2 { font-size: 1.7rem !important; line-height: 1.25 !important; margin-bottom: 20px !important; }
-            .public-work-title { font-size: 1.6rem !important; line-height: 1.25 !important; margin-bottom: 30px !important; }
 
-            /* 4. 黄金并排一律变单列：全站 Grid/Flex 横向排版一刀切全部向下流淌 */
-            .hero-section,
-            .project-intro-container, 
-            .exhibition-main-grid,
-            .archive-flex-panel {
-                grid-template-columns: 1fr !important;
-                gap: 35px !important;
-                margin-bottom: 50px !important;
-            }
+            .project-intro-container, .exhibition-main-grid { grid-template-columns: 1fr !important; gap: 35px !important; }
+            .metadata-grid { grid-template-columns: 1fr 1fr !important; gap: 20px 16px !important; padding: 25px 0 !important; }
+            .credit-grid-wrapper { border-left: none !important; padding-left: 0 !important; margin-top: 20px !important; }
+            
+            .specimen-tabs-nav { flex-wrap: wrap !important; gap: 8px !important; }
+            .tab-item { padding: 8px 12px !important; }
+            .tab-name { font-size: 0.85rem !important; }
+            .project-hero-cover { border-radius: 0 !important; }
 
-            /* 5. 粒子舞台与底部看板在移动端的重构 */
-            .particle-stage-box {
-                border-left: none !important;
-                padding-left: 0 !important;
-                border-bottom: 1px solid #e0dbcf !important;
-                padding-bottom: 30px !important;
-                margin-top: 10px !important;
-                aspect-ratio: 1 / 1 !important;
-            }
-            .hero-specimen-info-panel {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-                margin-top: 25px !important;
-            }
-
-            /* 6. 全局客观元数据参数网格：自动软着陆为两列平分 */
-            .metadata-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 20px 16px !important;
-                padding: 25px 0 !important;
-                margin-top: 30px !important;
-                margin-bottom: 30px !important;
-            }
-
-            /* 7. 右侧学术 Credit 名单降维 */
-            .credit-grid-wrapper {
-                border-left: none !important;
-                padding-left: 0 !important;
-                margin-top: 20px !important;
-                max-height: none !important; /* 手机上铺开，取消微滚动 */
-            }
-            .credit-sub-grid {
-                grid-template-columns: 95px 1fr !important;
-                gap: 8px 10px !important;
-            }
-
-            /* 8. 画廊网格与 4:3 缩略图卡片重构 */
-            .projects-grid {
-                grid-template-columns: 1fr !important; /* 错落双栏秒变单列垂直 */
-                gap: 45px !important;
-            }
-            .gallery-card {
-                transform: none !important; /* 手机上抹平 PC 端的垂直错落 */
-            }
-            .gallery-card h3 { font-size: 1.6rem !important; }
-
-            /* 9. 2880px 旗舰大图与全宽图片安全降维 */
-            .project-hero-cover,
-            .specimen-full-img,
-            .specimen-flagship-full,
-            .alphabettes-link-cover-card {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-                border-radius: 0 !important;
-            }
-
-            /* 10. 🎯 绝杀：TangutBux 满宽 3+3 A4 纵廊大变身 */
-            .phd-academic-fullwidth-box {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-            }
-            .phd-academic-split-grid {
-                grid-template-columns: 1fr !important; /* 3对3变一列垂直到底 */
-                gap: 50px !important;
-            }
-            /* 手机上强制让悬浮侧标回到图片上方做精致的行标头 */
-            .sticky-taxonomy-sidebar {
-                position: relative !important;
-                top: 0 !important;
-                margin-bottom: 0 !important;
-                width: 100% !important;
-                padding: 0 0 10px 0 !important;
-            }
-            .left-indicator-badge { margin-left: 4vw !important; text-align: left !important; }
-            .right-indicator-badge { margin-right: 0 !important; margin-left: 4vw !important; text-align: left !important; }
-            .a4-card-monument { border-radius: 0 !important; }
-
-            /* 11. Noto 经文长卷与滑块精调 */
-            .sutra-long-scroll-window { height: 320px !important; }
-            .sutra-slider-wrapper { width: 92vw !important; margin: 20px auto 0 auto !important; }
-
-            /* 12. Talks & Publications 文献栏高能防错位 */
-            .list-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-            .list-box { padding: 20px !important; }
-            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; position: relative !important; }
-            /* 手机上全透明覆盖，抓取任意位置皆可点击外部链接 */
-            .list-item div:last-child { position: absolute !important; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
-            .list-item div:last-child a { display: block; width: 100%; height: 100%; }
-
-            /* 13. Footer 底部洗练落地 */
-            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
             .footer-bio h2 { font-size: 1.8rem !important; }
-            .footer-contact { padding: 20px !important; }
+            .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; margin-top: 10px !important; gap: 15px !important; }
+            .contact-social-links { justify-content: flex-start !important; gap: 20px !important; }
+            .footer-eula-footnote-right { text-align: left !important; margin-top: 20px !important; }
+            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.85rem !important; max-width: 100% !important; }
+            .contact-primary-mail { font-size: 1.35rem !important; }
+            .contact-social-links a { font-size: 1.1rem !important; }
             .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
         }
     </style>
@@ -481,13 +274,14 @@
 <body>
 
     <div class="container">
-        <!-- 导航 -->
+        <!-- 统一化头部导航区 -->
         <header>
-            <div><a href="index.html" style="margin:0; text-decoration: none; color: inherit; font-weight: normal;">XICHENG YANG</a></div>
+            <div><a href="index.html">XICHENG YANG</a></div>
             <nav>
-                <a href="projects.html" style="color: #b85a4b; font-weight: bold;">PROJECTS</a>
+                <a href="index.html#projects-anchor" style="color: #b85a4b; font-weight: bold;">PROJECTS</a>
                 <a href="talks.html">TALKS</a>
                 <a href="bio.html">BIO</a>
+                <a href="#contact-anchor-target">CONTACT</a>
             </nav>
         </header>
 
@@ -495,12 +289,11 @@
         <div class="project-hero-cover">
             <img class="hero-main-img" src="images/ShanghaiSky_hero_massive.webp" alt="Shanghai Sky Typeface Massive Specimen">
             
-            <!-- 🎯 Shanghai Sky 右下角绝对对齐·红褐金重工业实心勋章卡扣 -->
+            <!-- Shanghai Sky 右下角绝对对齐·红褐金重工业实心勋章卡扣 -->
             <aside class="hero-floating-awards" tabindex="0" aria-label="Official Repertoire Honors">
                 <div class="award-stamp-trigger">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 2H5a1 1 0 0 0-1 1v4c0 3.64 2.43 6.77 6 7.66V18H7a1 1 0 0 0 0 2h10a1 1 0 0 0 0-2h-3v-3.34c3.57-.89 6-4.02 6-7.66V3a1 1 0 0 0-1-1ZM6 7V4h12v3c0 3.31-2.69 6-6 6S6 10.31 6 7Z"/><path d="M4 21h16v1H4z"/></svg>
                 </div>
-                <!-- 默认 520 / 300 黄金开面比例 -->
                 <div class="award-expanded-panel">
                     <img src="images/shanghaisky-tdc70-certificate.webp" alt="Shanghai Sky New York TDC 70 Excellent Work Certificate">
                 </div>
@@ -523,7 +316,6 @@
                 <p>Shanghai Sky is inspired by Shanghai pattern characters from the Republic of China period, it reflects Shanghai’s traditional Chinese character aesthetics as well as the cultural tolerance and fashion of a cosmopolitan city. This font combines the different styles of Kaishu, Running Script, and Small Seal Script in a unique and bold fusion, and matches with Latin, Japanese Kana, and Manchu Script.</p>
             </div>
 
-            <!-- 右栏：超庞大主创团队分工名单看版（精准匹配你的名单） -->
             <div class="credit-grid-wrapper">
                 <div class="credit-section-block">
                     <span class="credit-header-label">Credit of Shanghai Sky System</span>
@@ -550,9 +342,7 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-            【双版块吸顶样张陈列 — 1至2张极珍贵的图】
-            ========================================================================== */ -->
+        <!-- 双版块吸顶样张陈列 -->
         <div class="specimen-tabs-wrapper" id="tabsWrapper">
             <div class="specimen-tabs-nav" id="stickyNav">
                 <div class="tab-item active" data-target="specimen-01">
@@ -581,16 +371,11 @@
                     <span style="color:#aaa;">Pattern aesthetics of the Republic of China period reinterpreted</span>
                 </div>
                 <div class="specimen-full-img"><img src="images/ShanghaiSky_specimen_02.webp" alt="Shanghai Sky Typography Specimen 2"></div>
-                 <div class="specimen-full-img"><img src="images/ShanghaiSky_specimen_03.webp" alt="Shanghai Sky Typography Specimen 3"></div>
+                <div class="specimen-full-img"><img src="images/ShanghaiSky_specimen_03.webp" alt="Shanghai Sky Typography Specimen 3"></div>
             </div>
         </section>
 
-        <!-- ==========================================================================
-            【🎨 沉浸式文献大排场：Type in Use 跨界巡展文献室】
-            ========================================================================== */ -->
-        <!-- ==========================================================================
-            【🎨 沉浸式文献大排场：Type in Use 跨界巡展文献室 — 完美复原并排版式】
-            ========================================================================== */ -->
+        <!-- 沉浸式文献大排场 -->
         <section class="exhibition-use-section">
             <div class="gallery-chapter-title">
                 <span>Selected Type in Use</span>
@@ -598,34 +383,26 @@
             </div>
 
             <div class="exhibition-main-grid">
-                <!-- 👈 左纵栏：大图展示 + 24节气拼贴图（100% 靠左切齐，右侧自适应留白） -->
                 <div class="exhibition-visual-stage">
-                    
-                    <!-- 1. 精选第一张海报大图（纵向 A4 比例） -->
                     <div class="high-res-poster-card">
                         <img src="images/shanghaisky_use_poster_01.webp" alt="24 Sets of Seasons Year of the Dragon Poster - High Res 01">
                     </div>
                     
-                    <!-- 2. 精选第二张海报大图（横向 574.24 x 382.12 mm 比例） -->
                     <div class="high-res-landscape-card">
                         <img src="images/shanghaisky_use_poster_02.webp" alt="24 Sets of Seasons Year of the Dragon Poster - High Res 02">
                     </div>
                     
-                    <!-- 3. 24套小图完整拼贴长卷大图（横向 574.24 x 382.12 mm 比例） -->
                     <div class="matrix-full-map-card">
                         <img src="images/seasons_micro_matrix_full.webp" alt="24 Sets of Seasons Complete Grid Matrix - 574x382mm Sheet">
                     </div>
-                    
                 </div>
 
-                <!-- 👉 右纵栏：回归核心战位！海报奖项、高含金量巡展文献纪实时间轴 -->
                 <div class="exhibition-meta-details">
                     <h3>24 Sets of Seasons Three Mountains and Five Gardens Year of the Dragon Poster</h3>
                     <span class="prize-badge">First Prize — The 2024 Global Zodiac Design Competition</span>
                     
                     <p style="color: #aaa; line-height: 1.6; font-size: 1.05rem;">A collaborative graphic output executing Shanghai Sky’s radical cosmopolitan dualities. This master set was created for the Jiachen Year of the Dragon and extensively exhibited across prestigious national art institutions.</p>
 
-                    <!-- 巡展纪实文献时间轴 -->
                     <div class="exhibition-timeline">
                         <div class="timeline-node">
                             <div class="node-date">Dec 2022 – Feb 2023</div>
@@ -641,7 +418,6 @@
                         </div>
                     </div>
 
-                    <!-- 海报群组的设计名单 -->
                     <div style="border-top: 1px solid #4a3e36; padding-top: 30px; margin-top: 40px;">
                         <span style="font-size: 0.7rem; color: #b85a4b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 10px;">Poster Series Graphic Credits</span>
                         <p style="font-size: 0.9rem; line-height: 1.5; color: #ccc; margin: 0;">
@@ -654,6 +430,53 @@
         </section>
         
     </div>
+
+    <!-- ==========================================================================
+       【🎨 100% 首页统一：左右两栏绝对切齐、法律声明大黑页脚】
+       ========================================================================== */ -->
+    <footer id="contact-anchor-target">
+        <div class="container" style="max-width: 90vw; padding: 0;">
+            
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="tag" style="color: #b85a4b;">Biography</div>
+                    <h2>A practice centred<br>on typographic voice.</h2>
+                    <p>
+                        I am a typeface designer and researcher currently based in the UK. I graduated with distinction from the MA in Typeface Design at the University of Reading (2022), where I subsequently completed my doctorate in 2026. My research focuses on the development of digital typefaces for the Tangut script—an extinct writing system used in northwestern China between the 11th and 13th centuries.
+                    </p>
+                    <p style="color: #ccc; font-size: 1.25rem; margin-top: 15px; line-height: 1.6;">
+                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. My independent font design has won awards, including the New York TDC Award and recognition from the Tokyo TDC for AraTangut. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
+                    </p>
+                </div>
+                
+                <div class="footer-contact-architecture">
+                    <h3 class="contact-monument-title">CONTACT</h3>
+                    
+                    <div class="contact-channel-roster">
+                        <div class="contact-primary-mail">
+                            <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>
+                        </div>
+                        
+                        <div class="contact-social-links">
+                            <a href="https://www.instagram.com/sukecc0206/" target="_blank">Instagram</a>
+                            <a href="https://www.linkedin.com/in/xicheng-yang-946343227/" target="_blank">LinkedIn</a>
+                            <a href="https://x.com/threecczhu?s=21&t=TUlvxIVUFUdTaBI_Rd-r8A" target="_blank">X</a>
+                        </div>
+                    </div>
+
+                    <div class="footer-eula-footnote-right">
+                        <p>
+                            The proprietary web font assets deployed on this repository—including <i>Lyean Regular</i>, <i>Lyean Italic</i>, and <i>Lyean Sans</i>—are hosted strictly under descriptive portfolio presentation allowances. Any unauthorised extraction, decompilation, redistribution, or secondary utilisation of these <code>.woff2</code> binaries for commercial or private licensing is strictly prohibited. For legitimate font licensing enquiries, please contact <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div style="color: #aaa;">© 2026 Xicheng Yang</div>
+            </div>
+        </div>
+    </footer>
 
     <!-- 吸顶控制脚本 -->
     <script>
