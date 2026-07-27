@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tangut Character Composition & Search Utility — Project Detail | XICHENG YANG</title>
+    <title>Tangut Character Composition & Search Tool — Project Detail | XICHENG YANG</title>
     <style>
         /* ==========================================================================
            【Lyean Serif & Sans 核心家族系统 - 严格权重真粗体映射】
@@ -105,9 +105,9 @@
         .project-intro-container { display: grid; grid-template-columns: 2.8fr 2.2fr; gap: 80px; align-items: flex-start; margin-bottom: 100px; }
         .intro-text { max-width: 800px; }
         .intro-text h2 { font-size: 2.8rem; font-weight: bold !important; font-family: "Lyean", serif !important; margin: 0 0 30px 0; line-height: 1.2; }
-        .intro-text p { font-size: 1.25rem; line-height: 1.7; color: #333; margin-bottom: 25px; }
+        .intro-text p { font-size: 1.3rem; line-height: 1.75; color: #222; margin-bottom: 25px; } /* 👈 放大字号和行高，营造画册般轻松的阅读感 */
 
-        /* 右栏：重工业级学术资产安全城堡区 */
+        /* 右栏：学术资产安全城堡区 */
         .legal-block {
             border-left: 1px solid #e0dbcf; padding-left: 40px; box-sizing: border-box; margin-top: 10px;
         }
@@ -128,7 +128,7 @@
         .notice-legal-text a:hover { color: #1a1a1a; border-color: #1a1a1a; }
 
         /* ==========================================================================
-           【🎨 100% 克隆首页：左右两栏绝对切齐、法律声明大黑页脚】
+           【🎨 100% 首页统一：左右两栏绝对切齐、法律声明大黑页脚】
            ========================================================================== */
         footer { background-color: #1a1a1a; color: #f6f3eb; padding: 100px 5vw; margin-top: 60px; scroll-margin-top: 60px; }
         .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 120px; margin-bottom: 40px; align-items: flex-end; }
@@ -203,48 +203,53 @@
 
         <!-- 五栏元数据网格 -->
         <section class="metadata-grid">
-            <div><div class="meta-label">Project Scope</div><div class="meta-value">Interactive Research Utility & Frontend Engineering</div></div>
-            <div><div class="meta-label">Core Engine</div><div class="meta-value">Vanilla JavaScript & HTML5 Vector Canvas</div></div>
-            <div><div class="meta-label">Dataset Depth</div><div class="meta-value">6,915 Ideographs (Stroke-by-Stroke Matrix)</div></div>
-            <div><div class="meta-label">Repository License</div><div class="meta-value">CC BY-NC-ND 4.0 (Academic Protected)</div></div>
+            <div><div class="meta-label">Project Scope</div><div class="meta-value">Interactive Type Engineering and Search Tool</div></div>
+            <div><div class="meta-label">Core Architecture</div><div class="meta-value">Vanilla JavaScript and HTML5 Client Application</div></div>
+            <div><div class="meta-label">Dataset Depth</div><div class="meta-value">6,915 Ideographs (Stroke Mappings)</div></div>
+            <div><div class="meta-label">Repository License</div><div class="meta-value">CC BY-NC-ND 4.0 (Protected Dataset)</div></div>
             <div><div class="meta-label">Year</div><div class="meta-value">2026</div></div>
         </section>
 
-        <!-- 简介与学术防御盾牌区域 -->
+        <!-- 简介与学术防御区域 -->
         <section class="project-intro-container">
+            <!-- 🎯 左栏：100% 直白易懂的工匠故事，篇幅缩减 60%，绝不吓跑读者 -->
             <div class="intro-text">
-                <h2>Tangut Character Composition & Search Utility</h2>
-                <p>This interactive frontend application was custom-coded to resolve complex stroke and radical decomposition bottlenecks inherent in computational Tangut linguistics. By translating structural glyph breakdowns into an intuitive visual search interface, the utility streamlines archival text indexation and digital font engineering workflows.</p>
-                <p>The platform map encompasses the complete systemic repertoire of 6,915 characters. To demonstrate frontend engineering and interactive logic execution, the video preview captures the vector rendering and real-time component parsing of the search mechanics.</p>
+                <h2>Tangut Character Composition and Search Tool</h2>
+                <p>I built this interactive search tool to solve a very specific pain point in my type design workflow: finding and reusing Tangut components quickly.</p>
+                <p>Tangut characters are incredibly complex. When designing a new typeface, trying to find a reusable radical from thousands of unindexed characters feels like looking for a needle in a haystack. Often, even if you find the right component, it is in the wrong size or scale, forcing you to look all over again. This tool allows me to select specific strokes or stroke orders to instantly filter out every single character that contains that exact radical. This narrows down the ocean of data to a few clean results, making it effortless to find a perfectly proportioned component to reuse or adjust.</p>
+                <p>To speed up the project, I also added a progress tracker. You can import your font production logs to filter out unmade glyphs, meaning the tool only shows characters that are already drawn and ready to be recycled. Furthermore, this system allows scholars and designers to find characters visually by their shape and strokes, without needing to know how the radical is pronounced.</p>
             </div>
 
             <!-- 右栏：学术资产安全城堡区 -->
             <div class="legal-block">
                 
+                <!-- 2. 学术引用声明钢印 (Citation Protocol) -->
                 <div class="notice-section-block">
                     <span class="notice-header-label">Citation Protocol</span>
                     <p class="notice-by-nc-text" style="font-size: 1.1rem; line-height: 1.5; color: #1a1a1a; margin-bottom: 12px;">
-                        If you reference this utility, its conceptual decomposition framework, or its stroke analysis layout in your academic research, computational linguistics materials, or typeface design documentation, please cite as follows:
+                        If you reference this search tool or its structural layout in your research or design materials, please cite this project:
                     </p>
                     <p class="notice-legal-text" style="background-color: #faf9f5; border: 1px solid #e0dbcf; padding: 15px; border-radius: 4px; font-size: 1rem; line-height: 1.45;">
-                        Yang, X. (2026). <i>Tangut Character Composition & Search Utility (Version 1.0.0)</i> [Computer software]. Available at: <a href="https://github.com/threecczhu" target="_blank">github.com/threecczhu</a> (Accessed: July 2026).
+                        Yang, X. (2026). <i>Tangut Character Composition & Search Tool (Version 1.0.0)</i> [Computer software]. Available at: <a href="https://github.com/threecczhu" target="_blank">github.com/threecczhu</a> (Accessed: July 2026).
                     </p>
                 </div>
 
+                <!-- 3. 索取机制说明与商业防御 — 🎯 直白阐述你的数据架构 -->
                 <div class="notice-section-block">
-                    <span class="notice-header-label">Dataset Access</span>
+                    <span class="notice-header-label">Dataset & Component Access</span>
                     <p class="notice-legal-text">
-                        The fully mapped stroke-by-stroke decomposition dataset encompasses 6,915+ indexed Tangut records. To preserve proprietary research integrity, the full source matrix is hosted under strict privacy protocols. 
+                        The underlying database contains every Unicode-encoded Tangut component, completely broken down by stroke order and individual sub-parts. This allows users to search flexibly, even if they do not input the exact sequential stroke order.
                     </p>
                     <p class="notice-legal-text" style="margin-top: 10px;">
-                        For academic collaboration, comparative dataset validation, or institutional font engineering licenses, please submit a formal inquiry via email to: <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>.
+                        The video demonstration above shows how the application works in real time. To protect the dataset from automated harvesting, the full source code matrix is kept private. If you are interested in accessing the comprehensive stroke database for research, please contact: <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a>.
                     </p>
                 </div>
 
+                <!-- 4. BabelSoft 数据归属声明 -->
                 <div class="notice-section-block">
                     <span class="notice-header-label">Data Provenance</span>
                     <p class="notice-legal-text" style="font-size: 1rem; color: #666; line-height: 1.5;">
-                        This search platform integrates baseline cross-referencing records sourced from the <i>BabelSoft Script Data: Tangut Merged Character Data</i>, systematically synthesised, manually verified, and structurally expanded with original stroke composition data independently generated by Xicheng Yang. All rights reserved.
+                        This platform integrates baseline cross-referencing records from the <i>BabelSoft Script Data: Tangut Merged Character Data</i>, structurally enhanced and expanded with original stroke sequence mapping independently generated by Xicheng Yang. All rights reserved.
                     </p>
                 </div>
 
@@ -254,7 +259,7 @@
     </div>
 
     <!-- ==========================================================================
-       【🎨 100% 首页统一：左右两栏绝对切齐、法律声明大黑页脚】
+       【🎨 Footer 闭环】
        ========================================================================== */ -->
     <footer id="contact-anchor-target">
         <div class="container" style="max-width: 90vw; padding: 0;">
