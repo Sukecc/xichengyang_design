@@ -343,14 +343,44 @@
         html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
         
         @media (max-width: 768px) {
-            /* 1. 紧缩全站物理内边距 */
-            .container { max-width: 92vw !important; width: 92vw !important; margin: 0 auto !important; padding: 40px 0 0 0 !important; }
-            
-            /* 2. 统一化的移动端极简头部 */
-            header { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; margin-bottom: 35px !important; padding-bottom: 15px !important; }
-            header nav { display: flex !important; flex-wrap: wrap !important; gap: 8px 16px !important; width: 100%; }
-            header nav a { margin-left: 0 !important; font-size: 1rem !important; letter-spacing: 0.02em; }
-            header div a { font-size: 1.15rem !important; }
+    /* ==========================================================================
+       【⚡ 绝杀：横版图手机端自适应全面屏裁剪引擎】
+       ========================================================================== */
+    
+    /* 1. 强力修复大首图/单张大字样图 */
+    .project-hero-cover, 
+    .specimen-full-img, 
+    .specimen-flagship-full,
+    .gallery-image-box { 
+        width: 100vw !important; 
+        margin-left: calc(-50vw + 50%) !important; /* 👈 冲破内边距，左右死死贴满手机边缘 */
+        border-left: none !important; 
+        border-right: none !important; 
+        border-radius: 0 !important; 
+        
+        /* 🎯 核心魔法：强制锁定手机端横图的最佳黄金纵横比，彻底斩断上下空白 */
+        aspect-ratio: 16 / 10 !important; 
+        height: auto !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+
+    /* 2. 强力修复图片标签内部的 img 实体 */
+    .project-hero-cover video,
+    .project-hero-cover img,
+    .specimen-full-img img,
+    .specimen-flagship-full img,
+    .gallery-image-box img {
+        width: 100% !important;
+        height: 100% !important;
+        
+        /* 🎯 终极绝杀：全面平替包含模式！让图片像手机壁纸一样，自动智能填充整个格子
+           完美保留中间最精彩的字形骨架，自动裁切掉左右两边无用的米白底色空隙！ */
+        object-fit: cover !important; 
+        object-position: center center !important; /* 👈 永远死死锁定图片正中央 */
+        display: block !important;
+    }
+
             
             /* 3. 项目标题与简介行距收拢（拒绝松垮感） */
             .intro-text h2, h1 { font-size: 2.4rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; font-weight: normal !important; }
