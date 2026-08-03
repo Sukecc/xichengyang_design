@@ -6,7 +6,7 @@
     <title>XICHENG YANG | Typeface Design & Research</title>
     <style>
         /* ==========================================================================
-           【Lyean Serif & Sans 核心家族系统】
+           【Lyean Serif & Sans 核心家族系统 - 严格权重真粗体映射】
            ========================================================================== */
         @font-face {
             font-family: 'Lyean';
@@ -19,16 +19,23 @@
             font-weight: normal; font-style: italic; font-display: swap;
         }
         @font-face {
+            font-family: 'Lyean';
+            src: url('fonts/Lyean-Bold.woff2') format('woff2');
+            font-weight: bold; font-style: normal; font-display: swap;
+        }
+        @font-face {
             font-family: 'Lyean Sans';
             src: url('fonts/Lyean-Sans.woff2') format('woff2');
             font-weight: normal; font-style: normal; font-display: swap;
         }
 
         /* 全局默认衬线体锁死为 Lyean，全局切断 Georgia 的杂质继承 */
-        body, div, p, span, h1, h2, h3, h4, ul, li, strong, aside, main {
+        body, div, p, span, h1, h2, h3, h4, ul, li, strong, aside, figcaption {
             font-family: "Lyean", serif;
             -webkit-font-smoothing: antialiased;
         }
+        
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0; padding: 0;
@@ -45,7 +52,7 @@
         /* 🎯 强力穿透！保证 100% 的 无衬线（Sans）属性区域都完美调用 Lyean Sans */
         header, header *, 
         nav, nav *, 
-        .hero-specimen-info-panel, .hero-specimen-info-panel *,
+        .metadata-grid, .metadata-grid *, 
         .project-filter, .project-filter *,
         .tag, .gallery-card .tag, .more-link, .list-year, .script-badge, footer, footer * {
             font-family: 'Lyean Sans', sans-serif !important;
@@ -156,7 +163,6 @@
         }
         .section-title { font-size: 2.8rem; font-weight: normal; margin: 0 0 25px 0; color: #1a1a1a; }
         
-        /* 🎯 完美清洗：全面摒弃所有的 & 连字符，换装为纯粹英式无衬线 AND */
         .project-filter {
             display: flex; gap: 40px;
             font-size: 1.15rem !important; 
@@ -280,145 +286,120 @@
         .list-item a:hover { text-decoration: underline; }
 
         /* ==========================================================================
-           【🎨 终极完美对齐版式：左右两栏底边绝对切齐，法律防线完美右对齐悬挂】
+           【🎨 Footer 体系】
            ========================================================================== */
         footer { background-color: #1a1a1a; color: #f6f3eb; padding: 100px 5vw; margin-top: 60px; scroll-margin-top: 60px; }
-        
-        /* 💡 核心机制：align-items: flex-end 强迫左右两栏的最底端像素死死咬合、绝对平齐 */
-        .footer-grid { 
-            display: grid; 
-            grid-template-columns: 1.3fr 1fr; 
-            gap: 120px; 
-            margin-bottom: 40px; 
-            align-items: flex-end; 
-        }
+        .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 120px; margin-bottom: 40px; align-items: flex-end; }
         .footer-bio h2 { font-style: italic; font-weight: normal; font-size: 3.2rem; line-height: 1.2; margin: 0 0 30px 0; font-family: "Lyean", serif !important; }
         .footer-bio p { color: #ccc; font-size: 1.25rem; line-height: 1.65; font-family: "Lyean", serif !important; margin: 0; } 
         .footer-bio p + p { margin-top: 20px; } 
         
-        /* 右侧联络大厅加固：彻底向右靠拢 */
-        .footer-contact-architecture {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-end; /* 👈 100% 靠右吸附 */
-            text-align: right;     /* 👈 文本完全右对齐 */
-            gap: 18px; 
-            padding: 0; margin: 0;
-            width: 100%;
-        }
-        
-        .contact-monument-title {
-            font-size: 1.35rem !important; 
-            letter-spacing: 0.15em; 
-            color: #b85a4b; 
-            margin: 0;
-            line-height: 1;
-        }
-        
-        .contact-primary-mail {
-            font-size: 1.55rem !important; 
-            margin: 0;
-            line-height: 1.1;
-        }
-        .contact-primary-mail a {
-            color: #f6f3eb;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
+        .footer-contact-architecture { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; gap: 18px; padding: 0; margin: 0; width: 100%; }
+        .contact-monument-title { font-size: 1.35rem !important; letter-spacing: 0.15em; color: #b85a4b; margin: 0; line-height: 1; }
+        .contact-primary-mail { font-size: 1.55rem !important; margin: 0; line-height: 1.1; }
+        .contact-primary-mail a { color: #f6f3eb; text-decoration: none; transition: color 0.2s; }
         .contact-primary-mail a:hover { color: #b85a4b; }
         
-        .contact-social-links { 
-            display: flex; 
-            justify-content: flex-end; 
-            gap: 28px; 
-            margin: 4px 0 0 0; padding: 0; 
-        }
-        .contact-social-links a { 
-            color: #888; 
-            text-decoration: none; 
-            font-size: 1.3rem !important; 
-            letter-spacing: 0.02em; 
-            transition: color 0.2s, border-color 0.2s;
-            padding-bottom: 2px;
-            border-bottom: 1px solid transparent;
-        }
+        .contact-social-links { display: flex; justify-content: flex-end; gap: 28px; margin: 4px 0 0 0; padding: 0; }
+        .contact-social-links a { color: #888; text-decoration: none; font-size: 1.3rem !important; letter-spacing: 0.02em; transition: color 0.2s, border-color 0.2s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
         .contact-social-links a:hover { color: #f6f3eb; border-color: #b85a4b; }
         
-        /* 🎯 满足要求：字厂 Web Font 保护声明完美右对齐悬挂，无缝切齐 Biography 的最底线 */
-        .footer-eula-footnote-right {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #2a2824; /* 低调的暗线隔离 */
-            text-align: right; /* 👈 100% 右对齐 */
-            width: 100%;
-        }
-        .footer-eula-footnote-right p {
-            font-family: 'Lyean Sans', sans-serif !important; 
-            font-size: 0.92rem !important; 
-            line-height: 1.6 !important; 
-            color: #666 !important; /* 优雅的暗灰色 */
-            max-width: 440px; /* 控制行宽防止溢出，使其在右侧完美成块 */
-            margin: 0 0 0 auto; /* 强迫块容器本身向右靠拢 */
-        }
+        .footer-eula-footnote-right { margin-top: 25px; padding-top: 20px; border-top: 1px solid #2a2824; text-align: right; width: 100%; }
+        .footer-eula-footnote-right p { font-size: 0.92rem !important; line-height: 1.6 !important; color: #666 !important; max-width: 440px; margin: 0 0 0 auto; }
         .footer-eula-footnote-right p i { font-family: "Lyean", serif !important; font-style: italic; color: #aaa; }
         .footer-eula-footnote-right p a { color: #b85a4b; text-decoration: none; border-bottom: 1px solid #444; }
         .footer-eula-footnote-right p a:hover { color: #f6f3eb; border-color: #b85a4b; }
-        
         .footer-bottom { border-top: 1px solid #262421; padding-top: 40px; font-size: 0.95rem; color: #666; }
 
         /* ==========================================================================
-           流体自适应移动端补丁系统
+           【📱 独立字厂全站移动端 · 印刷级流体密度自适应锁死系统 — 重磅优化】
            ========================================================================== */
         html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
+        
         @media (max-width: 768px) {
+            /* 1. 紧缩全站基础容器间距，拉升首屏呼吸感 */
             .container { max-width: 92vw !important; width: 92vw !important; margin: 0 auto !important; padding: 40px 0 0 0 !important; }
-            header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 40px !important; padding-bottom: 15px !important; }
-            header nav { display: flex !important; flex-wrap: wrap !important; gap: 10px 15px !important; }
-            header nav a { margin-left: 0 !important; font-size: 0.95rem !important; }
+            
+            /* 2. 紧凑型移动头部，缩紧多余留白 */
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; margin-bottom: 35px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 8px 16px !important; width: 100%; }
+            header nav a { margin-left: 0 !important; font-size: 1rem !important; letter-spacing: 0.02em; }
             header div a { font-size: 1.15rem !important; }
-            h1 { font-size: 2.2rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
-            .intro-text h2 { font-size: 1.7rem !important; line-height: 1.25 !important; margin-bottom: 20px !important; }
-            .public-work-title { font-size: 1.6rem !important; line-height: 1.25 !important; margin-bottom: 30px !important; }
-            .hero-section, .project-intro-container, .exhibition-main-grid, .archive-flex-panel { grid-template-columns: 1fr !important; gap: 35px !important; margin-bottom: 50px !important; }
-            .particle-stage-box { border-left: none !important; padding-left: 0 !important; border-bottom: 1px solid #e0dbcf !important; padding-bottom: 30px !important; margin-top: 10px !important; aspect-ratio: 1 / 1 !important; }
-            .hero-specimen-info-panel { grid-template-columns: 1fr !important; gap: 12px !important; margin-top: 25px !important; }
-            .metadata-grid { grid-template-columns: 1fr 1fr !important; gap: 20px 16px !important; padding: 25px 0 !important; margin-top: 30px !important; margin-bottom: 30px !important; }
-            .credit-grid-wrapper { border-left: none !important; padding-left: 0 !important; margin-top: 20px !important; max-height: none !important; }
-            .credit-sub-grid { grid-template-columns: 95px 1fr !important; gap: 8px 10px !important; }
-            .projects-grid { grid-template-columns: 1fr !important; gap: 45px !important; margin-bottom: 60px !important; }
-            .project-filter { font-size: 0.95rem !important; gap: 20px !important; flex-wrap: wrap !important; }
+            
+            /* 3. 字体大标题与排版缩紧（绝杀空旷感：拉近文字行距） */
+            h1 { font-size: 2.6rem !important; line-height: 1.15 !important; margin-bottom: 25px !important; }
+            .hero-section p { font-size: 1.2rem !important; line-height: 1.45 !important; margin-bottom: 16px !important; color: #1a1a1a !important; }
+            .hero-section p + p { font-size: 1.15rem !important; line-height: 1.45 !important; color: #555 !important; }
+            
+            /* 4. 首屏网格单栏流体降维，粒子容器自适应 */
+            .hero-section { grid-template-columns: 1fr !important; gap: 30px !important; margin-bottom: 60px !important; }
+            .hero-right-wrapper { margin-top: 10px !important; }
+            .particle-stage-box { border-left: none !important; padding-left: 0 !important; border-bottom: 1px solid #e0dbcf !important; padding-bottom: 25px !important; aspect-ratio: 1 / 1 !important; }
+            .hero-specimen-info-panel { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-top: 20px !important; padding-top: 15px !important; }
+            .hero-specimen-info-panel .info-label { font-size: 0.65rem !important; margin-bottom: 4px !important; }
+            .hero-specimen-info-panel .info-value { font-size: 0.9rem !important; line-height: 1.2 !important; }
+
+            /* 5. 画廊过滤中轴中置紧缩 */
+            .projects-header-zone { margin-top: 20px !important; }
+            .section-title { font-size: 2rem !important; margin-bottom: 15px !important; }
+            .project-filter { font-size: 0.95rem !important; gap: 15px 20px !important; flex-wrap: wrap !important; margin-bottom: 35px !important; padding-bottom: 15px !important; letter-spacing: 0.04em; }
+            
+            /* 6. 🎯 终极突破：解决横版图缩小痛点 — 强制“全面屏撑满边缘”大视界Specimen */
+            .projects-grid { grid-template-columns: 1fr !important; gap: 50px !important; margin-bottom: 60px !important; }
             .gallery-card { transform: none !important; }
-            .gallery-card h3 { font-size: 1.6rem !important; }
-            .gallery-desc { font-size: 1.1rem !important; }
-            .card-meta-badge-line { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
-            .script-badge { font-size: 0.85rem !important; padding: 3px 8px !important; }
-            .project-hero-cover, .specimen-full-img, .specimen-flagship-full, .alphabettes-link-cover-card { width: 100vw !important; margin-left: calc(-50vw + 50%) !important; border-radius: 0 !important; }
-            .phd-academic-fullwidth-box { width: 100vw !important; margin-left: calc(-50vw + 50%) !important; }
-            .phd-academic-split-grid { grid-template-columns: 1fr !important; gap: 50px !important; }
-            .sticky-taxonomy-sidebar { position: relative !important; top: 0 !important; margin-bottom: 0 !important; width: 100% !important; padding: 0 0 10px 0 !important; }
-            .left-indicator-badge { margin-left: 4vw !important; text-align: left !important; }
-            .right-indicator-badge { margin-right: 0 !important; margin-left: 4vw !important; text-align: left !important; }
-            .a4-card-monument { border-radius: 0 !important; }
-            .sutra-long-scroll-window { height: 320px !important; }
-            .sutra-slider-wrapper { width: 92vw !important; margin: 20px auto 0 auto !important; }
-            .list-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+            
+            .gallery-image-box { 
+                width: 100vw !important; 
+                margin-left: calc(-50vw + 50%) !important; /* 👈 黑科技：强制图片冲破 container 边框，占满手机物理屏幕左右边缘 */
+                border-left: none !important; 
+                border-right: none !important; 
+                border-radius: 0 !important; /* 消除全面屏下的圆角 */
+                aspect-ratio: 16 / 10 !important; /* 精准调校移动端最震撼的横图黄金纵横比 */
+                margin-bottom: 14px !important;
+            }
+            
+            /* 7. 紧缩卡片下方的语种胶囊和简介行距 */
+            .card-meta-badge-line { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; margin-bottom: 10px !important; }
+            .script-badge-container { gap: 6px !important; }
+            .script-badge { font-size: 0.82rem !important; padding: 3px 8px !important; }
+            .card-year-label { font-size: 0.9rem !important; padding-top: 0 !important; }
+            .gallery-card h3 { font-size: 1.75rem !important; margin-bottom: 8px !important; }
+            .gallery-desc { font-size: 1.15rem !important; line-height: 1.45 !important; color: #444 !important; } /* 👈 缩紧简介行距 */
+
+            /* 8. 公共演讲文献列表移动端无损收拢 */
+            .public-work-section { margin-bottom: 60px !important; }
+            .public-work-title { font-size: 1.75rem !important; line-height: 1.25 !important; margin-bottom: 30px !important; }
+            .list-grid { grid-template-columns: 1fr !important; gap: 25px !important; }
             .list-box { padding: 20px !important; }
-            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; position: relative !important; font-size: 1.1rem !important; }
+            .list-box h4 { font-size: 1.6rem !important; margin-bottom: 15px !important; }
+            .more-link { font-size: 0.85rem !important; padding: 4px 10px !important; }
+            
+            /* 列表内容行高无损提纯 */
+            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; padding: 16px 0 !important; font-size: 1.1rem !important; line-height: 1.4 !important; position: relative !important; }
+            .list-year { font-size: 0.9rem !important; }
+            /* 强力修复：扩大手机上 [Link ↗] 的可点击物理面积，防止手指点错 */
             .list-item div:last-child { position: absolute !important; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
             .list-item div:last-child a { display: block; width: 100%; height: 100%; }
+
+            /* 9. Footer 模块紧凑度全面重组 */
+            footer { padding: 60px 4vw 40px 4vw !important; margin-top: 40px !important; }
+            .footer-grid { grid-template-columns: 1fr !important; gap: 45px !important; margin-bottom: 35px !important; }
+            .footer-bio h2 { font-size: 1.8rem !important; margin-bottom: 15px !important; }
+            .footer-bio p { font-size: 1.15rem !important; line-height: 1.5 !important; }
+            .footer-bio p + p { margin-top: 12px !important; }
             
-            /* 手机端底部对齐降级自适应流体复位 */
-            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
-            .footer-bio h2 { font-size: 1.8rem !important; }
+            /* 联络台自适应复位 */
             .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; margin-top: 10px !important; gap: 15px !important; }
-            .contact-social-links { justify-content: flex-start !important; gap: 20px !important; }
-            .footer-eula-footnote-right { text-align: left !important; margin-top: 20px !important; }
-            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.85rem !important; max-width: 100% !important; }
+            .contact-monument-title { font-size: 1.15rem !important; }
             .contact-primary-mail { font-size: 1.35rem !important; }
-            .contact-social-links a { font-size: 1.1rem !important; }
+            .contact-social-links { justify-content: flex-start !important; gap: 20px !important; }
+            .contact-social-links a { font-size: 1.15rem !important; }
             
-            .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+            /* 授权声明移动端降维紧缩 */
+            .footer-eula-footnote-right { text-align: left !important; margin-top: 15px !important; padding-top: 15px !important; }
+            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.85rem !important; line-height: 1.45 !important; max-width: 100% !important; }
+            
+            .footer-bottom { padding-top: 25px !important; font-size: 0.85rem !important; }
         }
     </style>
 </head>
@@ -481,7 +462,7 @@
             <div class="project-filter">
                 <span class="filter-item active" data-filter="all">ALL</span>
                 <span class="filter-item" data-filter="typeface">TYPEFACE DESIGN</span>
-                <span class="filter-item" data-filter="tools">DESIGN AND TOOLS</span>
+                <span class="filter-item" data-filter="tools">DESIGN AND SYSTEM UTILITIES</span>
             </div>
 
             <!-- 错落双栏画廊区 -->
@@ -518,7 +499,7 @@
                 </a>
 
                 <!-- Project 3: Shanghai Sky -->
-                <a href="shanghaisky.html" class="gallery-card" data-category="typeface">
+                <a href="Shanghaisky.html" class="gallery-card" data-category="typeface">
                     <div class="gallery-image-box"><img src="images/Shanghaisky.webp" alt="Shanghai Sky Typeface System"></div>
                     <div class="card-meta-badge-line">
                         <div class="script-badge-container">
@@ -603,11 +584,11 @@
                     <div class="gallery-image-box"><img src="images/tangut_tool.webp" alt="Tangut Composition Lookup Engine"></div>
                     <div class="card-meta-badge-line">
                         <div class="script-badge-container">
-                            <span class="script-badge">Interactive Character Search Utility</span>
+                            <span class="script-badge">Interactive Font Search Utility</span>
                         </div>
                         <div class="card-year-label">2026</div>
                     </div>
-                    <h3>Tangut Character Composition and Search Tool</h3>
+                    <h3>Tangut Character Composition and Search Utility</h3>
                     <p class="gallery-desc">A custom-coded vanilla JS frontend interactive lookup application developed to resolve complex stroke and radical decomposition bottlenecks.</p>
                 </a>
 
@@ -616,9 +597,9 @@
                     <div class="gallery-image-box"><img src="images/excel_tangut_matrix.webp" alt="Excel Tangut Dictionary Mapping Automation Utility"></div>
                     <div class="card-meta-badge-line">
                         <div class="script-badge-container">
-                            <span class="script-badge">Transform Tool</span>
+                            <span class="script-badge">Internal Research Matrix</span>
                         </div>
-                        <div class="card-year-label">2026</div>
+                        <div class="card-year-label">2025</div>
                     </div>
                     <h3>Copy copy Tangut</h3>
                     <p class="gallery-desc">An internally deployed proprietary database framework and automated Excel macro scripting layer engineered to map Tangut ideographs to multi-variant Hanzi records.</p>
@@ -629,7 +610,8 @@
 
         <!-- Talks 列表区 -->
         <section class="public-work-section" id="talks-anchor">
-            <div class="tag">Talks and publications</div>
+            <div class="tag">Speaking and Writing</div>
+            <div class="public-work-title">Public work around letters, tools, and reading culture.</div>
             
             <div class="list-grid">
                 
@@ -691,7 +673,7 @@
                         I am a typeface designer and researcher currently based in the UK. I graduated with distinction from the MA in Typeface Design at the University of Reading (2022), where I subsequently completed my doctorate in 2026. My research focuses on the development of digital typefaces for the Tangut script—an extinct writing system used in northwestern China between the 11th and 13th centuries.
                     </p>
                     <p style="color: #ccc; font-size: 1.25rem; margin-top: 15px; line-height: 1.6;">
-                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. I redesigned Noto Serif Tangut for Google Fonts and engineered the custom revival typeface AraTangut for Professor Arakawa Shintarō. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
+                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. My independent font design has won awards, including the New York TDC Award and recognition from the Tokyo TDC for AraTangut. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
                     </p>
                 </div>
                 
@@ -768,7 +750,7 @@
             { imageSrc: "images/tangut_particle_src.webp", name: "TangutBux", script: "Tangut", translation: "“Speak”" },
             { imageSrc: "images/tangut_particle_src_02.webp", name: "Lyean Regular", script: "Simplified Chinese (Hanzi)", translation: "“Forever”" },
             { imageSrc: "images/tangut_particle_src_03.webp", name: "Lyean Regular Italic", script: "Latin script", translation: "" },
-            { imageSrc: "images/tangut_particle_src_04.webp", name: "Lyean Regular", script: "Arabic Script (Naskh Base)", translation: "" },
+            { imageSrc: "images/tangut_particle_src_04.woff2", name: "Lyean Regular", script: "Arabic Script (Naskh Base)", translation: "" },
             { imageSrc: "images/tangut_particle_src_05.webp", name: "Lyean Regular", script: "Japanese hiragana", translation: "" },
             { imageSrc: "images/tangut_particle_src_06.webp", name: "HanJiangYaKai", script: "Simplified Chinese (Hanzi)", translation: "“Feel”" }
         ];
