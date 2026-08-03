@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Talks & Writings | XICHENG YANG</title>
     <style>
         /* ==========================================================================
@@ -34,19 +34,68 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            width: 100% !important;
+            /* 🎯 极其关键：PC端绝对不可写死隐藏，彻底解开 Sticky 假死封印！ */
+        }
+
+        /* 🎨 亮色主题默认变量定义 */
+        :root {
+            --bg-paper: #f6f3eb;
+            --text-primary: #1a1a1a;
+            --text-secondary: #333333;
+            --text-muted: #6e5d4f;
+            --border-color: #e0dbcf;
+            --card-bg: #ede9df;
+            --accent-red: #b85a4b;
+            --footer-bg: #1a1a1a;
+            --footer-text: #f6f3eb;
+            --floating-widget-bg: #ede9df;
+        }
+
+        /* 🎨 全自动化+手动混合高阶全黑夜间模式切换体系 */
+        body.dark-theme,
+        body:not(.light-theme) {
+            @media (prefers-color-scheme: dark) {
+                --bg-paper: #12110e;
+                --text-primary: #f6f3eb;
+                --text-secondary: #e0dbcf;
+                --text-muted: #a19285;
+                --border-color: #2e2a24;
+                --card-bg: #1f1b16;
+                --accent-red: #d96a59;
+                --footer-bg: #090908;
+                --footer-text: #e6e2d5;
+                --floating-widget-bg: #1f1b16;
+            }
+        }
+        
+        body.dark-theme {
+            --bg-paper: #12110e;
+            --text-primary: #f6f3eb;
+            --text-secondary: #e0dbcf;
+            --text-muted: #a19285;
+            --border-color: #2e2a24;
+            --card-bg: #1f1b16;
+            --accent-red: #d96a59;
+            --footer-bg: #090908;
+            --footer-text: #e6e2d5;
+            --floating-widget-bg: #1f1b16;
+        }
 
         body {
             margin: 0; padding: 0;
-            background-color: #f6f3eb;
-            color: #1a1a1a;
-            /* ⚠️ 桌面端绝对不可写 overflow-x: hidden，否则直接杀死 sticky！ */
+            background-color: var(--bg-paper);
+            color: var(--text-primary);
             width: 100%; position: relative; 
+            transition: background-color 0.3s, color 0.3s;
         }
         
-        .container { max-width: 90vw; margin: 0 auto; padding: 60px 0 0 0; }
+        .container { max-width: 90vw; margin: 0 auto; padding: 60px 0 0 0; box-sizing: border-box; }
 
-        header, header *, nav, nav *, .tag, .link-btn, .year-badge, .star-badge, footer, footer * {
+        header, header *, nav, nav *, .tag, .link-btn, .year-badge, .star-badge, 
+        .back-to-top-capsule, .theme-icon-capsule, .mobile-inline-preview-box, footer, footer * {
             font-family: 'Lyean Sans', sans-serif !important;
             font-weight: normal !important;
         }
@@ -55,66 +104,61 @@
         header {
             display: flex; justify-content: space-between; align-items: center;
             text-transform: uppercase;
-            border-bottom: 1px solid #e0dbcf;
-            padding-bottom: 25px;
-            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px; margin-bottom: 60px;
         }
-        header div a { font-size: 1.35rem !important; letter-spacing: 0.05em; text-decoration: none; color: #1a1a1a; }
-        header nav a { font-size: 1.2rem !important; letter-spacing: 0.05em; text-decoration: none; color: #1a1a1a; margin-left: 40px; transition: color 0.2s; }
-        header nav a:hover { color: #b85a4b; }
+        header div a { font-size: 1.35rem !important; letter-spacing: 0.05em; text-decoration: none; color: var(--text-primary); }
+        header nav a { font-size: 1.2rem !important; letter-spacing: 0.05em; text-decoration: none; color: var(--text-primary); margin-left: 40px; transition: color 0.2s; }
+        header nav a:hover { color: var(--accent-red); }
+        header nav a.active { color: var(--accent-red); }
         
         /* 大标题 */
         .page-title-area { margin-bottom: 60px; }
-        .tag { font-size: 0.85rem; color: #b85a4b; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
-        h1 { font-size: 4rem; font-weight: normal; line-height: 1.1; margin: 0 0 30px 0; }
+        .tag { font-size: 0.85rem; color: var(--accent-red); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
+        h1 { font-size: 4rem; font-weight: normal; line-height: 1.1; margin: 0 0 30px 0; color: var(--text-primary); }
         
-        /* ==========================================================================
-           【两栏联动网格 - 彻底修复悬浮假死】
-           ========================================================================== */
+        /* 两栏联动网格 */
         .main-layout-grid {
             display: grid; 
             grid-template-columns: 1fr 450px; 
-            gap: 80px;
-            /* 🚫 删除了 align-items: start; 强迫右侧轨道和左侧文本拉伸到同等高度！ */
-            margin-bottom: 100px;
+            gap: 80px; margin-bottom: 100px;
         }
 
         .academic-section { margin-bottom: 50px; }
         .section-subtitle {
-            font-size: 1.2rem; font-weight: normal; border-bottom: 2px solid #1a1a1a; padding-bottom: 15px; margin-bottom: 20px;
-            text-transform: uppercase; font-family: 'Lyean Sans', sans-serif !important; letter-spacing: 0.05em;
+            font-size: 1.2rem; font-weight: normal; border-bottom: 2px solid var(--text-primary); padding-bottom: 15px; margin-bottom: 20px;
+            text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary);
         }
 
-        .item-block { padding: 35px 0; border-bottom: 1px solid #e0dbcf; transition: background-color 0.3s; cursor: pointer; }
-        .item-block:hover { background-color: rgba(255, 255, 255, 0.3); }
+        .item-block { padding: 35px 0; border-bottom: 1px solid var(--border-color); transition: background-color 0.3s; position: relative; }
+        .item-block:hover { background-color: rgba(255, 255, 255, 0.15); }
+        body.dark-theme .item-block:hover { background-color: rgba(255, 255, 255, 0.03); }
         
         .item-title {
             font-size: 1.35rem; font-weight: bold !important; font-family: "Lyean", serif !important;
-            line-height: 1.4; margin-bottom: 15px; max-width: 800px;
+            line-height: 1.4; margin-bottom: 15px; max-width: 800px; color: var(--text-primary);
         }
         
         .venue-list { margin: 0; padding: 0; list-style: none; }
-        .venue-row { display: flex; align-items: center; gap: 15px; font-size: 1.05rem; color: #444; margin-bottom: 10px; }
+        .venue-row { display: flex; align-items: center; gap: 15px; font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 10px; position: relative; z-index: 5; }
         .venue-row:last-child { margin-bottom: 0; }
 
-        .year-badge { font-size: 0.75rem; color: #6e5d4f; font-weight: bold; border: 1px solid #c4b9ae; padding: 2px 6px; border-radius: 3px; display: inline-block; white-space: nowrap; }
+        .year-badge { font-size: 0.75rem; color: var(--text-muted); font-weight: bold; border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 3px; display: inline-block; white-space: nowrap; background: var(--bg-paper); }
         .star-badge { font-size: 0.75rem; color: #f6f3eb; font-weight: bold; background-color: #2b231d; padding: 3px 8px; border-radius: 3px; display: inline-block; letter-spacing: 0.05em; white-space: nowrap; }
-        .link-btn { font-size: 0.8rem; color: #b85a4b; text-decoration: none; }
+        body.dark-theme .star-badge { background-color: #ede9df; color: #1a1a1a; }
+        .link-btn { font-size: 0.8rem; color: var(--accent-red); text-decoration: none; position: relative; z-index: 10; }
         .link-btn:hover { text-underline-offset: 4px; }
 
-        /* 💡 悬浮魔法真正发生的地方 */
-        .sticky-aside-wrapper {
-            height: 100%; /* 它现在是一条几千像素高的隐形轨道 */
-            position: relative;
-        }
-        
+        /* 移动端内置独立图片展位容器（PC端强制隐藏） */
+        .mobile-inline-preview-box { display: none; }
+
+        /* 💡 悬浮预览框轨道架构 — 恢复绝对自由滑行 */
+        .sticky-aside-wrapper { height: 100%; position: relative; }
         .sticky-image-preview {
-            position: sticky; /* 真正的悬浮者是画框本身 */
-            top: 60px; /* 在隐形轨道里，始终距离屏幕顶端 60px 往下滑行 */
-            width: 100%; height: 480px;
-            background-color: #ede9df; border-radius: 6px; overflow: hidden;
+            position: sticky; top: 60px; width: 100%; height: 480px;
+            background-color: var(--card-bg); border-radius: 6px; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
-            border: 1px solid #e0dbcf;
+            border: 1px solid var(--border-color);
         }
         
         .sticky-image-preview img {
@@ -123,67 +167,125 @@
             position: absolute; top: 0; left: 0;
         }
         .sticky-image-preview img.active { opacity: 1; transform: scale(1); }
-        .placeholder-text { color: #888; font-family: 'Lyean Sans', sans-serif !important; font-size: 0.85rem; text-align: center; padding: 20px; line-height: 1.5; z-index: 1; }
+        .placeholder-text { color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 20px; line-height: 1.5; z-index: 1; }
 
         /* ==========================================================================
-           【🎨 Footer 与首页像素级对齐】
+           【🎨 全分立全矢量悬浮控制组件】
            ========================================================================== */
-        footer { background-color: #1a1a1a; color: #f6f3eb; padding: 100px 5vw; margin-top: 60px; scroll-margin-top: 60px; }
+        .theme-icon-capsule {
+            position: fixed; top: 35px; right: 5vw; z-index: 999;
+            background: var(--floating-widget-bg); border: 1px solid var(--border-color);
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .theme-icon-capsule:hover { background: var(--text-primary); border-color: var(--text-primary); }
+        .theme-icon-capsule svg { width: 20px; height: 20px; fill: var(--text-primary); transition: fill 0.3s, transform 0.4s; }
+        .theme-icon-capsule:hover svg { fill: var(--bg-paper); transform: rotate(15deg); }
         
+        .theme-icon-capsule .sun-icon { display: none; }
+        .theme-icon-capsule .moon-icon { display: block; }
+        body.dark-theme .theme-icon-capsule .sun-icon { display: block; }
+        body.dark-theme .theme-icon-capsule .moon-icon { display: none; }
+
+        .back-to-top-capsule {
+            position: fixed; bottom: 35px; right: 5vw; z-index: 999;
+            background: var(--floating-widget-bg); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 10px 18px;
+            font-size: 0.9rem !important; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0; visibility: hidden; transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .back-to-top-capsule.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top-capsule:hover { background: var(--text-primary); color: var(--bg-paper); border-color: var(--text-primary); }
+
+        /* ==========================================================================
+           【🎨 Footer 区域】
+           ========================================================================== */
+        footer { background-color: var(--footer-bg); color: var(--footer-text); padding: 100px 5vw; margin-top: 60px; scroll-margin-top: 60px; }
         .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 120px; margin-bottom: 40px; align-items: flex-end; }
         .footer-bio h2 { font-style: italic; font-weight: normal; font-size: 3.2rem; line-height: 1.2; margin: 0 0 30px 0; font-family: "Lyean", serif !important; }
         .footer-bio p { color: #ccc; font-size: 1.25rem; line-height: 1.65; font-family: "Lyean", serif !important; margin: 0; } 
         .footer-bio p + p { margin-top: 20px; } 
         
         .footer-contact-architecture { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; gap: 18px; padding: 0; margin: 0; width: 100%; }
-        .contact-monument-title { font-size: 1.35rem !important; letter-spacing: 0.15em; color: #b85a4b; margin: 0; line-height: 1; }
+        .contact-monument-title { font-size: 1.35rem !important; letter-spacing: 0.15em; color: var(--accent-red); margin: 0; line-height: 1; }
         .contact-primary-mail { font-size: 1.55rem !important; margin: 0; line-height: 1.1; }
-        .contact-primary-mail a { color: #f6f3eb; text-decoration: none; transition: color 0.2s; }
-        .contact-primary-mail a:hover { color: #b85a4b; }
+        .contact-primary-mail a { color: var(--footer-text); text-decoration: none; transition: color 0.2s; }
+        .contact-primary-mail a:hover { color: var(--accent-red); }
         
         .contact-social-links { display: flex; justify-content: flex-end; gap: 28px; margin: 4px 0 0 0; padding: 0; }
-        .contact-social-links a { color: #888; text-decoration: none; font-size: 1.3rem !important; letter-spacing: 0.02em; transition: color 0.2s, border-color 0.2s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
-        .contact-social-links a:hover { color: #f6f3eb; border-color: #b85a4b; }
+        .contact-social-links a { color: #888; text-decoration: none; font-size: 1.3rem !important; letter-spacing: 0.02em; transition: color 0.2s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+        .contact-social-links a:hover { color: var(--footer-text); border-color: var(--accent-red); }
         
         .footer-eula-footnote-right { margin-top: 25px; padding-top: 20px; border-top: 1px solid #2a2824; text-align: right; width: 100%; }
-        .footer-eula-footnote-right p { font-family: 'Lyean Sans', sans-serif !important; font-size: 0.92rem !important; line-height: 1.6 !important; color: #666 !important; max-width: 440px; margin: 0 0 0 auto; }
-        .footer-eula-footnote-right p i { font-family: "Lyean", serif !important; font-style: italic; color: #aaa; }
-        .footer-eula-footnote-right p a { color: #b85a4b; text-decoration: none; border-bottom: 1px solid #444; }
-        .footer-eula-footnote-right p a:hover { color: #f6f3eb; border-color: #b85a4b; }
-        
-        .footer-bottom { border-top: 1px solid #262421; padding-top: 40px; font-size: 0.95rem; color: #666; }
+        .footer-eula-footnote-right p { font-size: 0.92rem !important; line-height: 1.6 !important; color: #666 !important; max-width: 440px; margin: 0 0 0 auto; }
+        .footer-eula-footnote-right p a { color: var(--accent-red); text-decoration: none; }
+        .footer-bottom { border-top: 1px solid #262421; padding-top: 40px; font-size: 0.95rem; color: #666; display: flex; justify-content: space-between; align-items: center; }
 
         /* ==========================================================================
-           【移动端补丁：把溢出隐藏安全关进这里】
+           【📱 独立字厂全站移动端 · 物理锁死与流体自适应无损校准系统】
            ========================================================================== */
         @media (max-width: 768px) {
-            html, body { overflow-x: hidden !important; }
-            .container { max-width: 92vw !important; width: 92vw !important; margin: 0 auto !important; padding: 40px 0 0 0 !important; }
-            header { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 40px !important; padding-bottom: 15px !important; }
-            header nav { display: flex !important; flex-wrap: wrap !important; gap: 10px 15px !important; }
-            header nav a { margin-left: 0 !important; font-size: 0.95rem !important; }
+            /* 🎯 安全隔离：将可能会憋死 PC 端的隐藏变量，只高能防御在手机端内！ */
+            html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
+            
+            .container { max-width: 100% !important; width: 100% !important; padding: 30px 18px 0 18px !important; box-sizing: border-box !important; }
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; margin-bottom: 30px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 8px 16px !important; width: 100%; }
+            header nav a { margin-left: 0 !important; font-size: 1rem !important; }
             header div a { font-size: 1.15rem !important; }
             h1 { font-size: 2.2rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
             
             .main-layout-grid { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
-            /* 移动端强行解除 sticky，恢复正常流布局 */
-            .sticky-aside-wrapper { height: auto !important; position: relative !important; }
-            .sticky-image-preview { position: relative !important; top: 0 !important; height: 320px !important; }
-            .venue-row { flex-wrap: wrap !important; gap: 8px !important; }
+            .sticky-aside-wrapper { display: none !important; } 
+            
+            /* 手机端内置独立图片展位激活 */
+            .mobile-inline-preview-box {
+                display: block !important;
+                width: 100vw !important; margin-left: -18px !important;
+                aspect-ratio: 16 / 10 !important; background-color: var(--card-bg);
+                border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
+                margin-top: 15px !important; margin-bottom: 5px !important; overflow: hidden;
+            }
+            .mobile-inline-preview-box img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }
 
-            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
-            .footer-bio h2 { font-size: 1.8rem !important; }
-            .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; margin-top: 10px !important; gap: 15px !important; }
-            .contact-social-links { justify-content: flex-start !important; gap: 20px !important; }
-            .footer-eula-footnote-right { text-align: left !important; margin-top: 20px !important; }
-            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.85rem !important; max-width: 100% !important; }
-            .contact-primary-mail { font-size: 1.35rem !important; }
-            .contact-social-links a { font-size: 1.1rem !important; }
-            .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+            .section-subtitle { font-size: 1.1rem !important; padding-bottom: 10px !important; margin-bottom: 15px !important; }
+            .item-block { padding: 25px 0 !important; }
+            .item-title { font-size: 1.25rem !important; line-height: 1.35 !important; margin-bottom: 12px !important; }
+            .venue-row { flex-wrap: wrap !important; gap: 6px 12px !important; font-size: 0.95rem !important; line-height: 1.4 !important; }
+            .year-badge, .star-badge { font-size: 0.72rem !important; padding: 2px 6px !important; }
+
+            /* 手机端页脚逆向提振 */
+            footer { padding: 40px 18px 35px 18px !important; margin-top: 40px !important; width: 100vw !important; margin-left: -18px !important; box-sizing: border-box !important; }
+            .footer-grid { display: flex !important; flex-direction: column-reverse !important; gap: 40px !important; margin-bottom: 30px !important; }
+            .footer-bio h2 { font-size: 1.65rem !important; margin-bottom: 12px !important; }
+            .footer-bio p { font-size: 1.1rem !important; line-height: 1.45 !important; }
+            .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; gap: 12px !important; width: 100% !important; border-bottom: 1px solid #2a2824; padding-bottom: 30px; }
+            .contact-monument-title { font-size: 1.1rem !important; }
+            .contact-primary-mail { font-size: 1.25rem !important; }
+            .contact-social-links { justify-content: flex-start !important; gap: 18px !important; }
+            .footer-eula-footnote-right { text-align: left !important; margin-top: 15px !important; padding-top: 0 !important; border-top: none !important; }
+            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.82rem !important; max-width: 100% !important; }
+            .footer-bottom { padding-top: 20px !important; font-size: 0.82rem !important; flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+            
+            .theme-icon-capsule { top: 15px !important; right: 18px !important; width: 38px !important; height: 38px !important; }
+            .theme-icon-capsule svg { width: 16px !important; height: 16px !important; }
+            .back-to-top-capsule { bottom: 20px !important; right: 18px !important; padding: 8px 14px !important; font-size: 0.8rem !important; }
         }
     </style>
 </head>
 <body>
+
+    <!-- 🎯 满足要求：全分立控制组件 -->
+    <div class="theme-icon-capsule" id="themeToggleBtn" title="Switch Theme">
+        <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21.1 14.1c-1.3.4-2.7.6-4.1.6-5.5 0-10-4.5-10-10 0-1.4.3-2.8.6-4.1C4.3 2.1 1.7 5.6 1.7 9.7c0 6.6 5.4 12 12 12 4.1 0 7.6-2.6 9.1-5.9-.5.1-1.1.3-1.7.3z"/></svg>
+        <svg class="sun-icon" viewBox="0 0 24 24"><path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm0-12c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1s-1 .4-1 1v1c0 .6.4 1 1 1zm0 16c-.6 0-1 .4-1 1v1c0 .6.4 1 1 1s1-.4 1-1v-1c0-.6-.4-1-1-1zm10-7h-1c-.6 0-1 .4-1 1s.4 1 1 1h1c.6 0 1-.4 1-1s-.4-1-1-1zM4 12c0-.6-.4-1-1-1H2c-.6 0-1 .4-1 1s.4 1 1 1h1c.6 0 1-.4 1-1zm14.1-5.7c.4.4 1 .4 1.4 0l.7-.7c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-.7.7c-.4.4-.4 1 0 1.4zM5.2 17.4l-.7.7c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l.7-.7c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm13.6.7c.4.4 1 .4 1.4 0s.4-1 0-1.4l-.7-.7c-.4-.4-1-.4-1.4 0s-.4 1 0 1.4l.7.7zM6.6 6.6c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-.7.7c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.2 0 .5-.1.7-.3l.7-.7z"/></svg>
+    </div>
+    
+    <button class="back-to-top-capsule" id="backToTop">Top ↑</button>
 
     <div class="container">
         <!-- 导航区 -->
@@ -217,10 +319,11 @@
                             <span class="star-badge">🗣️ Grapholinguistics · 2026</span>
                             <div>International Conference on Grapholinguistics in the 21st century <a href="https://www.youtube.com/watch?v=mMsx2mtu3QA" target="_blank" class="link-btn" style="margin-left: 8px;">[Watch ↗]</a></div>
                         </div>
+                        <div class="mobile-inline-preview-box"><img src="images/grapholinguistics.webp" alt="Grapholinguistics Presentation Document"></div>
                     </div>
 
                     <div class="item-block" data-img="images/remaking_tangut_talk.webp">
-                        <div class="item-title" style="color: #b85a4b;">Remaking the Tangut script: new paradigms in designing digital typefaces for extinct writing systems.</div>
+                        <div class="item-title">Remaking the Tangut script: new paradigms in designing digital typefaces for extinct writing systems.</div>
                         <ul class="venue-list">
                             <li class="venue-row">
                                 <span class="star-badge">🔥 ATypI STANFORD · 2026</span>
@@ -235,6 +338,7 @@
                                 <div>9th International Conference on Professional & Practice Based Doctorates · <i>Royal College of Art, UK</i> <a href="https://ukcge.ac.uk/assets/pdfs/ICPPD9-Xicheng-Yang-poster.pdf" target="_blank" class="link-btn" style="margin-left: 8px;">[Poster ↗]</a></div>
                             </li>
                         </ul>
+                        <div class="mobile-inline-preview-box"><img src="images/remaking_tangut_talk.webp" alt="ATypI Stanford Presentation Screen"></div>
                     </div>
 
                     <div class="item-block" data-img="images/embassy.webp">
@@ -243,6 +347,7 @@
                             <span class="year-badge">2024</span>
                             <div>Talk on diverse writing systems in China, special event of “Evolution of Chinese character exhibition” · Embassy of the People's Republic of China, London</div>
                         </div>
+                        <div class="mobile-inline-preview-box"><img src="images/embassy.webp" alt="Embassy of China Presentation Showcase"></div>
                     </div>
 
                     <div class="item-block" data-img="images/punctuation_talk.webp">
@@ -257,6 +362,7 @@
                                 <div>China (Anyang) International Conference of Chinese Characters</div>
                             </li>
                         </ul>
+                        <div class="mobile-inline-preview-box"><img src="images/punctuation_talk.webp" alt="Typography Theory Practice Lecture Record"></div>
                     </div>
 
                     <div class="item-block" data-img="images/noto_tangut_talk.webp">
@@ -275,6 +381,7 @@
                                 <div>The 13th Printing Culture Symposium, Beijing, China</div>
                             </li>
                         </ul>
+                        <div class="mobile-inline-preview-box"><img src="images/noto_tangut_talk.webp" alt="ATypI All Over Presentation Overview"></div>
                     </div>
                 </section>
 
@@ -288,6 +395,7 @@
                             <span class="star-badge">✍️ GRANSHAN · 2026</span>
                             <div>Published Exhibition Paper / Core Article <a href="https://granshan.com/insights/hanzi-chinese-characters" target="_blank" class="link-btn">[Read Article ↗]</a></div>
                         </div>
+                        <div class="mobile-inline-preview-box"><img src="images/granshan.webp" alt="Granshan Published Insights Cover"></div>
                     </div>
 
                     <div class="item-block" data-img="images/letterseed.webp">
@@ -296,6 +404,7 @@
                             <span class="year-badge">2025</span>
                             <div>LetterSeed 28 · <i>Korean Society of Typography, Ahn Graphics</i></div>
                         </div>
+                        <div class="mobile-inline-preview-box"><img src="images/letterseed.webp" alt="LetterSeed 28 Typography Journal Layout"></div>
                     </div>
 
                     <div class="item-block" data-img="images/punctuation_paper.webp">
@@ -304,6 +413,7 @@
                             <span class="year-badge">2023</span>
                             <div>Print culture · <i>China Printing Museum, Issue 2, 2023</i> <a href="https://oversea.cnki.net/kcms2/article/abstract?v=QP2K49WHhilaDYujVU_Vafg1zqrxmxsT2hKwMiz2563yJIhWMa1VT1fOteXZwvns3zmcSNfiy6qif11WuSMuRYgFxAAIRLlSaslAHajHieow1jW-aa7te_ebSSi_J0XOgeHQKmPZ2DPa6lwE8R3p40N3uStZKspyCKHUTLvkkdkJT31sF_J0Dw==&uniplatform=OVERSEA&language=EN" target="_blank" class="link-btn">[Link ↗]</a></div>
                         </div>
+                        <div class="mobile-inline-preview-box"><img src="images/punctuation_paper.webp" alt="China Printing Museum Published Journal"></div>
                     </div>
 
                     <div class="item-block" data-img="images/noto_tangut_paper.webp">
@@ -318,6 +428,7 @@
                                 <div><i>The Elegance of Hanzi</i>, CITIC Press Corporation, pp. 99–122</div>
                             </li>
                         </ul>
+                        <div class="mobile-inline-preview-box"><img src="images/noto_tangut_paper.webp" alt="CITIC Press The Elegance of Hanzi Book Layout"></div>
                     </div>
                        
                     <div class="item-block" data-img="images/grid_book.webp">
@@ -326,6 +437,7 @@
                             <span class="year-badge">2024</span>
                             <div>Shanghai People's Fine Art Publishing House</div>
                         </div>
+                        <div class="mobile-inline-preview-box"><img src="images/grid_book.webp" alt="The Typographic Grid Chinese Translation Cover"></div>
                     </div>
                 </section>
 
@@ -335,7 +447,7 @@
 
                     <div class="item-block" data-img="images/cafa_teaching.webp">
                         <div class="item-title">Assistant Teacher · Latin Typeface Design Courses</div>
-                        <div style="font-size:1.1rem; color:#555; margin-bottom:15px; line-height: 1.5;">
+                        <div style="font-size:1.1rem; color:var(--text-secondary); margin-bottom:15px; line-height: 1.5;">
                             Assisted Associate Professor Liuzhao's Latin typeface design courses at the Central Academy of Fine Arts (CAFA), China.
                         </div>
                         <ul class="venue-list">
@@ -348,11 +460,12 @@
                                 <div>CAFA Academic Term &nbsp;[Sep]</div>
                             </li>
                         </ul>
+                        <div class="mobile-inline-preview-box"><img src="images/cafa_teaching.webp" alt="CAFA Academic Latin Course Snapshot"></div>
                     </div>
                 </section>
             </main>
 
-            <!-- 右侧随动大照片展位结构 -->
+            <!-- 右侧随动大照片展位结构 (PC端专享丝滑吸顶长廊轨道) -->
             <aside class="sticky-aside-wrapper">
                 <div class="sticky-image-preview" id="previewContainer">
                     <div class="placeholder-text" id="placeholder">
@@ -363,7 +476,6 @@
                     
                     <img src="images/grapholinguistics.webp" id="img-grapholinguistics.webp">
                     <img src="images/remaking_tangut_talk.webp" id="img-remaking_tangut_talk.webp">
-                    <img src="images/sidebar_placeholder.webp" id="img-sidebar_placeholder.webp">
                     <img src="images/embassy.webp" id="img-embassy.webp">
                     <img src="images/punctuation_talk.webp" id="img-punctuation_talk.webp">
                     <img src="images/noto_tangut_talk.webp" id="img-noto_tangut_talk.webp">
@@ -371,7 +483,6 @@
                     <img src="images/letterseed.webp" id="img-letterseed.webp">
                     <img src="images/punctuation_paper.webp" id="img-punctuation_paper.webp">
                     <img src="images/noto_tangut_paper.webp" id="img-noto_tangut_paper.webp">
-                    <img src="images/elegance_hanzi.webp" id="img-elegance_hanzi.webp">
                     <img src="images/grid_book.webp" id="img-grid_book.webp">
                     <img src="images/cafa_teaching.webp" id="img-cafa_teaching.webp">
                 </div>
@@ -379,9 +490,7 @@
         </div>
     </div>
 
-    <!-- ==========================================================================
-       【🎨 100% 首页统一：左右两栏绝对切齐、法律声明右对齐悬挂大黑页脚】
-       ========================================================================== */ -->
+    <!-- Footer 模块 -->
     <footer id="contact-anchor-target">
         <div class="container" style="max-width: 90vw; padding: 0;">
             
@@ -393,7 +502,7 @@
                         I am a typeface designer and researcher currently based in the UK. I graduated with distinction from the MA in Typeface Design at the University of Reading (2022), where I subsequently completed my doctorate in 2026. My research focuses on the development of digital typefaces for the Tangut script—an extinct writing system used in northwestern China between the 11th and 13th centuries.
                     </p>
                     <p style="color: #ccc; font-size: 1.25rem; margin-top: 15px; line-height: 1.6;">
-                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. I redesigned Noto Serif Tangut for Google Fonts and engineered the custom revival typeface AraTangut for Professor Arakawa Shintarō. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
+                        Throughout my practice, I have worked on various multi-script projects involving Latin, Chinese, and Japanese Kanji. My independent font design has won awards, including the New York TDC Award and recognition from the Tokyo TDC for AraTangut. My research has been presented globally at ATypI Stanford (2026), ATypI (2021), and the Chinese Embassy in the UK.
                     </p>
                 </div>
                 
@@ -426,11 +535,14 @@
         </div>
     </footer>
 
-    <!-- JS 图像联动探针脚本 -->
+    <!-- 核心交互驱动脚本 -->
     <script>
         const blocks = document.querySelectorAll('.item-block');
         const placeholder = document.getElementById('placeholder');
+        const backToTop = document.getElementById('backToTop');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
 
+        // 1. PC端：图像随动探针机制
         blocks.forEach(block => {
             block.addEventListener('mouseenter', () => {
                 const imgAttr = block.getAttribute('data-img');
@@ -439,11 +551,35 @@
                 const targetImg = document.getElementById('img-' + imgName);
                 
                 if (targetImg) {
-                    placeholder.style.display = 'none';
+                    if (placeholder) placeholder.style.display = 'none';
                     document.querySelectorAll('.sticky-image-preview img').forEach(img => img.classList.remove('active'));
                     targetImg.classList.add('active');
                 }
             });
+        });
+
+        // 2. 监测滚动：控制右下角 Top 按钮隐现
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > window.innerHeight) {
+                backToTop.classList.add('is-visible');
+            } else {
+                backToTop.classList.remove('is-visible');
+            }
+        });
+
+        // 3. 绑定 Top 按钮阻尼平滑直达天际
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 4. 极简全矢量日月图标点击变色内核
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if(document.body.classList.contains('dark-theme')) {
+                document.body.classList.add('light-theme-disabled');
+            } else {
+                document.body.classList.remove('light-theme-disabled');
+            }
         });
     </script>
 </body>

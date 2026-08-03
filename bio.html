@@ -1,74 +1,109 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bio & Practice | XICHENG YANG</title>
     <style>
-    /* ==========================================================================
+        /* ==========================================================================
            【Lyean Serif 核心家族系统 - 统一使用相对路径】
            ========================================================================== */
         @font-face {
             font-family: 'Lyean';
             src: url('fonts/Lyean-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
+            font-weight: normal; font-style: normal; font-display: swap;
         }
-
         @font-face {
             font-family: 'Lyean';
             src: url('fonts/Lyean-Italic.woff2') format('woff2');
-            font-weight: normal;
-            font-style: italic;
-            font-display: swap;
+            font-weight: normal; font-style: italic; font-display: swap;
         }
-
         @font-face {
             font-family: 'Lyean';
             src: url('fonts/Lyean-Bold.woff2') format('woff2');
-            font-weight: bold;
-            font-style: normal;
-            font-display: swap;
+            font-weight: bold; font-style: normal; font-display: swap;
         }
-
         @font-face {
             font-family: 'Lyean Optical';
             src: url('fonts/Lyean-Optical.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
+            font-weight: normal; font-style: normal; font-display: swap;
         }
-
         @font-face {
             font-family: 'Lyean';
             src: url('fonts/Lyean-DisplayBold.woff2') format('woff2');
-            font-weight: 800;
-            font-style: normal;
-            font-display: swap;
+            font-weight: 800; font-style: normal; font-display: swap;
         }
-
         @font-face {
             font-family: 'Lyean Sans';
             src: url('fonts/Lyean-Sans.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
+            font-weight: normal; font-style: normal; font-display: swap;
         }
-        body {
-            margin: 0; padding: 0;
-            background-color: #f6f3eb;
-            color: #1a1a1a;
-            font-family: "Lyean", "Georgia", serif;
-            -webkit-font-smoothing: antialiased;
+
+        /* 🎨 亮色主题默认变量定义 */
+        :root {
+            --bg-paper: #f6f3eb;
+            --text-primary: #1a1a1a;
+            --text-secondary: #333333;
+            --text-muted: #6e5d4f;
+            --border-color: #e0dbcf;
+            --card-bg: #ede9df;
+            --accent-red: #b85a4b;
+            --floating-widget-bg: #ede9df;
         }
-        .container {
-            max-width: 90vw; margin: 0 auto; padding: 60px 0;
+
+        /* 🎨 高阶全黑夜间模式切换体系 */
+        body.dark-theme,
+        body:not(.light-theme) {
+            @media (prefers-color-scheme: dark) {
+                --bg-paper: #12110e;
+                --text-primary: #f6f3eb;
+                --text-secondary: #e0dbcf;
+                --text-muted: #a19285;
+                --border-color: #2e2a24;
+                --card-bg: #1f1b16;
+                --accent-red: #d96a59;
+                --floating-widget-bg: #1f1b16;
+            }
         }
         
-       /* 🎯 强力穿透！保证 100% 的 无衬线（Sans）属性区域都完美调用 Lyean Sans */
+        body.dark-theme {
+            --bg-paper: #12110e;
+            --text-primary: #f6f3eb;
+            --text-secondary: #e0dbcf;
+            --text-muted: #a19285;
+            --border-color: #2e2a24;
+            --card-bg: #1f1b16;
+            --accent-red: #d96a59;
+            --floating-widget-bg: #1f1b16;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-paper);
+            color: var(--text-primary);
+            font-family: "Lyean", serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden !important;
+            width: 100% !important;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            width: 100% !important;
+            overflow-x: hidden !important;
+        }
+
+        .container {
+            max-width: 90vw; margin: 0 auto; padding: 60px 0;
+            box-sizing: border-box;
+        }
+        
+        /* 🎯 强力穿透！保证 100% 的 无衬线（Sans）属性区域都完美调用 Lyean Sans */
         header, header *, 
         nav, nav *, 
+        .cv-column h2, .cv-time, .proj-meta,
+        .back-to-top-capsule, .theme-icon-capsule, .theme-toggle-trigger-text,
         .tag, footer, footer * {
             font-family: 'Lyean Sans', sans-serif !important;
             font-weight: normal !important;
@@ -80,274 +115,176 @@
         header {
             display: flex; justify-content: space-between; align-items: center;
             text-transform: uppercase;
-            border-bottom: 1px solid #e0dbcf;
-            padding-bottom: 25px;
-            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px; margin-bottom: 60px;
         }
         header div a {
             font-size: 1.35rem !important; 
             letter-spacing: 0.05em;
-            text-decoration: none; color: #1a1a1a;
+            text-decoration: none; color: var(--text-primary);
         }
         header nav a { 
             font-size: 1.2rem !important; 
             letter-spacing: 0.05em;
-            text-decoration: none; color: #1a1a1a;
-            margin-left: 40px; 
-            transition: color 0.2s;
+            text-decoration: none; color: var(--text-primary);
+            margin-left: 40px; transition: color 0.2s;
         }
-        header nav a:hover { color: #b85a4b; }
-        header nav a.active { color: #b85a4b; font-weight: bold; }
+        header nav a:hover { color: var(--accent-red); }
+        header nav a.active { color: var(--accent-red); }
 
-        .tag { font-family: 'Lyean Sans', sans-serif; font-size: 0.75rem; color: #b85a4b; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 15px; }
+        .tag { font-size: 0.75rem; color: var(--accent-red); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 15px; }
         
         /* ==========================================================================
            【上半部分：叙事级 Bio 与真实联络卡】
            ========================================================================== */
         .bio-hero {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 100px;
-            margin-bottom: 100px;
+            display: grid; grid-template-columns: 1.5fr 1fr; gap: 100px; margin-bottom: 100px;
         }
         .bio-text p {
-            font-size: 1.4rem;
-            line-height: 1.6;
-            margin-top: 0;
-            margin-bottom: 30px;
-            color: #1a1a1a;
+            font-size: 1.4rem; line-height: 1.6; margin-top: 0; margin-bottom: 30px; color: var(--text-primary);
         }
+        .bio-text p strong { font-weight: bold; }
         .bio-text p:last-child { margin-bottom: 0; }
         
         .contact-box {
-            background-color: #ede9df;
-            border: 1px solid #e0dbcf;
-            padding: 40px;
-            border-radius: 4px;
-            align-self: start;
+            background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 40px; border-radius: 4px; align-self: start;
         }
         .contact-box h3 { font-size: 1.6rem; font-weight: normal; margin-top: 0; margin-bottom: 20px; }
-        .contact-box p { font-size: 1.05rem; line-height: 1.6; color: #444; margin-bottom: 12px; }
-        .contact-box a { color: #b85a4b; text-decoration: none; border-bottom: 1px solid #b85a4b; padding-bottom: 2px; }
-        .contact-box a:hover { color: #1a1a1a; border-color: #1a1a1a; }
+        .contact-box p { font-size: 1.05rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px; }
+        .contact-box a { color: var(--accent-red); text-decoration: none; border-bottom: 1px solid var(--accent-red); padding-bottom: 2px; }
+        .contact-box a:hover { color: var(--text-primary); border-color: var(--text-primary); }
 
         /* ==========================================================================
            【下半部分：全量硬核矩阵网格 (CV System)】
            ========================================================================== */
         .cv-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 48px;
-            border-top: 2px solid #1a1a1a;
-            padding-top: 40px;
-            margin-bottom: 80px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; border-top: 2px solid var(--text-primary); padding-top: 40px; margin-bottom: 80px;
         }
         .cv-column h2 {
-            font-family: 'Lyean Sans', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #b85a4b;
-            margin-top: 0;
-            margin-bottom: 30px;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-red); margin-top: 0; margin-bottom: 30px;
         }
-        .cv-block {
-            margin-bottom: 35px;
-            font-size: 1.05rem;
-            line-height: 1.5;
-        }
-        .cv-time {
-            font-family: 'Lyean Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #6e5d4f;
-            margin-bottom: 6px;
-        }
-        .cv-title {
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .cv-institution {
-            color: #555;
-            font-style: italic;
-            margin-bottom: 6px;
-        }
-        .cv-details {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.4;
-        }
+        .cv-block { margin-bottom: 35px; font-size: 1.05rem; line-height: 1.5; }
+        .cv-time { font-size: 0.85rem; font-weight: bold; color: var(--text-muted); margin-bottom: 6px; }
+        .cv-title { font-weight: bold; margin-bottom: 4px; color: var(--text-primary); }
+        .cv-institution { color: var(--text-secondary); font-style: italic; margin-bottom: 6px; }
+        .cv-details { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.4; }
 
         /* ==========================================================================
            【底端专设：大型商业与委任项目列表】
            ========================================================================== */
-        .projects-section {
-            border-top: 1px solid #e0dbcf;
-            padding-top: 40px;
-        }
-        .projects-section h2 {
-            font-family: 'Lyean Sans', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; color: #b85a4b; margin-top: 0; margin-bottom: 30px;
-        }
+        .projects-section { border-top: 1px solid var(--border-color); padding-top: 40px; margin-bottom: 40px; }
+        .projects-section h2 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-red); margin-top: 0; margin-bottom: 30px; }
         .project-row {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 40px;
-            padding: 20px 0;
-            border-bottom: 1px solid #e0dbcf;
-            font-size: 1.05rem;
-            line-height: 1.5;
+            display: grid; grid-template-columns: 180px 1fr; gap: 40px; padding: 20px 0; border-bottom: 1px solid var(--border-color); font-size: 1.05rem; line-height: 1.5;
         }
         .project-row:last-child { border-bottom: none; }
-        .proj-meta { font-family: 'Lyean Sans', sans-serif; font-size: 0.9rem; font-weight: bold; color: #6e5d4f; }
+        .proj-meta { font-size: 0.9rem; font-weight: bold; color: var(--text-muted); }
+
+        /* ==========================================================================
+           【🎨 独立分立式全矢量组件：日月切换 (右上角) 与 TOP (右下角)】
+           ========================================================================== */
+        .theme-icon-capsule {
+            position: fixed; top: 35px; right: 5vw; z-index: 999;
+            background: var(--floating-widget-bg); border: 1px solid var(--border-color);
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .theme-icon-capsule:hover { background: var(--text-primary); border-color: var(--text-primary); }
+        .theme-icon-capsule svg { width: 20px; height: 20px; fill: var(--text-primary); transition: fill 0.3s, transform 0.4s; }
+        .theme-icon-capsule:hover svg { fill: var(--bg-paper); transform: rotate(15deg); }
+        
+        .theme-icon-capsule .sun-icon { display: none; }
+        .theme-icon-capsule .moon-icon { display: block; }
+        body.dark-theme .theme-icon-capsule .sun-icon { display: block; }
+        body.dark-theme .theme-icon-capsule .moon-icon { display: none; }
+
+        .back-to-top-capsule {
+            position: fixed; bottom: 35px; right: 5vw; z-index: 999;
+            background: var(--floating-widget-bg); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 10px 18px;
+            font-size: 0.9rem !important; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0; visibility: hidden; transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .back-to-top-capsule.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top-capsule:hover { background: var(--text-primary); color: var(--bg-paper); border-color: var(--text-primary); }
+
         /* ==========================================================================
            【📱 独立字厂全站移动端 · 物理锁死与流体自适应无损校准系统 · 终极完全体】
            ========================================================================== */
-        /* 🎯 绝杀元凶：在所有设备上，坚决切断由于 100vw 溢出导致的手机左右晃动和白边 */
-        html, body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-            position: relative;
-        }
-
         @media (max-width: 768px) {
             /* 1. 视窗安全卡位：强迫内容在手机两侧留出安全气口，绝不切边 */
             .container {
-                max-width: 92vw !important;
-                width: 92vw !important;
-                margin: 0 auto !important;
-                padding: 40px 0 0 0 !important;
+                max-width: 100% !important; width: 100% !important;
+                padding: 30px 18px !important; box-sizing: border-box !important;
             }
             
-            /* 2. 导航栏降维：PC端一字排开，手机上一律变垂直优雅错叠 */
-            header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 16px !important;
-                margin-bottom: 40px !important;
-            }
-            header nav {
+            /* 2. 导航栏降维 */
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; margin-bottom: 30px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 8px 16px !important; width: 100%; }
+            header nav a { margin-left: 0 !important; font-size: 1rem !important; }
+            header div a { font-size: 1.15rem !important; }
+
+            /* 3. 🎯 满足要求：手机端故事级 Bio 逆向重组！强迫最核心的联络盒子先露出来，再看传记 */
+            .bio-hero { 
                 display: flex !important;
-                flex-wrap: wrap !important;
-                gap: 10px 15px !important;
+                flex-direction: column-reverse !important; /* 👈 物理逆向重组：Contact Box 翻转直升最顶端 */
+                gap: 35px !important; margin-bottom: 50px !important; 
             }
-            header nav a {
-                margin-left: 0 !important;
-                font-size: 0.75rem !important;
-            }
+            .bio-text p { font-size: 1.15rem !important; line-height: 1.45 !important; margin-bottom: 20px !important; }
+            
+            /* 联络卡片移动端流体收缩 */
+            .contact-box { padding: 24px 20px !important; width: 100% !important; box-sizing: border-box !important; }
+            .contact-box h3 { font-size: 1.4rem !important; margin-bottom: 12px !important; }
+            .contact-box p { font-size: 1rem !important; line-height: 1.45 !important; }
 
-            /* 3. 字号物理降级：防超长单字撑爆手机屏幕 */
-            h1 { font-size: 2.2rem !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
-            .intro-text h2 { font-size: 1.7rem !important; line-height: 1.25 !important; margin-bottom: 20px !important; }
-            .public-work-title { font-size: 1.6rem !important; line-height: 1.25 !important; margin-bottom: 30px !important; }
+            /* 4. 🎯 满足要求：全量硬核 CV 矩阵网格自动软着陆为紧凑双栏，防止面条状挤压 */
+            .cv-grid { 
+                grid-template-columns: 1fr 1fr !important; /* 👈 强制合并为舒适的两列 */
+                gap: 30px 16px !important; padding-top: 30px !important; margin-bottom: 50px !important; 
+            }
+            /* 当手机极窄时，自动降维单列 */
+            @media (max-width: 480px) {
+                .cv-grid { grid-template-columns: 1fr !important; }
+            }
+            .cv-column h2 { font-size: 1.05rem !important; margin-bottom: 20px !important; }
+            .cv-block { margin-bottom: 25px !important; font-size: 1rem !important; }
+            .cv-time { font-size: 0.8rem !important; }
+            .cv-details { font-size: 0.9rem !important; line-height: 1.35 !important; }
 
-            /* 4. 黄金并排一律变单列：全站 Grid/Flex 横向排版一刀切全部向下流淌 */
-            .hero-section,
-            .project-intro-container, 
-            .exhibition-main-grid,
-            .archive-flex-panel {
-                grid-template-columns: 1fr !important;
-                gap: 35px !important;
-                margin-bottom: 50px !important;
+            /* 5. 🎯 满足要求：委任项目列表彻底治好右侧切字 Bug，换装为垂直重叠架构 */
+            .projects-section { padding-top: 30px !important; }
+            .projects-section h2 { font-size: 1.05rem !important; margin-bottom: 20px !important; }
+            
+            .project-row { 
+                grid-template-columns: 1fr !important; /* 👈 斩断横向多栏，改用上下重叠 */
+                gap: 6px !important; padding: 15px 0 !important; 
+                width: 100% !important; box-sizing: border-box !important;
             }
+            .proj-meta { font-size: 0.85rem !important; display: block !important; }
+            .project-row div:last-child { font-size: 1rem !important; line-height: 1.4 !important; }
 
-            /* 5. 粒子舞台与底部看板在移动端的重构 */
-            .particle-stage-box {
-                border-left: none !important;
-                padding-left: 0 !important;
-                border-bottom: 1px solid #e0dbcf !important;
-                padding-bottom: 30px !important;
-                margin-top: 10px !important;
-                aspect-ratio: 1 / 1 !important;
-            }
-            .hero-specimen-info-panel {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-                margin-top: 25px !important;
-            }
-
-            /* 6. 全局客观元数据参数网格：自动软着陆为两列平分 */
-            .metadata-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 20px 16px !important;
-                padding: 25px 0 !important;
-                margin-top: 30px !important;
-                margin-bottom: 30px !important;
-            }
-
-            /* 7. 右侧学术 Credit 名单降维 */
-            .credit-grid-wrapper {
-                border-left: none !important;
-                padding-left: 0 !important;
-                margin-top: 20px !important;
-                max-height: none !important; /* 手机上铺开，取消微滚动 */
-            }
-            .credit-sub-grid {
-                grid-template-columns: 95px 1fr !important;
-                gap: 8px 10px !important;
-            }
-
-            /* 8. 画廊网格与 4:3 缩略图卡片重构 */
-            .projects-grid {
-                grid-template-columns: 1fr !important; /* 错落双栏秒变单列垂直 */
-                gap: 45px !important;
-            }
-            .gallery-card {
-                transform: none !important; /* 手机上抹平 PC 端的垂直错落 */
-            }
-            .gallery-card h3 { font-size: 1.6rem !important; }
-
-            /* 9. 2880px 旗舰大图与全宽图片安全降维 */
-            .project-hero-cover,
-            .specimen-full-img,
-            .specimen-flagship-full,
-            .alphabettes-link-cover-card {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-                border-radius: 0 !important;
-            }
-
-            /* 10. 🎯 绝杀：TangutBux 满宽 3+3 A4 纵廊大变身 */
-            .phd-academic-fullwidth-box {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-            }
-            .phd-academic-split-grid {
-                grid-template-columns: 1fr !important; /* 3对3变一列垂直到底 */
-                gap: 50px !important;
-            }
-            /* 手机上强制让悬浮侧标回到图片上方做精致的行标头 */
-            .sticky-taxonomy-sidebar {
-                position: relative !important;
-                top: 0 !important;
-                margin-bottom: 0 !important;
-                width: 100% !important;
-                padding: 0 0 10px 0 !important;
-            }
-            .left-indicator-badge { margin-left: 4vw !important; text-align: left !important; }
-            .right-indicator-badge { margin-right: 0 !important; margin-left: 4vw !important; text-align: left !important; }
-            .a4-card-monument { border-radius: 0 !important; }
-
-            /* 11. Noto 经文长卷与滑块精调 */
-            .sutra-long-scroll-window { height: 320px !important; }
-            .sutra-slider-wrapper { width: 92vw !important; margin: 20px auto 0 auto !important; }
-
-            /* 12. Talks & Publications 文献栏高能防错位 */
-            .list-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-            .list-box { padding: 20px !important; }
-            .list-item { grid-template-columns: 45px 1fr !important; gap: 10px !important; position: relative !important; }
-            /* 手机上全透明覆盖，抓取任意位置皆可点击外部链接 */
-            .list-item div:last-child { position: absolute !important; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; }
-            .list-item div:last-child a { display: block; width: 100%; height: 100%; }
-
-            /* 13. Footer 底部洗练落地 */
-            .footer-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-            .footer-bio h2 { font-size: 1.8rem !important; }
-            .footer-contact { padding: 20px !important; }
-            .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+            /* 6. 悬浮按钮移动端物理卡位缩放 */
+            .theme-icon-capsule { top: 15px !important; right: 18px !important; width: 38px !important; height: 38px !important; }
+            .theme-icon-capsule svg { width: 16px !important; height: 16px !important; }
+            .back-to-top-capsule { bottom: 20px !important; right: 18px !important; padding: 8px 14px !important; font-size: 0.8rem !important; }
         }
     </style>
 </head>
 <body>
+
+    <!-- 🎯 满足要求：分立式悬浮微型控制台（弯月图标常驻右上角，TOP 智能探出右下角） -->
+    <div class="theme-icon-capsule" id="themeToggleBtn" title="Switch Theme">
+        <!-- 🌙 经典高辨识度饱满弯月路径 -->
+        <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21.1 14.1c-1.3.4-2.7.6-4.1.6-5.5 0-10-4.5-10-10 0-1.4.3-2.8.6-4.1C4.3 2.1 1.7 5.6 1.7 9.7c0 6.6 5.4 12 12 12 4.1 0 7.6-2.6 9.1-5.9-.5.1-1.1.3-1.7.3z"/></svg>
+        <!-- ☀️ 极简包豪斯细线暖阳路径 -->
+        <svg class="sun-icon" viewBox="0 0 24 24"><path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm0-12c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1s-1 .4-1 1v1c0 .6.4 1 1 1zm0 16c-.6 0-1 .4-1 1v1c0 .6.4 1 1 1s1-.4 1-1v-1c0-.6-.4-1-1-1zm10-7h-1c-.6 0-1 .4-1 1s.4 1 1 1h1c.6 0 1-.4 1-1s-.4-1-1-1zM4 12c0-.6-.4-1-1-1H2c-.6 0-1 .4-1 1s.4 1 1 1h1c.6 0 1-.4 1-1zm14.1-5.7c.4.4 1 .4 1.4 0l.7-.7c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-.7.7c-.4.4-.4 1 0 1.4zM5.2 17.4l-.7.7c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l.7-.7c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm13.6.7c.4.4 1 .4 1.4 0s.4-1 0-1.4l-.7-.7c-.4-.4-1-.4-1.4 0s-.4 1 0 1.4l.7.7zM6.6 6.6c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-.7.7c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.2 0 .5-.1.7-.3l.7-.7z"/></svg>
+    </div>
+    
+    <button class="back-to-top-capsule" id="backToTop">Top ↑</button>
 
     <div class="container">
         <!-- 统一化头部导航区 (BIO 处于高亮激活态) -->
@@ -375,13 +312,14 @@
                 <p>Available for large-scale custom type families, multi-script expansion, technical font debugging, and lectures.</p>
                 <p style="margin-top: 20px; font-size: 1rem;">
                     <strong>Email:</strong> <a href="mailto:threecczhu@gmail.com">threecczhu@gmail.com</a><br>
-        
                 </p>
-                <p style="font-family: 'Lyean Sans', sans-serif; font-size: 0.85rem; margin-top: 25px; margin-bottom: 0;">
+                <p style="font-size: 0.85rem; margin-top: 25px; margin-bottom: 0;">
                     <a href="https://www.instagram.com/sukecc0206/" style="margin-right: 15px; border: none;">Instagram</a>
                     <a href="https://www.linkedin.com/in/xicheng-yang-946343227/" style="margin-right: 15px; border: none;">LinkedIn</a>
                     <a href="https://x.com/threecczhu?s=21&t=TUlvxIVUFUdTaBI_Rd-r8A" style="border: none;">X (Twitter)</a>
                 </p>
+                
+               
             </div>
         </main>
 
@@ -481,30 +419,68 @@
             
             <div class="project-row">
                 <div class="proj-meta">2025 – Present</div>
-                <div><strong>Global Typeface Family Project</strong> | <i>Indie European Type Foundry [Confidential]</i><br><span style="color:#666; font-size:0.95rem;">Designing Simplified Chinese to harmoniously suit an existing Latin typeface family and 23 other global scripts (2 masters), including client-facing presentations.</span></div>
+                <div><strong>Global Typeface Family Project</strong> | <i>Indie European Type Foundry [Confidential]</i><br><span style="color:var(--text-secondary); font-size:0.95rem;">Designing Simplified Chinese to harmoniously suit an existing Latin typeface family and 23 other global scripts (2 masters), including client-facing presentations.</span></div>
             </div>
 
             <div class="project-row">
                 <div class="proj-meta">2024 – 2025</div>
-                <div><strong>Latin Typeface Expansion Project</strong> | <i>Indie Chinese Type Foundry [Confidential]</i><br><span style="color:#666; font-size:0.95rem;">Designing Latin script to suit an existing Chinese typeface system across 3 masters; designed matching Chinese punctuation marks and programmed their OpenType features.</span></div>
+                <div><strong>Latin Typeface Expansion Project</strong> | <i>Indie Chinese Type Foundry [Confidential]</i><br><span style="color:var(--text-secondary); font-size:0.95rem;">Designing Latin script to suit an existing Chinese typeface system across 3 masters; designed matching Chinese punctuation marks and programmed their OpenType features.</span></div>
             </div>
 
             <div class="project-row">
                 <div class="proj-meta">2024</div>
-                <div><strong>Custom Font for Japanese Kanji</strong> | <i>Indie Japanese Type Foundry [Confidential]</i><br><span style="color:#666; font-size:0.95rem;">Systemic development and character set expansion for custom Japanese Kanji.</span></div>
+                <div><strong>Custom Font for Japanese Kanji</strong> | <i>Indie Japanese Type Foundry [Confidential]</i><br><span style="color:var(--text-secondary); font-size:0.95rem;">Systemic development and character set expansion for custom Japanese Kanji.</span></div>
             </div>
 
             <div class="project-row">
                 <div class="proj-meta">2024</div>
-                <div><strong>Corporate Custom Type System</strong> | <i>Large Chinese Type Foundry [Confidential]</i><br><span style="color:#666; font-size:0.95rem;">Designed custom Latin script to harmoniously suit a flagship existing Chinese typeface, leading direct client presentations.</span></div>
+                <div><strong>Corporate Custom Type System</strong> | <i>Large Chinese Type Foundry [Confidential]</i><br><span style="color:var(--text-secondary); font-size:0.95rem;">Designed custom Latin script to harmoniously suit a flagship existing Chinese typeface, leading direct client presentations.</span></div>
             </div>
 
             <div class="project-row">
                 <div class="proj-meta">2022 – Present</div>
-                <div><strong>AraTangut Custom Font Project</strong> | <i>Prof. Arakawa Shintarō, Tokyo University of Foreign Studies</i><br><span style="color:#666; font-size:0.95rem;">Development of a dedicated research-grade custom typeface for the extinct Tangut script system.</span></div>
+                <div><strong>AraTangut Custom Font Project</strong> | <i>Prof. Arakawa Shintarō, Tokyo University of Foreign Studies</i><br><span style="color:var(--text-secondary); font-size:0.95rem;">Development of a dedicated research-grade custom typeface for the extinct Tangut script system.</span></div>
             </div>
         </section>
+
+        <!-- 极简统一化学术页脚 -->
+        <footer style="margin-top: 80px; border-top: 1px solid var(--border-color); padding-top: 30px; font-size: 0.9rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+            <div>© 2026 Xicheng Yang</div>
+        </footer>
     </div>
 
+    <!-- 核心交互驱动脚本 -->
+    <script>
+        const backToTop = document.getElementById('backToTop');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeToggleText = document.getElementById('themeToggleText');
+
+        // 1. 监测滚动：控制右下角 Top 按钮隐现
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > window.innerHeight) {
+                backToTop.classList.add('is-visible');
+            } else {
+                backToTop.classList.remove('is-visible');
+            }
+        });
+
+        // 2. 绑定 Top 按钮阻尼平滑直达天际
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 3. 极简全矢量日月图标点击变色内核 (支持图标与文字双轨触发)
+        function toggleThemeEngine() {
+            document.body.classList.toggle('dark-theme');
+            if(document.body.classList.contains('dark-theme')) {
+                document.body.classList.add('light-theme-disabled');
+            } else {
+                document.body.classList.remove('light-theme-disabled');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleThemeEngine);
+        themeToggleText.addEventListener('click', toggleThemeEngine);
+    </script>
 </body>
 </html>

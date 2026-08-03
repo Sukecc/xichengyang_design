@@ -199,11 +199,145 @@
             .contact-social-links a { font-size: 1.1rem !important; }
             .footer-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
         }
+        /* ==========================================================================
+           【🏛️ 字厂级全站单页通用型 · 交互与自适应核心加固系统】
+           ========================================================================== */
+        html { 
+            scroll-behavior: smooth; 
+            width: 100% !important;
+            overflow-x: hidden !important;
+        }
+        html, body { overflow-x: hidden !important; width: 100% !important; position: relative; }
+
+        /* 🎨 亮色主题默认变量定义 */
+        :root {
+            --bg-paper: #f6f3eb;
+            --text-primary: #1a1a1a;
+            --text-secondary: #333333;
+            --text-muted: #6e5d4f;
+            --border-color: #e0dbcf;
+            --card-bg: #ede9df;
+            --accent-red: #b85a4b;
+            --footer-bg: #1a1a1a;
+            --footer-text: #f6f3eb;
+            --floating-widget-bg: #ede9df;
+        }
+
+        /* 🎨 高阶全黑夜间模式切换体系 */
+        body.dark-theme, body:not(.light-theme) {
+            @media (prefers-color-scheme: dark) {
+                --bg-paper: #12110e;
+                --text-primary: #f6f3eb;
+                --text-secondary: #e0dbcf;
+                --text-muted: #a19285;
+                --border-color: #2e2a24;
+                --card-bg: #1f1b16;
+                --accent-red: #d96a59;
+                --footer-bg: #090908;
+                --footer-text: #e6e2d5;
+                --floating-widget-bg: #1f1b16;
+            }
+        }
+        body.dark-theme {
+            --bg-paper: #12110e;
+            --text-primary: #f6f3eb;
+            --text-secondary: #e0dbcf;
+            --text-muted: #a19285;
+            --border-color: #2e2a24;
+            --card-bg: #1f1b16;
+            --accent-red: #d96a59;
+            --footer-bg: #090908;
+            --footer-text: #e6e2d5;
+            --floating-widget-bg: #1f1b16;
+        }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+    
+        /* 🌙/☀️ 极简全矢量日月切换按钮样式 */
+        .theme-icon-capsule {
+            position: fixed; top: 35px; right: 5vw; z-index: 999;
+            background: var(--floating-widget-bg); border: 1px solid var(--border-color);
+            width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .theme-icon-capsule:hover { background: var(--text-primary); border-color: var(--text-primary); }
+        .theme-icon-capsule svg { width: 20px; height: 20px; fill: var(--text-primary); transition: fill 0.3s, transform 0.4s; }
+        .theme-icon-capsule:hover svg { fill: var(--bg-paper); transform: rotate(15deg); }
         
+        .theme-icon-capsule .sun-icon { display: none; }
+        .theme-icon-capsule .moon-icon { display: block; }
+        body.dark-theme .theme-icon-capsule .sun-icon { display: block; }
+        body.dark-theme .theme-icon-capsule .moon-icon { display: none; }
+
+        /* 🎯 TOP 按钮独自下放到最右下角 */
+        .back-to-top-capsule {
+            position: fixed; bottom: 35px; right: 5vw; z-index: 999;
+            background: var(--floating-widget-bg); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 10px 18px;
+            font-size: 0.9rem !important; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0; visibility: hidden; transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .back-to-top-capsule.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top-capsule:hover { background: var(--text-primary); color: var(--bg-paper); border-color: var(--text-primary); }
+
+        /* 📱 移动端印刷级流体密度自适应锁死 */
+        @media (max-width: 768px) {
+            .container { max-width: 100% !important; width: 100% !important; padding: 30px 18px 0 18px !important; box-sizing: border-box !important; }
+            header { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; margin-bottom: 30px !important; padding-bottom: 15px !important; }
+            header nav { display: flex !important; flex-wrap: wrap !important; gap: 8px 16px !important; width: 100%; }
+            header nav a { margin-left: 0 !important; font-size: 1rem !important; }
+            header div a { font-size: 1.15rem !important; }
+            
+            /* 无损双页大图自适应 */
+            .project-hero-cover, .specimen-full-img, .specimen-flagship-full, .gallery-image-box {
+                width: 100vw !important; margin-left: -18px !important; border-radius: 0 !important;
+                aspect-ratio: auto !important; height: auto !important; min-height: 0 !important; overflow: visible !important;
+            }
+            .project-hero-cover img, .specimen-full-img img, .specimen-flagship-full img, .gallery-image-box img {
+                width: 100% !important; height: auto !important; object-fit: contain !important; display: block !important;
+            }
+            .hero-floating-awards { display: none !important; }
+
+            .metadata-grid, .project-meta-box { grid-template-columns: 1fr 1fr !important; gap: 20px 16px !important; padding: 25px 0 !important; margin-top: 30px !important; margin-bottom: 30px !important; }
+            .project-intro-container, .exhibition-main-grid { grid-template-columns: 1fr !important; gap: 35px !important; margin-bottom: 40px !important; }
+            
+            /* 压缩横图下方的真空层 */
+            .gallery-chapter-title { font-size: 1.05rem !important; margin-top: 15px !important; margin-bottom: 12px !important; padding-top: 15px !important; flex-direction: column !important; gap: 2px !important; line-height: 1.2 !important; }
+            .gallery-chapter-title span:last-child { display: none !important; }
+
+            /* 🎯 手机端页脚逆向重组：CONTACT 凌驾于生平之上 */
+            footer { padding: 40px 18px 35px 18px !important; margin-top: 40px !important; width: 100vw !important; margin-left: -18px !important; box-sizing: border-box !important; }
+            .footer-grid { display: flex !important; flex-direction: column-reverse !important; gap: 40px !important; margin-bottom: 30px !important; }
+            .footer-bio h2 { font-size: 1.65rem !important; margin-bottom: 12px !important; }
+            .footer-bio p { font-size: 1.1rem !important; line-height: 1.45 !important; }
+            .footer-contact-architecture { align-items: flex-start !important; text-align: left !important; gap: 12px !important; width: 100% !important; border-bottom: 1px solid #2a2824; padding-bottom: 30px; }
+            .footer-eula-footnote-right { text-align: left !important; margin-top: 10px !important; padding-top: 0 !important; border-top: none !important; }
+            .footer-eula-footnote-right p { margin: 0 !important; font-size: 0.82rem !important; max-width: 100% !important; }
+            
+            /* 悬浮组件微调边缘 */
+            .theme-icon-capsule { top: 15px !important; right: 18px !important; width: 38px !important; height: 38px !important; }
+            .theme-icon-capsule svg { width: 16px !important; height: 16px !important; }
+            .back-to-top-capsule { bottom: 20px !important; right: 18px !important; padding: 8px 14px !important; font-size: 0.8rem !important; }
+        }
     </style>
 </head>
 <body>
-
+<!-- 🌙/☀️ 完美平替弯月弧度、辨识度 100% 的极简全矢量日月切换与 TOP 悬浮组件 -->
+    <div class="theme-icon-capsule" id="themeToggleBtn" title="Switch Theme">
+        <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21.1 14.1c-1.3.4-2.7.6-4.1.6-5.5 0-10-4.5-10-10 0-1.4.3-2.8.6-4.1C4.3 2.1 1.7 5.6 1.7 9.7c0 6.6 5.4 12 12 12 4.1 0 7.6-2.6 9.1-5.9-.5.1-1.1.3-1.7.3z"/></svg>
+        <svg class="sun-icon" viewBox="0 0 24 24"><path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm0-12c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1s-1 .4-1 1v1c0 .6.4 1 1 1zm0 16c-.6 0-1 .4-1 1v1c0 .6.4 1 1 1s1-.4 1-1v-1c0-.6-.4-1-1-1zm10-7h-1c-.6 0-1 .4-1 1s.4 1 1 1h1c.6 0 1-.4 1-1s-.4-1-1-1zM4 12c0-.6-.4-1-1-1H2c-.6 0-1 .4-1 1s.4 1 1 1h1c.6 0 1-.4 1-1zm14.1-5.7c.4.4 1 .4 1.4 0l.7-.7c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-.7.7c-.4.4-.4 1 0 1.4zM5.2 17.4l-.7.7c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l.7-.7c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm13.6.7c.4.4 1 .4 1.4 0s.4-1 0-1.4l-.7-.7c-.4-.4-1-.4-1.4 0s-.4 1 0 1.4l.7.7zM6.6 6.6c.4-.4.4-1 0-1.4s-1-.4-1.4 0l-.7.7c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.2 0 .5-.1.7-.3l.7-.7z"/></svg>
+    </div>
+    
+    <button class="back-to-top-capsule" id="backToTop">Top ↑</button>
     <div class="container">
         <!-- 统一化头部导航区 -->
         <header>
@@ -356,6 +490,41 @@
             </div>
         </div>
     </footer>
+    <script>
+    /* ==========================================================================
+           【🕹️ 字厂级全站通用 · 交互引擎核心代码注入】
+           ========================================================================== */
+        const backToTop = document.getElementById('backToTop');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const awardsWidget = document.getElementById('awardsWidget');
+
+        // 1. 监测滚动：控制右下角 Top 按钮隐现
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > window.innerHeight) {
+                backToTop.classList.add('is-visible');
+            } else {
+                backToTop.classList.remove('is-visible');
+            }
+        });
+
+        // 2. 绑定 Top 按钮阻尼平滑直达天际
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 3. 极简全矢量日月图标点击变色内核
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if(document.body.classList.contains('dark-theme')) {
+                document.body.classList.add('light-theme-disabled');
+            } else {
+                document.body.classList.remove('light-theme-disabled');
+            }
+        });
+
+    
+        }
+        </script>
 
 </body>
 </html>
