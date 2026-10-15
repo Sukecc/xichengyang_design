@@ -418,20 +418,9 @@
             .hero-section p { font-size: 1.18rem !important; line-height: 1.45 !important; margin-bottom: 16px !important; color: var(--text-primary) !important; }
             .hero-section p + p { font-size: 1.12rem !important; line-height: 1.45 !important; color: var(--text-secondary) !important; }
             
-            .hero-section { grid-template-columns: 1fr !important; gap: 30px !important; margin-bottom: 60px !important; }
-            .hero-right-wrapper { margin-top: 0 !important; }
-            .particle-stage-box { 
-                width: 100vw !important; 
-                margin-left: -18px !important; 
-                border-left: none !important; 
-                padding-left: 0 !important; 
-                border-bottom: 1px solid var(--border-color) !important; 
-                padding-bottom: 25px !important; 
-                aspect-ratio: 1 / 1 !important; 
-            }
-            .hero-specimen-info-panel { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-top: 20px !important; padding-top: 15px !important; }
-            .hero-specimen-info-panel .info-label { font-size: 0.65rem !important; margin-bottom: 4px !important; }
-            .hero-specimen-info-panel .info-value { font-size: 0.9rem !important; line-height: 1.2 !important; }
+            /* 🎯 手机端隐藏粒子舞台与字样参数看板，首屏文字自然铺满 */
+            .hero-section { grid-template-columns: 1fr !important; gap: 0 !important; margin-bottom: 40px !important; }
+            .hero-right-wrapper { display: none !important; }
 
             .projects-header-zone { margin-top: 20px !important; }
             .section-title { font-size: 1.85rem !important; margin-bottom: 15px !important; }
@@ -583,7 +572,7 @@
             <!-- 错落双栏画廊区 -->
             <div class="projects-grid" id="galleryGrid">
                 
-                <!-- 🎯 Project 1: Futura®100 Simplified Chinese (排在首位，点击直接外链跳转 TypeTogether) -->
+                <!-- Project 1: Futura®100 Simplified Chinese -->
                 <a href="https://www.typetogether.com/fonts/futura-100-chinese" target="_blank" rel="noopener" class="gallery-card" data-category="typeface">
                     <div class="gallery-image-box"><img src="images/futura_thumb.webp" alt="Futura®100 Simplified Chinese Typeface System"></div>
                     <div class="card-meta-badge-line">
